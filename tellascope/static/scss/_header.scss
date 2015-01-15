@@ -35,15 +35,15 @@ body {
 }
 
 .main-nav p {
-    font-family: 'Merriweather Sans', sans-serif;
     font-size: 2em;
     text-decoration: none;
-    font-weight: bold;
+    font-weight: 100;
     text-transform: uppercase;
     color: #444135;
     display: inline-block;
     margin-top: 0.5em;
     margin-left: 1em;
+    letter-spacing: 5px;
 }
 
 .main-nav p:hover {
@@ -64,8 +64,8 @@ body {
 .site-header {
     float: left;
     height: 100%;
-    width: 3.5em;
-    padding-left: 1.3em;
+    width: 2.2em;
+    // padding-left: 1.3em;
 }
 
 .site-logo {
@@ -79,7 +79,7 @@ body {
     background-repeat: no-repeat;
     -webkit-background-size: 50% auto;
     background-size: 80% auto;
-    background-color: #37235e;
+    background-color: #018ace;
 }
 
 .social {
@@ -100,6 +100,7 @@ body {
     border-left: 1px solid #efefef;
     overflow-y: hidden;
     padding: 25px;
+    letter-spacing: 1px;
 
 }
 

@@ -4,7 +4,9 @@
 
 <div class="section" id="header">
 	<div class="cont">
-		<span>Tellascope</span>
+		<span id="tellascope">Tellascope</span>
+		<br />
+		<span id="tagline">Magnifying context of the news that matters to you</span>
 	</div>
 </div>
 
@@ -38,26 +40,13 @@
 
 <div class="section" id="learn">
 	<div class="form">
-		<h1>Learn more</h1>
-		<form>
-		<label>
-			First name:<br>
-			<input type="text" name="firstname">
-		</label>
-		<label>
-			Last name:<br>
-			<input type="text" name="lastname">
-		</label>
-		<label>
-			Email:<br>
-			<input type="text" name="email">
-		</label>
+ 		<h1>Learn more</h1>
+		<form method="post" action="">
+	    	{{ form }}
+	    	{% csrf_token %}
+	    	<input type="submit" value="Submit">
 		</form>
 	</div>
-	
-	<form method="post" action="">
-    	{{ form }}
-	</form>
 </div>
 
 <div class="section" id="team">
