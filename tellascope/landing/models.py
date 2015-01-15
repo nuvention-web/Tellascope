@@ -7,4 +7,4 @@ class EMail(models.Model):
     last_name = models.CharField(max_length=100, unique=False, null=True)
 
     def __unicode__(self):
-    	return self.name
+    	return self.first_name + ' ' + self.last_name

@@ -7,7 +7,7 @@ from django.views.generic import TemplateView, View
 import requests
 
 from tellascope.landing.models import EMail
-# from tellascope.landing.forms import EMailForm
+from tellascope.landing.forms import EMailForm
 
 
 class JSONResponse(HttpResponse):
@@ -21,15 +21,13 @@ class LandingView(TemplateView):
         context = self.get_context_data()
         if context['form'].is_valid():
             print 'yes done'
-            pass
-            #save your model
-            #redirect
-
+            context['form'].save()
         return super(TemplateView, self).render_to_response(context)
 
     def get_context_data(self, **kwargs):
         context = super(LandingView, self).get_context_data(**kwargs)
-        # context['form'] = EMailForm(self.request.POST or None)
+        form = EMailForm(self.request.POST)
+        context['form'] = form
         return context
 
 class AboutView(TemplateView):
