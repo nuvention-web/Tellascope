@@ -2,35 +2,9 @@
 
 {% block content %}
 
-<div class="posts">
-<p class="info row">Each week, our politics writers will update this blog with their thoughts and opinions on the latest news about the 2014 Midterm Elections.</p>
-{% for post in posts %}
-	<article class="post">
-		<header>
-			<h3><a href="{% url 'post' post.slug %}">{{ post.title }}</a></h3>
-			<p class="meta">
-			{% if post.author.all|length >= 1 %}
-				By
-        <span class="authors">
-				{{ post.author.all|join:", " }}
-        </span>
-        <span class="date">{{ post.posted_datetime|date:"N j, Y" }}</span>
-			{% else %}
-				<span class="date">{{ post.posted_datetime|date:"N j, Y" }}</span>
-			{% endif %}
-      {% if post.state %}
-        <span class="state stateface stateface-replace stateface-{abbrev}">{{ post.stateface }}</span>
-      {% endif %}
-			</p>
-		</header>
+<form method="post" action="">
+    {{ form }}
+</form>
 
-    {% include "includes/poll_chart.html" %}
-    <div class="row">
-  		<section class="content">
-  			{{ post.body| safe }}
-  		</section>
-	</article>
-{% endfor %}
-</div>
 
 {% endblock %}

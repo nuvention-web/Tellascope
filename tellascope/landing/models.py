@@ -1,6 +1,5 @@
 from django.db import models
-from datetime import datetime
-from jsonfield import JSONField
+from django.forms import ModelForm
 
 class EMail(models.Model):
     email = models.EmailField(max_length=150, unique=True)
