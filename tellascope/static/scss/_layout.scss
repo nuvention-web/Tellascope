@@ -3,22 +3,11 @@
 }
 
 body {
-    background-color: transparentize($purple, 0.95);
-    -webkit-backface-visibility: hidden;
     font-family: 'Proxima-Nova';
 }
 
 .content-wrapper {
-  @include outer-container;
 
-  @include media($large) {
-    padding-left: 75px !important;
-    padding-right: 75px !important;
-  }
-
-  padding: 1.5em;
-  @include media($medium) { padding: 1.25em; }
-  @include media($small) { padding: 0.5em; }
 }
 
 main.content-wrapper {
