@@ -18,14 +18,14 @@ module.exports = function(grunt) {
           style: 'compressed'
         },
         files: {
-          'elections/static/css/app.css': 'elections/static/scss/app.scss'
+          'tellascope/static/css/app.css': 'tellascope/static/scss/app.scss'
         }
       }
     },
 
     watch: {
       sass: {
-        files: ['elections/static/scss/**/*.scss'],
+        files: ['tellascope/static/scss/**/*.scss'],
         tasks: ['sass']
       }
     }
