@@ -1,3 +1,7 @@
+h2 {
+	font-weight: 200;
+}
+
 .section {
 	width: 100%;
 	display: table;
@@ -7,6 +11,17 @@
 	margin: 0;
 	width: 100% !important;
 	z-index: 125;
+
+	h1 {
+		text-align: center;
+		text-transform: uppercase;
+		font-size: 3em;
+		padding: 15px 20px;
+		font-weight: 300;
+		max-width: 400px;
+		margin: 0 auto;
+		margin-top: 60px;
+	}
 }
 
 .cont {
@@ -38,31 +53,41 @@
 	}
 }
 
+.values-container {
+	padding-top: 5%;
+}
+
+form {
+	background-color: white;
+	padding: 50px;
+	margin-top: 5%;
+}
+
 .form {
 	margin: 0 auto;
 	max-width: 600px;
 
-	h1 {
-		text-align: center;
+	input {
+		display: block;
+		margin-bottom: 20px;
+		margin-left: 150px;
+		&:focus {
+			border: solid 1px #018ace;
+		}
+	}
+
+	input[type="submit"] {
+		background-color: #018ace;
+		color: #fff;
 		text-transform: uppercase;
-		font-size: 3em;
-		// background-color: #018ace;
-		padding: 15px 20px;
-		font-weight: 300;
-		// color: #fff;
-		max-width: 400px;
-		margin: 0 auto;
-		margin-top: 60px;
 	}
 
 	label {
-		float: left;
-		margin: 0 20px 0 0;
-		width: 200px;
+		margin-left: 150px;
 	}
 
 	span { display: block; margin: 0 0 3px; font-size: 1.2em; font-weight: bold; }
-	input { width: 200px; border: 1px solid #000; padding: 5px; }
+	input { width: 200px; border: 1px solid #ccc; padding: 5px; }
 
 	ul.errorlist {
 		display: none;
