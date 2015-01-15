@@ -48,8 +48,71 @@ input { width: 200px; border: 1px solid #000; padding: 5px; }
 	background-color: green;
 }
 
+.text-center {
+	text-align: center;
+}
+
+.text-left {
+	text-align: left;
+}
+
+.fa {
+	font-size: 5em;
+}
+
+div#about {
+	div#value1 {
+		@include span-columns(4);
+
+		div#value1img {
+			@include span-columns(4 of 4);
+			@include omega;
+		}
+		div#value1text {
+			@include span-columns(4 of 4);
+		}
+	}
+	div#value2 {
+		@include span-columns(4);
+
+		div#value2img {
+			@include span-columns(4 of 4);
+			@include omega;
+		}
+		div#value2text {
+			@include span-columns(4 of 4);
+		}
+	}
+	div#value3 {
+		@include span-columns(4);
+
+		div#value3img {
+			@include span-columns(4 of 4);
+			@include omega;
+		}
+		div#value3text {
+			@include span-columns(4 of 4);
+		}
+	}
+}
+
 #learn {
 	background-color: yellow;
+}
+
+div#team {
+	@include outer-container;
+	div#member1{ @include span-columns(4);}
+	div#member2{ @include span-columns(4);}
+	div#member3{ @include span-columns(4); @include omega; }
+	div#member4{ @include span-columns(4); }
+	div#member5{ @include span-columns(4); }
+	div#member6{ @include span-columns(4); @include omega; }
+}
+
+.memberImg {
+	height: 200px;
+	width: auto;
 }
 
 #about {
