@@ -18,7 +18,7 @@ cd dac
 Then, create the virtual environment for your project.
 
 ```bash
-mkvirtualenv tellascrope
+mkvirtualenv tellascope
 add2virtualenv .
 ```
 
