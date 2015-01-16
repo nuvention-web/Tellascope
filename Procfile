@@ -1,1 +1,1 @@
-+web: python django-admin runserver 0.0.0.0:$PORT --noreload
+web: python tellascope/config/app.py runserver "0.0.0.0:$PORT"
