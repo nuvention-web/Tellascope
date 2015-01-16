@@ -1,5 +1,5 @@
 {
-  "name": "elections.northbynorthwestern.com",
+  "name": "tellascope",
   "version": "0.1.0",
   "devDependencies": {
     "grunt": "^0.4.4",

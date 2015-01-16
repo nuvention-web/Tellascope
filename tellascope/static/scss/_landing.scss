@@ -2,6 +2,10 @@ h2 {
 	font-weight: 200;
 }
 
+h3 {
+	font-weight: 600;
+}
+
 .section {
 	width: 100%;
 	display: table;
@@ -120,6 +124,7 @@ form {
 }
 
 div#about {
+	@include outer-container;
 	div#value1 {
 		@include span-columns(4);
 
