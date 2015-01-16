@@ -1,1 +1,1 @@
-web: python app.py
+web: django-admin runserver "0.0.0.0:$PORT" 

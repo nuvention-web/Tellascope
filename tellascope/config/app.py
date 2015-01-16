@@ -1,5 +1,7 @@
 import os
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "elections.config.settings.development")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "tellascope.config.settings.development")
 
 from django.core.wsgi import get_wsgi_application
-application = get_wsgi_application()
+from dj_static import Cling
+
+application = Cling(get_wsgi_application())
