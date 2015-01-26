@@ -1,0 +1,17 @@
+.row {
+  @include row();
+}
+
+body {
+    font-family: 'Proxima-Nova';
+}
+
+.content-wrapper {
+
+}
+
+main.content-wrapper {
+  padding-top: 0;
+}
+
+.posts { }

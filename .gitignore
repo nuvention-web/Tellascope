@@ -1,0 +1,6 @@
+.DS_Store
+*.pyc
+node_modules/
+.sass-cache/
+tellascope/static/css/
+staticfiles
