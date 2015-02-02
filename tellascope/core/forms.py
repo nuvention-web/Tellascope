@@ -2,7 +2,7 @@ from django import forms
 from django.utils.translation import ugettext_lazy as _
 # from multiselectfield import MultiSelectField
 
-from tellascope.landing.models import EMail
+from tellascope.core.models import EMail
 
 class EMailForm(forms.ModelForm):
 
