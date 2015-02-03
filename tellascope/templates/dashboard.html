@@ -3,8 +3,10 @@
 
 {% block content %}
 
-	<a>Hello, {{ user.get_full_name }}!</a>
-	<br>
-	<a href="/logout">Logout</a>
+	{% if user %}
+		<a>Hello, {{ user.get_full_name }}!</a>
+		<br>
+		<a href="/logout">Logout</a>
+	{% endif %}
 
 {% endblock %}

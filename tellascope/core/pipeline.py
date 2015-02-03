@@ -1,3 +1,4 @@
+
 def get_profile_picture(strategy, details, response, uid, user, social, *args, **kwargs):
     """Attempt to get a profile image for the User"""
 
@@ -5,9 +6,7 @@ def get_profile_picture(strategy, details, response, uid, user, social, *args, *
         return
 
     image_url = None
-    if strategy.backend.name == "facebook":
-        image_url = "https://graph.facebook.com/{0}/picture?type=large".format(uid)
-    elif strategy.backend.name == "twitter":
+    if strategy.backend.name == "twitter":
         if response['profile_image_url'] != '':
             image_url = response['profile_image_url']
 

@@ -23,16 +23,17 @@
     </h1>
     <p href="#" id="logo">Tellascope</p>
     <ul class="social">
-      <a href="#" id="link-about">About</a>
-      <a href="#" id="link-learn">Learn More</a>
-      <a href="#" id="link-team">Team</a>
+      {% if user.is_authenticated %}
+        <a href="">{{ user.username }}</a>
+        <a href="/logout">Logout</a>
+      {% else %}
+        <a href="#">Log In</a>
+      {% endif %}
     </ul>
   </nav>
-	
 
-	<main class="content-wrapper">
-		{% block content %}{% endblock %}
-	</main>
+	{% block content %}{% endblock %}
+
   <footer>&#169; 2015 Tellascope</footer>
 
   <script type="text/javascript">

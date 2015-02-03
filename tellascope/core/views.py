@@ -1,15 +1,14 @@
 import json
 
-from django.views.generic import TemplateView, View
+from django.views.generic import TemplateView, RedirectView, View
 from django.shortcuts import render_to_response, redirect, render, get_object_or_404
-from django.contrib.auth import logout as auth_logout
+from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
 from django.http import HttpResponse, HttpResponseRedirect
 
-from tellascope.core.models import EMail
-from tellascope.core.forms import EMailForm
+from tellascope.core.forms import UserCreateForm
 
 
 class JSONResponse(HttpResponse):
@@ -28,21 +27,27 @@ class AnonymousRequiredMixin(object):
             return HttpResponseRedirect(self.redirect_to)
         return super(AnonymousRequiredMixin, self).dispatch(request, *args, **kwargs)
 
-
 class LandingView(AnonymousRequiredMixin, TemplateView):
     template_name = 'index.html'
     redirect_to = '/dashboard/'
 
     def post(self, request, *args, **kwargs):
         context = self.get_context_data()
-        if context['form'].is_valid():
-            print 'yes done'
-            context['form'].save()
+        form = context['form']
+        if form.is_valid():
+            user = context['form'].save()
+            user = authenticate(username=form.cleaned_data['username'],
+                                password=form.cleaned_data['password2'])
+            login(request, user)
+            return HttpResponseRedirect("/dashboard/")
+        else:
+            print form.errors
+            form = UserCreateForm()
         return super(TemplateView, self).render_to_response(context)
 
     def get_context_data(self, **kwargs):
         context = super(LandingView, self).get_context_data(**kwargs)
-        form = EMailForm(self.request.POST)
+        form = UserCreateForm(self.request.POST or None)
         context['form'] = form
         return context
 
@@ -55,9 +60,16 @@ class DashboardView(LoginRequiredMixin, TemplateView):
         return context
 
 
-def logout(request):
-    auth_logout(request)
-    return redirect('/')
+class ProfileView(AnonymousRequiredMixin, TemplateView):
+    pass
+
+
+class LogoutView(RedirectView):
+    url = '/'
+
+    def get(self, request, *args, **kwargs):
+        logout(request)
+        return super(LogoutView, self).get(request, *args, **kwargs)
 
 
 class Handle404View(TemplateView):

@@ -120,8 +120,11 @@ STATICFILES_DIRS = (
 # Social Authentication
 AUTHENTICATION_BACKENDS = (
     'social.backends.twitter.TwitterOAuth',
+    'social.backends.facebook.FacebookOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 )
+
+AUTH_PROFILE_MODULE = 'tellascope.core.UserProfile'
 
 SOCIAL_AUTH_PIPELINE = (
     'social.pipeline.social_auth.social_details',
@@ -129,8 +132,8 @@ SOCIAL_AUTH_PIPELINE = (
     'social.pipeline.social_auth.auth_allowed',
     'social.pipeline.social_auth.social_user',
     'social.pipeline.user.get_username',
-    'example.app.pipeline.require_email',
-    'tellascope.core.pipeline.get_profile_picture'
+    # 'example.app.pipeline.require_email',
+    # 'tellascope.core.pipeline.get_profile_picture'
     'social.pipeline.user.create_user',
     'social.pipeline.social_auth.associate_user',
     'social.pipeline.debug.debug',
