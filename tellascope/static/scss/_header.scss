@@ -80,10 +80,10 @@ body {
     background-repeat: no-repeat;
     -webkit-background-size: 50% auto;
     background-size: 80% auto;
-    background-color: #018ace;
+    background-color: #FFA07A;
 }
 
-.social {
+.main-nav .social {
     display: block;
     position: absolute;
     top: 0;
@@ -91,7 +91,7 @@ body {
     margin: 0;
 }
 
-.social a {
+.main-nav .social a {
     display: inline-block;
     text-decoration: none;
     margin-right: -4px;
@@ -113,84 +113,3 @@ body {
         transition: background 0.5s ease, padding 0.8s linear;
     }
 }
-
-// header a {
-//   text-decoration: none;
-// }
-
-// .logo {
-//   @include transition(all 0.5s);
-//   z-index: 10;
-//   top: 10px;
-//   left: 10px;
-//   height: $masthead-height;
-
-//   @include media($large) {
-//     position: fixed;
-//   }
-//   @include media($medium) {
-//     position: absolute;
-//   }
-//   @include media($small) {
-//     display: none;
-//   }
-
-//   a {
-//     position: absolute;
-//     @include transition(all 0.5s);
-//     height: 100%;
-//     width: 40px;
-//     border-radius: 50%;
-
-//     img {
-//       position: relative;
-//       top: 10%;
-//       left: 10%;
-//       height: 80%;
-//       @include transition(all 0.5s);
-//     }
-
-
-
-//     &:hover {
-//       background-color: transparentize($purple, 0.6);
-//     }
-//   }
-// }
-
-// .masthead {
-//   color: $purple;
-//   z-index: 0;
-//   height: $masthead-height;
-//   width: 100%;
-//   text-align: center;
-//   position: absolute;
-//   top: 15px;
-//   left: 0;
-
-//   margin-bottom: 1em;
-
-//   p {
-//     height: 100%;
-//     margin-top: 10%;
-//     margin: 0 auto;
-//     font-weight: 700;
-//     font-size: 1.5em;
-//   }
-// }
-
-// .banner {
-//   @include serif;
-//   margin-top: 20px;
-//   h1 {
-//     margin-bottom: 0;
-//     margin-top: 0;
-//     @include media($small) { margin-top: 0.5em; }
-//     width: 100%;
-//     text-align: center;
-
-//     a {
-//       color: #000;
-//     }
-//   }
-// }

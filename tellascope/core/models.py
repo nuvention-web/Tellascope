@@ -1,5 +1,12 @@
 from django.db import models
-# from multiselectfield import MultiSelectField
+from django.contrib.auth.models import User
+
+class UserProfile(models.Model):
+    user = models.ForeignKey(User, unique=True, related_name='profile')
+    # twitter_oauth_token = models.CharField(max_length=200, blank=True, null=True)
+    # twitter_oauth_secret = models.CharField(max_length=200, blank=True, null=True)
+    # twitter_username = models.CharField(max_length=50, blank=True, null=True)
+
 
 class EMail(models.Model):
     WORLD = "W"
