@@ -1,7 +1,6 @@
 from django.contrib import admin
 
-from tellascope.core.models import EMail, UserProfile
+from tellascope.core.models import UserProfile
 
-admin.site.register(EMail)
 admin.site.register(UserProfile)
 

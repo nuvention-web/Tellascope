@@ -10,7 +10,8 @@ urlpatterns = patterns('',
     url('', include('social.apps.django_app.urls', namespace='social')),
 
     url(r'^$', views.LandingView.as_view(), name='landing'),
-    url(r'^u/(?P<username>\w+)/$', views.ProfileView.as_view(), name='profile'),
+    url(r'^u/(?P<username_slug>\w+)/$', views.ProfileView.as_view(), name='profile'),
+    url(r'^settings/$', views.SettingsView.as_view(), name='settings'),
 	url(r'^logout/$', views.LogoutView.as_view(), name='logout'),
 	url(r'^dashboard/$', views.DashboardView.as_view(), name='dashboard'),
 )

@@ -124,8 +124,6 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
-AUTH_PROFILE_MODULE = 'tellascope.core.UserProfile'
-
 SOCIAL_AUTH_PIPELINE = (
     'social.pipeline.social_auth.social_details',
     'social.pipeline.social_auth.social_uid',
@@ -133,12 +131,12 @@ SOCIAL_AUTH_PIPELINE = (
     'social.pipeline.social_auth.social_user',
     'social.pipeline.user.get_username',
     # 'example.app.pipeline.require_email',
-    # 'tellascope.core.pipeline.get_profile_picture'
     'social.pipeline.user.create_user',
     'social.pipeline.social_auth.associate_user',
     'social.pipeline.debug.debug',
     'social.pipeline.social_auth.load_extra_data',
     'social.pipeline.user.user_details',
+    'tellascope.core.pipeline.create_user_profile'
     #'social.pipeline.debug.debug'
 )
 
