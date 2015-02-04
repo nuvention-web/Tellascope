@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from taggit.managers import TaggableManager
+from taggit.models import TagBase, GenericTaggedItemBase
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, related_name='profile')
@@ -15,6 +17,8 @@ class UserProfile(models.Model):
     following = models.ManyToManyField('self', through='FollowRelationship',
                                            symmetrical=False,
                                            related_name='followed_by')
+
+    topics_followed = models.ManyToManyField('Tag')
 
     twitter_username = models.CharField(max_length=50, blank=True, null=True)
     twitter_description = models.CharField(max_length=250, blank=True, null=True)
@@ -49,24 +53,22 @@ class UserProfile(models.Model):
     	return
 
     def get_following(self):
-    	return self.following.filter(is_following__from_person=self)
+    	return self.following.filter(folowees__follower=self)
     
     def get_followers(self):
-    	return self.followed_by.filter(followed_by__to_person=self)
+    	return self.followed_by.filter(followers__followee=self)
 
 	def get_mutual_followers(self):
-		return self.relationships.filter(
-			followed_by__is_following=self,
-			is_following__followed_by=self)
+		return self.following.filter(
+			folowees__follower=self,
+			followers__followee=self)
 
+class Tag(TagBase):
+	pass
 
-class Article(models.Model):
-	url = models.URLField(blank=False)
-	title = models.CharField(max_length=250, blank=False)
-	source = models.ForeignKey(Source, blank=True, null=True, 
-									related_name='articles_from_source')
-	author = models.ForeignKey(Author, blank=True, null=True, 
-									related_name='articles_by_author')
+class TaggedArticle(GenericTaggedItemBase):
+	tag = models.ForeignKey('Tag',
+                            related_name="%(app_label)s_%(class)s_items")
 
 class Source(models.Model):
 	name = models.CharField(max_length=250, blank=True)
@@ -75,19 +77,27 @@ class Source(models.Model):
 class Author(models.Model):
 	first_name = models.CharField(max_length=50, blank=True)
 	last_name = models.CharField(max_length=50, blank=True)
-    
-    def __unicode__(self):
-        return self.user.username
 
+	def __unicode__(self):
+		return self.first_name + ' ' + self.last_name
+
+class Article(models.Model):
+	url = models.URLField(blank=False)
+	title = models.CharField(max_length=250, blank=False)
+	source = models.ForeignKey('Source', blank=True, null=True, 
+									related_name='articles_from_source')
+	author = models.ForeignKey('Author', blank=True, null=True, 
+									related_name='articles_by_author')
+	tags = TaggableManager(through=TaggedArticle)
 
 class UserArticleRelationship(models.Model):
-	sharer = models.ForeignKey(UserProfile, related_name='shared_by')
-	content = models.ForeignKey(Article, related_name='shared_content')
+	sharer = models.ForeignKey('UserProfile', related_name='shared_by')
+	content = models.ForeignKey('Article', related_name='shared_content')
 	comment = models.CharField(max_length=250, blank=True, null=True)
 	shared_datetime = models.DateTimeField(auto_now_add=True)
 
 class FollowRelationship(models.Model):
-	from_person = models.ForeignKey(Person, related_name='followed_by')
-    to_person = models.ForeignKey(Person, related_name='is_following')
-    created_at = models.DateTimeField(auto_now_add=True)
+	follower = models.ForeignKey('UserProfile', related_name='followers')
+	followee = models.ForeignKey('UserProfile', related_name='followees')
+	created_at = models.DateTimeField(auto_now_add=True)
 
