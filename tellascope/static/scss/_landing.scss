@@ -217,6 +217,7 @@ h3 { font-weight: 600; }
 		@include omega(3n);
 		@include span-columns(4 of 12);
 
+
 		img { @include fill-parent(); }
 	}
 }

@@ -4,9 +4,57 @@
 {% block content %}
 
 	{% if user %}
-		<a>Hello, {{ user.profile }}!</a>
-		<br>
-		<a href="/logout">Logout</a>
+		<div id = "searchBar">
+			<h2 id = "searchText">
+				Search
+			</h2>
+			<input class = "rounded" name="tags" id="tags" value="" />
+		</div>
+		<div id = "results">
+			<div class = "postit">
+			</div>
+			<div class = "postit">
+			</div>
+			<div class = "postit">
+			</div>
+			<div class = "postit">
+			</div>
+			<div class = "postit">
+			</div>
+			<div class = "postit">
+			</div>
+			<div class = "postit">
+			</div>
+			<div class = "postit">
+			</div>
+			<div class = "postit">
+			</div>
+			<div class = "postit">
+			</div>
+			<div class = "postit">
+			</div>
+			<div class = "postit">
+			</div>
+			<div class = "postit">
+			</div>
+			<div class = "postit">
+			</div>
+			<div class = "postit">
+			</div>
+			<div class = "postit">
+			</div>
+			<div class = "postit">
+			</div>
+			<div class = "postit">
+			</div>
+		</div>
+		
+		<script type="text/javascript">
+			$('#tags').tagsInput({
+				'width':'80%',
+				'height':'40px'
+			});
+		</script>
 	{% endif %}
 
 {% endblock %}

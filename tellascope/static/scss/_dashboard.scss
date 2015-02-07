@@ -1,0 +1,33 @@
+#searchBar {
+	margin-top: 30px;
+	#searchText {
+		@include span-columns(2 of 12);
+		text-align: center;
+		-webkit-margin-before: 0.3em;
+
+	}
+	#tags {
+		@include span-columns(10 of 12);
+		text-align: center;
+	}
+	.tagsinput { 
+		border-radius:15px; 
+		-moz-border-radius:15px; 
+		-webkit-border-radius:15px;
+	}
+	.tag { 
+		border-radius:7px; 
+		-moz-border-radius:7px; 
+		-webkit-border-radius:7px;
+	}
+}
+
+#results {
+	@include outer-container();
+	margin-top: 50px;
+	.postit {
+		margin-bottom: 25px;
+		@include omega(4n);
+		@include span-columns(3 of 12);
+	}
+}
