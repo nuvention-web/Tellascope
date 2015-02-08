@@ -12,7 +12,7 @@ class UserProfile(models.Model):
                                            symmetrical=False,
                                            related_name='shared_by')
 
-    favortied_articles = models.ManyToManyField('Article', related_name='favorited_by')
+    favorited_articles = models.ManyToManyField('Article', related_name='favorited_by')
 
     following = models.ManyToManyField('self', through='FollowRelationship',
                                            symmetrical=False,
@@ -67,8 +67,7 @@ class Tag(TagBase):
 	pass
 
 class TaggedArticle(GenericTaggedItemBase):
-	tag = models.ForeignKey('Tag',
-                            related_name="%(app_label)s_%(class)s_items")
+	tag = models.ForeignKey('Tag', related_name="%(class)s_items")
 
 class Source(models.Model):
 	name = models.CharField(max_length=250, blank=True)
@@ -89,6 +88,7 @@ class Article(models.Model):
 	author = models.ForeignKey('Author', blank=True, null=True, 
 									related_name='articles_by_author')
 	tags = TaggableManager(through=TaggedArticle)
+
 
 class UserArticleRelationship(models.Model):
 	sharer = models.ForeignKey('UserProfile', related_name='shared_by')

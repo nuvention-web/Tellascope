@@ -4,8 +4,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm, UserChangeForm
 from django.core.exceptions import ValidationError
 
-from tellascope.core.models import UserProfile
-
+from tellascope.core import models
+from taggit.forms import *
 
 class UserCreateForm(UserCreationForm):
     def validate_unique_email(email):
@@ -34,7 +34,13 @@ class UserCreateForm(UserCreationForm):
 class UserProfileSettingsForm(forms.ModelForm):
     
     class Meta:
-        model = UserProfile
+        model = models.UserProfile
         exclude = ['twitter_username', 'twitter_description', 'twitter_profile_picture']
 
-    
+
+class SearchForm(forms.Form):
+    tags = forms.CharField(max_length=250, required=True)
+
+
+
+
