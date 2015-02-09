@@ -54,6 +54,12 @@ django-admin makemigrations
 django-admin migrate
 ```
 
+And import the test data:
+
+```bash
+python manage.py import_mvp_data tellascope/core/management/commands/mvp_data.csv
+ ```
+
 You will also need to install Grunt and other Node dependencies to compile the Sass (this assumes you already have `node` and `grunt-cli` installed).
 
 ```bash
