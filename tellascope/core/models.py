@@ -27,36 +27,36 @@ class UserProfile(models.Model):
     def __unicode__(self):
         return self.user.username
 
-    def share_article(self, article, comment):
+    def share_article(self, article, comment=''):
     	share, created = UserArticleRelationship.objects.get_or_create(
-        	shared_by=self,
-        	shared_content=content,
+        	sharer=self,
+        	article=article,
         	comment=comment)
     	return share
 
     def unshare_article(self, article):
     	UserArticleRelationship.objects.filter(
-        	shared_by=self,
-        	shared_article=article).delete()
+        	sharer=self,
+        	article=article).delete()
     	return
 
-	def follow_user(self, person):
-	    relationship, created = FollowRelationship.objects.get_or_create(
-	        from_person=self,
-	        to_person=person)
-	    return relationship
+    def follow_user(self, profile):
+    	relationship, created = FollowRelationship.objects.get_or_create(
+    		follower=self,
+    		followee=profile)
+    	return relationship
 
-	def unfollow_user(self, person):
-		FollowRelationship.objects.filter(
-        	from_person=self,
-        	to_person=person).delete()
+    def unfollow_user(self, profile):
+    	FollowRelationship.objects.filter(
+    		follower=self,
+    		folowee=profile).delete()
     	return
 
     def get_following(self):
-    	return self.following.filter(folowees__follower=self)
+    	return self.following.filter(followees__follower=self)
     
     def get_followers(self):
-    	return self.followed_by.filter(followers__followee=self)
+    	return self.followed_by.filter(followers__follower=self)
 
 	def get_mutual_followers(self):
 		return self.following.filter(
@@ -98,7 +98,7 @@ class Article(models.Model):
 
 class UserArticleRelationship(models.Model):
 	sharer = models.ForeignKey('UserProfile', related_name='shared_by')
-	content = models.ForeignKey('Article', related_name='shared_content')
+	article = models.ForeignKey('Article', related_name='shared_article')
 	comment = models.CharField(max_length=250, blank=True, null=True)
 	shared_datetime = models.DateTimeField(auto_now_add=True)
 
@@ -106,4 +106,5 @@ class FollowRelationship(models.Model):
 	follower = models.ForeignKey('UserProfile', related_name='followers')
 	followee = models.ForeignKey('UserProfile', related_name='followees')
 	created_at = models.DateTimeField(auto_now_add=True)
+
 

@@ -27,7 +27,7 @@
         <a href="">{{ user.username }}</a>
         <a href="/logout">Logout</a>
       {% else %}
-        <a href="#">Log In</a>
+        <a href="{% url 'login' %}">Log In</a>
       {% endif %}
     </ul>
   </nav>
