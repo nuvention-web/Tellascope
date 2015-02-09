@@ -39,10 +39,9 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'social.apps.django_app.default',
 
-    # tools
-    # 'multiselectfield',
+    'social.apps.django_app.default',
+    'taggit',
 
     # apps
     'tellascope.core',
@@ -130,7 +129,6 @@ SOCIAL_AUTH_PIPELINE = (
     'social.pipeline.social_auth.auth_allowed',
     'social.pipeline.social_auth.social_user',
     'social.pipeline.user.get_username',
-    # 'example.app.pipeline.require_email',
     'social.pipeline.user.create_user',
     'social.pipeline.social_auth.associate_user',
     'social.pipeline.debug.debug',

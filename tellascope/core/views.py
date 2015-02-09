@@ -1,6 +1,6 @@
 import json
 
-from django.views.generic import TemplateView, RedirectView, FormView, View
+from django.views.generic import TemplateView, RedirectView, FormView, ListView, View
 from django.shortcuts import render_to_response, redirect, render, get_object_or_404
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
@@ -55,11 +55,30 @@ class LandingView(AnonymousRequiredMixin, TemplateView):
         return context
 
 
-class DashboardView(LoginRequiredMixin, TemplateView):
+class DashboardView(ListView):
+    model = models.Article
     template_name = 'dashboard.html'
+    object_list = []
+
+    def get_queryset(self):
+        form = self.get_context_data()['form']
+
+        if form.is_valid():
+            tags = form.cleaned_data['tags'].split(',')
+            for tag in tags:
+                tag = tag.strip()
+            filtered = models.Article.objects.all()
+            # if filtered.objects.count() != 0:
+            articles = filtered
+        else:
+            articles = models.Article.objects.all()
+
+        return articles
 
     def get_context_data(self, **kwargs):
         context = super(DashboardView, self).get_context_data(**kwargs)
+        form = forms.SearchForm(self.request.GET or None)
+        context['form'] = form
         return context
 
 
