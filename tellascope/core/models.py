@@ -66,10 +66,8 @@ class UserProfile(models.Model):
 class Tag(TagBase):
 	pass
 
-
 class TaggedArticle(GenericTaggedItemBase):
 	tag = models.ForeignKey('Tag', related_name="%(class)s_items")
-	article = models.ForeignKey('Article')
 
 class Source(models.Model):
 	name = models.CharField(max_length=250, blank=True)
@@ -86,8 +84,8 @@ class Author(models.Model):
 		return self.name
 
 class Article(models.Model):
-	url = models.URLField(blank=False)
-	title = models.CharField(max_length=500, blank=False)
+	url = models.URLField(blank=False, null=True)
+	title = models.CharField(max_length=500, blank=False, null=True)
 	source = models.ForeignKey('Source', blank=True, null=True, 
 									related_name='articles_from_source')
 	author = models.ForeignKey('Author', blank=True, null=True, 

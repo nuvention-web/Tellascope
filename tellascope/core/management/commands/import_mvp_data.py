@@ -17,18 +17,19 @@ class Command(BaseCommand):
                     title=row['title'],
                     source=source,
                     author=author)[0]
+                article.save()
 
                 tags = []
                 for tag in row['tags'].split(','):
                     tag = tag.replace('["','').replace('"]','').replace('"','').strip()
                     tags.append(tag)
-
-                for tag in tags:
                     t = Tag.objects.get_or_create(name=tag)[0]
                     t.save()
-                    article.tags.add(t)
 
-                article.save()
+                for tag in tags:
+                    article.tags.add(tag)
+
+                # article.save()
 
 
 

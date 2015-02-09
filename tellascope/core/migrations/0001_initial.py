@@ -18,8 +18,8 @@ class Migration(migrations.Migration):
             name='Article',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('url', models.URLField()),
-                ('title', models.CharField(max_length=500)),
+                ('url', models.URLField(null=True)),
+                ('title', models.CharField(max_length=500, null=True)),
             ],
             options={
             },
