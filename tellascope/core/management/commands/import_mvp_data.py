@@ -6,30 +6,33 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         with open(args[0], 'rU') as f:
             reader = csv.DictReader(f)
-            for row in reader:
-            	source = Source.objects.get_or_create(name=row['source'])[0]
-            	source.save()
-            	author = Author.objects.get_or_create(name=row['author'])[0]
-            	author.save()
 
-                article = Article.objects.get_or_create(
+            user, created = User.objects.get_or_create(username='ekoh', password='password')
+            profile, created = UserProfile.objects.get_or_create(user=user)
+
+            for x in range(0, 50):
+                u, created = User.objects.get_or_create(username='user' + str(x), password='password')
+                p, created = UserProfile.objects.get_or_create(user=u)
+                if x < 30:
+                    profile.follow_user(p)
+
+            for row in reader:
+            	source, created = Source.objects.get_or_create(name=row['source'])
+            	author, created = Author.objects.get_or_create(name=row['author'])
+                article, created = Article.objects.get_or_create(
                     url=row['url'],
                     title=row['title'],
                     source=source,
-                    author=author)[0]
-                article.save()
+                    author=author)
 
-                tags = []
                 for tag in row['tags'].split(','):
                     tag = tag.replace('["','').replace('"]','').replace('"','').strip()
-                    tags.append(tag)
-                    t = Tag.objects.get_or_create(name=tag)[0]
-                    t.save()
-
-                for tag in tags:
+                    t, created = Tag.objects.get_or_create(name=tag)
                     article.tags.add(tag)
 
-                # article.save()
+                for x in range(0, int(row['num_shares'])):
+                    u = User.objects.filter(username='user' + str(x))[0]
+                    p = UserProfile.objects.filter(user=u)[0]
+                    p.share_article(article)
 
-
-
+                print '\n'
