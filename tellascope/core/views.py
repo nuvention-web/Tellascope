@@ -58,27 +58,27 @@ class LandingView(AnonymousRequiredMixin, TemplateView):
 class DashboardView(ListView):
     model = models.Article
     template_name = 'dashboard.html'
-    object_list = []
+    # object_list = []
+    context_object_name = 'articles'
 
     def get_queryset(self):
-        form = self.get_context_data()['form']
+        # form = self.get_context_data()['form']
 
-        if form.is_valid():
-            tags = form.cleaned_data['tags'].split(',')
-            for tag in tags:
-                tag = tag.strip()
-            filtered = models.Article.objects.all()
+        # if form.is_valid():
+            # tags = form.cleaned_data['tags'].split(',')
+            # for tag in tags:
+                # tag = tag.strip()
+            # filtered = models.Article.objects.all()
             # if filtered.objects.count() != 0:
-            articles = filtered
-        else:
-            articles = models.Article.objects.all()
-
-        return articles
+            # articles = filtered
+        # else:
+        object_list = models.Article.objects.all()
+        return object_list
 
     def get_context_data(self, **kwargs):
         context = super(DashboardView, self).get_context_data(**kwargs)
-        form = forms.SearchForm(self.request.GET or None)
-        context['form'] = form
+        # form = forms.SearchForm(self.request.GET or None)
+        # context['form'] = form
         return context
 
 
