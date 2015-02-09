@@ -18,8 +18,8 @@ class Migration(migrations.Migration):
             name='Article',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('url', models.URLField()),
-                ('title', models.CharField(max_length=250)),
+                ('url', models.URLField(null=True)),
+                ('title', models.CharField(max_length=500, null=True)),
             ],
             options={
             },
@@ -29,8 +29,7 @@ class Migration(migrations.Migration):
             name='Author',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('first_name', models.CharField(max_length=50, blank=True)),
-                ('last_name', models.CharField(max_length=50, blank=True)),
+                ('name', models.CharField(max_length=100, blank=True)),
             ],
             options={
             },
@@ -88,7 +87,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('comment', models.CharField(max_length=250, null=True, blank=True)),
                 ('shared_datetime', models.DateTimeField(auto_now_add=True)),
-                ('content', models.ForeignKey(related_name=b'shared_content', to='core.Article')),
+                ('article', models.ForeignKey(related_name=b'shared_article', to='core.Article')),
             ],
             options={
             },
@@ -146,7 +145,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='article',
             name='tags',
-            field=taggit.managers.TaggableManager(to='core.Tag', through='core.TaggedArticle', help_text='A comma-separated list of tags.', verbose_name='Tags'),
+            field=taggit.managers.TaggableManager(to='core.Tag', through='core.TaggedArticle', blank=True, help_text='A comma-separated list of tags.', verbose_name='Tags'),
             preserve_default=True,
         ),
     ]

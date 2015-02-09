@@ -58,27 +58,30 @@ class LandingView(AnonymousRequiredMixin, TemplateView):
 class DashboardView(ListView):
     model = models.Article
     template_name = 'dashboard.html'
-    # object_list = []
+    object_list = []
     context_object_name = 'articles'
 
     def get_queryset(self):
-        # form = self.get_context_data()['form']
+        form = self.get_context_data()['form']
 
-        # if form.is_valid():
-            # tags = form.cleaned_data['tags'].split(',')
-            # for tag in tags:
-                # tag = tag.strip()
-            # filtered = models.Article.objects.all()
-            # if filtered.objects.count() != 0:
-            # articles = filtered
-        # else:
-        object_list = models.Article.objects.all()
-        return object_list
+        if form.is_valid():
+            tags = form.cleaned_data['tags'].split(',')
+            tags_cleaned = []
+            for tag in tags:
+                tag = tag.strip()
+                tags_cleaned.append(tag)
+            print tags_cleaned
+            filtered = models.Article.objects.filter(tags__name__in=tags_cleaned).distinct()
+            if filtered.count() != 0:
+                articles = filtered
+        else:
+            articles = models.Article.objects.all()
+        return articles
 
     def get_context_data(self, **kwargs):
         context = super(DashboardView, self).get_context_data(**kwargs)
-        # form = forms.SearchForm(self.request.GET or None)
-        # context['form'] = form
+        form = forms.SearchForm(self.request.GET or None)
+        context['form'] = form
         return context
 
 
@@ -105,6 +108,14 @@ class LogoutView(RedirectView):
     def get(self, request, *args, **kwargs):
         logout(request)
         return super(LogoutView, self).get(request, *args, **kwargs)
+
+class LoginView(AnonymousRequiredMixin, TemplateView):
+    template_name = 'login.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(LoginView, self).get_context_data(**kwargs)
+        return context
+
 
 
 class Handle404View(TemplateView):
