@@ -34,8 +34,12 @@
 
 		<script src="../static/js/lib/results-preview/grid.js"></script>
 		<script type="text/javascript">
-		$(function() {
-				Grid.init();
+			$(function() {
+					Grid.init();
+			});
+
+			$( document ).ready(function() {
+				$('#id_tags_tag').focus();
 			});
 			$('#id_tags').tagsInput({
 				'width':'80%',
