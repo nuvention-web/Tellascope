@@ -71,8 +71,10 @@ class DashboardView(LoginRequiredMixin, ListView):
             for tag in tags:
                 tag = tag.strip()
                 tags_cleaned.append(tag)
-            print tags_cleaned
-            articles = models.Article.objects.filter(tags__name__in=tags_cleaned).distinct()
+
+            articles = models.Article.objects.all()
+            for tag in tags_cleaned:
+                articles = articles.filter(tags__name__in=[tag]).distinct()
         else:
             articles = models.Article.objects.all()
         friends_only = articles.filter(shared_by__in=user.profile.get_following())
