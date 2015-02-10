@@ -41,6 +41,11 @@
 				'width':'80%',
 				'height':'40px'
 			});
+			$('input').keypress(function(e) {
+				if (e.which == 13) {
+					$('form').submit();
+				}
+			});
 		</script>
 
 {% endblock %}
