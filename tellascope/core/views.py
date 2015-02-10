@@ -5,6 +5,7 @@ from django.shortcuts import render_to_response, redirect, render, get_object_or
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django.db.models import Count
 
 from django.contrib.auth.forms import PasswordChangeForm
 
@@ -55,7 +56,7 @@ class LandingView(AnonymousRequiredMixin, TemplateView):
         return context
 
 
-class DashboardView(ListView):
+class DashboardView(LoginRequiredMixin, ListView):
     model = models.Article
     template_name = 'dashboard.html'
     object_list = []
@@ -63,25 +64,30 @@ class DashboardView(ListView):
 
     def get_queryset(self):
         form = self.get_context_data()['form']
-
+        user = self.get_context_data()['user']
         if form.is_valid():
             tags = form.cleaned_data['tags'].split(',')
             tags_cleaned = []
             for tag in tags:
                 tag = tag.strip()
                 tags_cleaned.append(tag)
-            print tags_cleaned
-            filtered = models.Article.objects.filter(tags__name__in=tags_cleaned).distinct()
-            if filtered.count() != 0:
-                articles = filtered
+            articles = models.Article.objects.filter(tags__name__in=tags_cleaned).distinct()
         else:
             articles = models.Article.objects.all()
-        return articles
+        ordered = articles.annotate(share_count=Count('shared_by')).order_by('-share_count')
+        friends_only = ordered.filter(shared_by__in=user.profile.get_following())
+        a = friends_only
+        
+        if a.count() > 0:
+            return a
+        else: 
+            return models.Article.objects.all()
 
     def get_context_data(self, **kwargs):
         context = super(DashboardView, self).get_context_data(**kwargs)
         form = forms.SearchForm(self.request.GET or None)
         context['form'] = form
+        context['user'] = self.request.user
         return context
 
 

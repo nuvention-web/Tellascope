@@ -18,7 +18,7 @@
 	<div class="content-wrapper row">
 	{% for article in articles %}
 		<div>
-			{{ article.url }}
+			<em>{{ article.share_count }}</em> <a href="{{ article.url }}">{{ article.title }}</a>
 		</div>
 	{% endfor %}
 	</div>
