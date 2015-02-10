@@ -3,67 +3,44 @@
 
 {% block content %}
 
-	{% if user %}
-
-	<form method="get" action="">
+	<div id = "searchBar">
+		<h2 id = "searchText">Search</h2>
 		{% for field in form %}
+		<form>
 		    <div class="field-wrapper {% if field.errors%} field-error {% endif %}">
-		        {{ field.errors }}
 		        {{ field }}
 		    </div>
+		    <input type="submit" value="search">
+		</form>
 		{% endfor %}
-		<input class="" type="submit" value="Submit">
-	</form>
-
-	<div class="content-wrapper row">
-	{% for article in articles %}
-		<div>
-			<em>{{ article.share_count }}</em> <a href="{{ article.url }}">{{ article.title }}</a>
-		</div>
-	{% endfor %}
 	</div>
 
-		<div id = "searchBar">
-			<h2 id = "searchText">
-				Search
-			</h2>
-			<input class = "rounded" name="tags" id="tags" value="" />
+
+	<div class="main">
+			<ul id="og-grid" class="og-grid">
+				{% for article in articles %}
+				<li>
+					<a href="{{ article.url }}" target="_blank" data-largesrc="../static/img/1.jpg" data-title="{{ article.title }}" data-description="Swiss chard pumpkin bunya nuts maize plantain aubergine napa cabbage soko coriander sweet pepper water spinach winter purslane shallot tigernut lentil beetroot.">
+						<div class="article-element">
+							<h1>{{ article.title|truncatechars:50 }}</h1>
+							<p>{{ article.author }}</p>
+							<p id="article-source">via {{ article.source }}</p>
+						</div>
+					</a>
+				</li>
+				{% endfor %}
+			</ul>
 		</div>
-		<div class="main">
-				<ul id="og-grid" class="og-grid">
-					{% for article in articles %}
-					<li>
-						<a href="{{ article.url }}" target="_blank" data-largesrc="../static/img/1.jpg" data-title="{{ article.title }}" data-description="Swiss chard pumpkin bunya nuts maize plantain aubergine napa cabbage soko coriander sweet pepper water spinach winter purslane shallot tigernut lentil beetroot.">
-							<div class="article-element">
-								<h1>{{ article.title|truncatechars:50 }}</h1>
-								<p>{{ article.author }}</p>
-								<p id="article-source">via {{ article.source }}</p>
-							</div>
-						</a>
-					</li>
-					{% endfor %}
-					<li>
-						<a href="http://cargocollective.com/jaimemartinez/" data-largesrc="../static/img/1.jpg" data-title="Azuki bean" data-description="Swiss chard pumpkin bunya nuts maize plantain aubergine napa cabbage soko coriander sweet pepper water spinach winter purslane shallot tigernut lentil beetroot.">
-							<div class="article-element">
-								<h1>Article Title</h1>
-								<p>by Author</p>
-								<p>(Source)</p>
-							</div>
-						</a>
-					</li>
-				</ul>
-			</div>
 
 		<script src="../static/js/lib/results-preview/grid.js"></script>
 		<script type="text/javascript">
 		$(function() {
 				Grid.init();
 			});
-			$('#tags').tagsInput({
+			$('#id_tags').tagsInput({
 				'width':'80%',
 				'height':'40px'
 			});
 		</script>
-	{% endif %}
 
 {% endblock %}

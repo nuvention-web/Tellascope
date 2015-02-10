@@ -71,17 +71,12 @@ class DashboardView(LoginRequiredMixin, ListView):
             for tag in tags:
                 tag = tag.strip()
                 tags_cleaned.append(tag)
+            print tags_cleaned
             articles = models.Article.objects.filter(tags__name__in=tags_cleaned).distinct()
         else:
             articles = models.Article.objects.all()
         friends_only = articles.filter(shared_by__in=user.profile.get_following())
-        
-        if friends_only.count() > 0:
-            a = friends_only
-        else: 
-            a = models.Article.objects.all()
-
-        ordered = a.annotate(share_count=Count('shared_by')).order_by('-share_count')
+        ordered = friends_only.annotate(share_count=Count('shared_by')).order_by('-share_count')
         return ordered
 
 
