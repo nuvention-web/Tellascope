@@ -6,7 +6,7 @@ tellascope
 - `virtualenv` and `virtualenvwrapper`
 
 ## Getting started
-Please note – this guide assumes you are using OS X. If you aren't, you hopefully know the equivalent commands to make these things happen. If you don't, find someone to help you!
+Please note – this guide assumes you are using OS X. If you aren't, you hopefully know the equivalent commands to make these things happen. If you don't, find someone to help you! Yay learning!
 
 First, clone this project.
 
@@ -73,10 +73,11 @@ sudo mkdir -p /var/www/tellascope/static/ && sudo chmod -R 777 /var/www/tellasco
 django-admin collectstatic
 ```
 
-Then, you should be able to run the server:
+Then, yoasu should be able to run the server:
 
 ```bash
 django-admin runserver
 ```
+
 
 
