@@ -6,6 +6,38 @@
 	width: 100%;
 }
 
+a:hover {
+	background-color: transparent;
+}
+
+.article-element {
+	width: 250px;
+	height: 250px;
+	background-color: #ddd;
+	padding: 20px;
+}
+
+.article-element h1 {
+	position: relative;
+  	top: 65%;
+  	transform: translateY(-50%);
+  	text-align: left;
+	font-weight: 300;
+	text-transform: uppercase;
+	font-size: 1.5em;
+	border-bottom: 1px solid #018ace;
+}
+
+.article-element p {
+	color: #333;
+	position: relative;
+  	top: 65%;
+  	transform: translateY(-50%);
+  	text-align: left;
+  	line-height: 5px;
+  	font-weight: 300;
+}
+
 .og-grid li {
 	display: inline-block;
 	margin: 10px 5px 0 5px;
@@ -32,7 +64,7 @@
 	border-bottom-color: #ddd;
 	border-width: 15px;
 	left: 50%;
-	margin: -20px 0 0 -15px;
+	margin: -15px 0 0 -15px;
 }
 
 .og-expander {
