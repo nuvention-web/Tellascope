@@ -8,7 +8,7 @@ tellascope
 ## Getting started
 Please note – this guide assumes you are using OS X. If you aren't, you hopefully know the equivalent commands to make these things happen. If you don't, find someone to help you! Yay learning!
 
-First, clone this project.
+First clone this project.
 
 ```bash
 git clone git@github.com:nuvention-web/dac.git
