@@ -4,6 +4,25 @@
 {% block content %}
 
 	{% if user %}
+
+	<form method="get" action="">
+		{% for field in form %}
+		    <div class="field-wrapper {% if field.errors%} field-error {% endif %}">
+		        {{ field.errors }}
+		        {{ field }}
+		    </div>
+		{% endfor %}
+		<input class="" type="submit" value="Submit">
+	</form>
+
+	<div class="content-wrapper row">
+	{% for article in articles %}
+		<div>
+			<em>{{ article.share_count }}</em> <a href="{{ article.url }}">{{ article.title }}</a>
+		</div>
+	{% endfor %}
+	</div>
+
 		<div id = "searchBar">
 			<h2 id = "searchText">
 				Search
@@ -12,6 +31,17 @@
 		</div>
 		<div class="main">
 				<ul id="og-grid" class="og-grid">
+					{% for article in articles %}
+					<li>
+						<a href="{{ article.url }}" target="_blank" data-largesrc="../static/img/1.jpg" data-title="{{ article.title }}" data-description="Swiss chard pumpkin bunya nuts maize plantain aubergine napa cabbage soko coriander sweet pepper water spinach winter purslane shallot tigernut lentil beetroot.">
+							<div class="article-element">
+								<h1>{{ article.title|truncatechars:50 }}</h1>
+								<p>{{ article.author }}</p>
+								<p id="article-source">via {{ article.source }}</p>
+							</div>
+						</a>
+					</li>
+					{% endfor %}
 					<li>
 						<a href="http://cargocollective.com/jaimemartinez/" data-largesrc="../static/img/1.jpg" data-title="Azuki bean" data-description="Swiss chard pumpkin bunya nuts maize plantain aubergine napa cabbage soko coriander sweet pepper water spinach winter purslane shallot tigernut lentil beetroot.">
 							<div class="article-element">
@@ -21,71 +51,8 @@
 							</div>
 						</a>
 					</li>
-					<li>
-						<a href="http://cargocollective.com/jaimemartinez/" data-largesrc="../static/img/2.jpg" data-title="Veggies sunt bona vobis" data-description="Komatsuna prairie turnip wattle seed artichoke mustard horseradish taro rutabaga ricebean carrot black-eyed pea turnip greens beetroot yarrow watercress kombu.">
-							<img src="../static/img/thumbs/2.jpg" alt="img02"/>
-						</a>
-					</li>
-					<li>
-						<a href="http://cargocollective.com/jaimemartinez/" data-largesrc="../static/img/3.jpg" data-title="Dandelion horseradish" data-description="Cabbage bamboo shoot broccoli rabe chickpea chard sea lettuce lettuce ricebean artichoke earthnut pea aubergine okra brussels sprout avocado tomato.">
-							<img src="../static/img/thumbs/3.jpg" alt="img03"/>
-						</a>
-					</li>
-					<li>
-						<a href="http://cargocollective.com/jaimemartinez/" data-largesrc="../static/img/1.jpg" data-title="Azuki bean" data-description="Swiss chard pumpkin bunya nuts maize plantain aubergine napa cabbage soko coriander sweet pepper water spinach winter purslane shallot tigernut lentil beetroot.">
-							<img src="../static/img/thumbs/1.jpg" alt="img01"/>
-						</a>
-					</li>
-					<li>
-						<a href="http://cargocollective.com/jaimemartinez/" data-largesrc="../static/img/2.jpg" data-title="Veggies sunt bona vobis" data-description="Komatsuna prairie turnip wattle seed artichoke mustard horseradish taro rutabaga ricebean carrot black-eyed pea turnip greens beetroot yarrow watercress kombu.">
-							<img src="../static/img/thumbs/2.jpg" alt="img02"/>
-						</a>
-					</li>
-					<li>
-						<a href="http://cargocollective.com/jaimemartinez/" data-largesrc="../static/img/3.jpg" data-title="Dandelion horseradish" data-description="Cabbage bamboo shoot broccoli rabe chickpea chard sea lettuce lettuce ricebean artichoke earthnut pea aubergine okra brussels sprout avocado tomato.">
-							<img src="../static/img/thumbs/3.jpg" alt="img03"/>
-						</a>
-					</li>
 				</ul>
 			</div>
-<!-- 		<div id = "results">
-			<div class = "postit">
-			</div>
-			<div class = "postit">
-			</div>
-			<div class = "postit">
-			</div>
-			<div class = "postit">
-			</div>
-			<div class = "postit">
-			</div>
-			<div class = "postit">
-			</div>
-			<div class = "postit">
-			</div>
-			<div class = "postit">
-			</div>
-			<div class = "postit">
-			</div>
-			<div class = "postit">
-			</div>
-			<div class = "postit">
-			</div>
-			<div class = "postit">
-			</div>
-			<div class = "postit">
-			</div>
-			<div class = "postit">
-			</div>
-			<div class = "postit">
-			</div>
-			<div class = "postit">
-			</div>
-			<div class = "postit">
-			</div>
-			<div class = "postit">
-			</div>
-		</div> -->
 
 		<script src="../static/js/lib/results-preview/grid.js"></script>
 		<script type="text/javascript">
@@ -98,15 +65,5 @@
 			});
 		</script>
 	{% endif %}
-
-
-
-	<div class="content-wrapper row">
-	{% for article in articles %}
-		<div>
-			<em>{{ article.share_count }}</em> <a href="{{ article.url }}">{{ article.title }}</a>
-		</div>
-	{% endfor %}
-	</div>
 
 {% endblock %}

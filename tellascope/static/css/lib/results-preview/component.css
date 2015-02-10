@@ -19,8 +19,8 @@ a:hover {
 
 .article-element h1 {
 	position: relative;
-  	top: 65%;
-  	transform: translateY(-50%);
+/*  	top: 65%;
+  	transform: translateY(-80%);*/
   	text-align: left;
 	font-weight: 300;
 	text-transform: uppercase;
@@ -31,11 +31,18 @@ a:hover {
 .article-element p {
 	color: #333;
 	position: relative;
-  	top: 65%;
   	transform: translateY(-50%);
   	text-align: left;
   	line-height: 5px;
   	font-weight: 300;
+}
+
+#article-source {
+	color: #666;
+	font-size: 0.8em;
+	position: absolute;
+	bottom: 0px;
+	right: 10px;
 }
 
 .og-grid li {
@@ -120,14 +127,15 @@ a:hover {
 .og-fullimg,
 .og-details {
 	width: 50%;
-	float: left;
+/*	float: left;*/
 	height: 100%;
 	overflow: hidden;
 	position: relative;
+	margin: 0 auto;
 }
 
 .og-details {
-	padding: 0 40px 0 20px;
+/*	padding: 0 40px 0 85px;*/
 }
 
 .og-fullimg {
@@ -142,8 +150,7 @@ a:hover {
 
 .og-details h3 {
 	font-weight: 300;
-	font-size: 52px;
-	padding: 40px 0 10px;
+	font-size: 40px;
 	margin-bottom: 10px;
 }
 
@@ -174,8 +181,8 @@ a:hover {
 }
 
 .og-details a:hover {
-	border-color: #999;
-	color: #999;
+	border-color: #018ace;
+	color: #018ace;
 }
 
 .og-loading {
