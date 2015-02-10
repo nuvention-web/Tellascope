@@ -1,11 +1,24 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm, UserChangeForm
+from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm, UserChangeForm, AuthenticationForm
 from django.core.exceptions import ValidationError
 
 from tellascope.core import models
 from taggit.forms import *
+
+class LoginForm(AuthenticationForm):
+
+    class Meta:
+        model = User
+        fields = ['username', 'password']
+
+    def __init__(self, *args, **kwargs):
+        super(LoginForm, self).__init__(*args, **kwargs)
+
+        self.fields['username'].widget.attrs['placeholder'] = 'Username'
+        self.fields['password'].widget.attrs['placeholder'] = 'Password'
+
 
 class UserCreateForm(UserCreationForm):
     def validate_unique_email(email):

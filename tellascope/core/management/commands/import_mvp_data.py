@@ -7,11 +7,15 @@ class Command(BaseCommand):
         with open(args[0], 'rU') as f:
             reader = csv.DictReader(f)
 
-            user, created = User.objects.get_or_create(username='ekoh', password='password')
+            user, created = User.objects.get_or_create(username='ekoh')
+            user.set_password('password')
+            user.save()
             profile, created = UserProfile.objects.get_or_create(user=user)
 
             for x in range(0, 50):
-                u, created = User.objects.get_or_create(username='user' + str(x), password='password')
+                u, created = User.objects.get_or_create(username='user' + str(x))
+                u.set_password('password')
+                u.save()
                 p, created = UserProfile.objects.get_or_create(user=u)
                 if x < 30:
                     profile.follow_user(p)
