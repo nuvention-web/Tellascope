@@ -6,7 +6,7 @@ tellascope
 - `virtualenv` and `virtualenvwrapper`
 
 ## Getting started
-Please note – this guide assumes you are using OS X. If you aren't, you hopefully know the equivalent commands to make these things happen. If you don't, find someone to help you!
+Please note – this guide assumes you are using OS X. If you aren't, you hopefully know the equivalent commands to make these things happen. If you don't, find someone to help you! Yay learning!
 
 First, clone this project.
 
@@ -54,6 +54,12 @@ django-admin makemigrations
 django-admin migrate
 ```
 
+And import the test data:
+
+```bash
+python manage.py import_mvp_data tellascope/core/management/commands/mvp_data.csv
+ ```
+
 You will also need to install Grunt and other Node dependencies to compile the Sass (this assumes you already have `node` and `grunt-cli` installed).
 
 ```bash
@@ -67,10 +73,11 @@ sudo mkdir -p /var/www/tellascope/static/ && sudo chmod -R 777 /var/www/tellasco
 django-admin collectstatic
 ```
 
-Then, you should be able to run the server:
+Then, yoasu should be able to run the server:
 
 ```bash
 django-admin runserver
 ```
+
 
 

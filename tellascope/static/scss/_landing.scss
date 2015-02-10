@@ -1,188 +1,223 @@
-h2 {
-	font-weight: 200;
-}
-
-h3 {
-	font-weight: 600;
-}
+h1 { margin: 0; }
+h2 { font-weight: 200; }
+h3 { font-weight: 600; }
 
 .section {
 	width: 100%;
-	display: table;
-	height: 100%;
-	top: 0;
-	left: 0;
-	margin: 0;
-	width: 100% !important;
+	padding: 5em 0;
 	z-index: 125;
-
+	
+	h1, h2 { text-align: center; }
+	
 	h1 {
-		text-align: center;
 		text-transform: uppercase;
 		font-size: 3em;
-		padding: 15px 20px;
+		margin-bottom: 1em;
 		font-weight: 300;
-		max-width: 400px;
-		margin: 0 auto;
-		margin-top: 60px;
 	}
 }
 
-.cont {
-	display: table-cell;
-	vertical-align: middle;
-	text-align: center;
-	z-index: 120;
 
-	span {
-		color: white;
-	}
+
+.logo {
+	z-index: 120;
+	color : white;
+	padding-right: 3em;
 
 	#tellascope {
+		text-align: center;
 		font-size: 46px;
 		font-weight: 700;
 		letter-spacing: 7px;
-		padding: 20px 33px;
+		padding: 10px;
 		border: 7px solid;
-		cursor: default;
 		text-transform: uppercase;
+		width: 100%;
+		margin: 0;
 	}
 
 	#tagline {
+		text-align: left;
 		display: block;
-		padding-top: 50px;
 		font-size: 1.5em;
 		font-weight: 300;
 		letter-spacing: 1;
 	}
 }
 
-.values-container {
-	padding-top: 5%;
-}
+.create-account {
+	padding: 1em 2.5em;
+	background-color: #fff;
 
-form {
-	background-color: white;
-	padding: 50px;
-	margin-top: 5%;
-}
+	.instruct {
+		text-transform: uppercase;
+		position: relative;
+		width: 75%;
+		margin: 1.375em auto;
+		font-size: 0.8em;
+		text-align: center;
 
-.form {
-	margin: 0 auto;
-	max-width: 600px;
+		span {
+			background: #fff;
+  			padding: 0 15px;
+  			position: relative;
+  			z-index: 1;
+		}
 
-	input {
-		display: block;
-		margin-bottom: 20px;
-		margin-left: 150px;
-		&:focus {
-			border: solid 1px #018ace;
+		&:before {
+		  background: #ddd;
+		  content: "";
+		  display: block;
+		  height: 1px;
+		  position: absolute;
+		  top: 50%;
+		  width: 100%;
 		}
 	}
 
-	input[type="submit"] {
-		background-color: #018ace;
-		color: #fff;
-		text-transform: uppercase;
+	.social {
+		a {
+			text-decoration: none;
+
+			div {
+				border: 2px solid;
+				padding: 5px;
+				width: 100%;
+				text-align: center;
+				font-size: 1em;
+
+				&.twitter { border-color: #55acee; color: #55acee;}
+				&.facebook { border-color: #3b5998; color: #3b5998;}
+
+			}
+
+			&:hover div { 
+				color: #fff; 
+				&.twitter { background-color: #55acee; }
+				&.facebook { background-color: #3b5998; }
+			}
+		}
 	}
 
-	label {
-		margin-left: 150px;
-	}
+	form {
+		width: 100%;
+		margin: 0 auto;
 
-	span { display: block; margin: 0 0 3px; font-size: 1.2em; font-weight: bold; }
-	input { width: 200px; border: 1px solid #ccc; padding: 5px; }
+		.field-wrapper {
+			margin: 1em auto;
+		}
 
-	ul.errorlist {
-		display: none;
+		.errorList {
+			list-style: none;
+			-webkit-margin-before: 0;
+			-webkit-margin-after: 0;
+			-webkit-padding-start: 0;
+			padding: 2px;
+			padding-left: 5px;
+			font-size: .875em;
+			color: red;
+		}
+
+		input {
+			padding: 5px;
+
+			&[type=text],
+			&[type=email],
+			&[type=password] {
+				width: 100%;
+				border: 2px solid;
+				border-color: #ddd;
+
+				&:focus {
+					outline: none;
+					border-color: #000;
+				}
+
+				&:-webkit-input-placeholder,
+				&:-moz-placeholder,
+				&:-ms-input-placeholder { 
+					font-size: 1em;
+				}
+			}
+
+			&[type=submit] {
+				float: right;
+				position: relative;
+				border: 2px solid;
+				background-color: #fff;
+				color: #FFA07A;
+				border-color: #FFA07A;
+				margin-bottom: 1.375em;
+
+				&:hover {
+					color: #fff;
+					background-color: #FFA07A;
+				}
+			}
+		}
+
+		.field-error input {
+			border-color: transparentize(red,.3);
+			background-color: transparentize(red,.8);
+			
+			&::-webkit-input-placeholder {
+			    color: red;
+			}
+			&:-moz-placeholder {
+			    color: red;
+			}
+			&::-moz-placeholder {
+			    color: red;
+			}
+			&:-ms-input-placeholder {
+			    color: red;
+			}
+
+		}
+		
+		label { display: none; }
+		.helptext { display: none; }
 	}
 }
 
+
 #header {
-	background: url("../img/header.jpg") no-repeat center center fixed;
+	background: 
+		linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+		url("../img/header.jpg") no-repeat center center fixed;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
 	background-size: cover;
-	
 }
 
 #about {
 	background-color: #fff;
-}
 
-.text-center {
-	text-align: center;
-}
-
-.text-left {
-	text-align: left;
-}
-
-.fa {
-	font-size: 5em;
-}
-
-div#about {
-	@include outer-container;
-	div#value1 {
+	.value {
 		@include span-columns(4);
 
-		div#value1img {
-			@include span-columns(4 of 4);
-			@include omega;
+		i {
+			font-size: 5em;
+			text-align: center;
+			width: 100%;
 		}
-		div#value1text {
-			@include span-columns(4 of 4);
-		}
-	}
-	div#value2 {
-		@include span-columns(4);
 
-		div#value2img {
-			@include span-columns(4 of 4);
-			@include omega;
-		}
-		div#value2text {
-			@include span-columns(4 of 4);
-		}
-	}
-	div#value3 {
-		@include span-columns(4);
-
-		div#value3img {
-			@include span-columns(4 of 4);
-			@include omega;
-		}
-		div#value3text {
-			@include span-columns(4 of 4);
-		}
+		h2 { text-align: center; }
 	}
 }
+
 
 #learn {
 	background-color: #eaeced;
 }
 
-div#team {
-	@include outer-container;
-	div#member1{ @include span-columns(4);}
-	div#member2{ @include span-columns(4);}
-	div#member3{ @include span-columns(4); @include omega; }
-	div#member4{ @include span-columns(4); }
-	div#member5{ @include span-columns(4); }
-	div#member6{ @include span-columns(4); @include omega; }
-}
+#team {
+	.team-member {
+		@include omega(3n);
+		@include span-columns(4 of 12);
 
-.memberImg {
-	height: 285px;
-	width: auto;
-}
 
-#about {
-	background-color: #fff;
-}
-
-h1 {
-	margin: 0;
+		img { @include fill-parent(); }
+	}
 }

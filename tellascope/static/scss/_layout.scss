@@ -7,11 +7,10 @@ body {
 }
 
 .content-wrapper {
-
+	@include outer-container
 }
 
-main.content-wrapper {
-  padding-top: 0;
+.half-width {
+	@include span-columns(6 of 12);
+	@include omega(2n);
 }
-
-.posts { }
