@@ -74,14 +74,16 @@ class DashboardView(LoginRequiredMixin, ListView):
             articles = models.Article.objects.filter(tags__name__in=tags_cleaned).distinct()
         else:
             articles = models.Article.objects.all()
-        ordered = articles.annotate(share_count=Count('shared_by')).order_by('-share_count')
-        friends_only = ordered.filter(shared_by__in=user.profile.get_following())
-        a = friends_only
+        friends_only = articles.filter(shared_by__in=user.profile.get_following())
         
-        if a.count() > 0:
-            return a
+        if friends_only.count() > 0:
+            a = friends_only
         else: 
-            return models.Article.objects.all()
+            a = models.Article.objects.all()
+
+        ordered = a.annotate(share_count=Count('shared_by')).order_by('-share_count')
+        return ordered
+
 
     def get_context_data(self, **kwargs):
         context = super(DashboardView, self).get_context_data(**kwargs)
@@ -117,11 +119,26 @@ class LogoutView(RedirectView):
 
 class LoginView(AnonymousRequiredMixin, TemplateView):
     template_name = 'login.html'
+    redirect_to = '/dashboard/'
+
+    def post(self, request, *args, **kwargs):
+        context = self.get_context_data()
+        form = context['login_form']
+        if form.is_valid():
+            user = authenticate(username=form.cleaned_data['username'],
+                                password=form.cleaned_data['password'])
+            login(request, user)
+            return HttpResponseRedirect("/dashboard/")
+        else:
+            print form.errors
+            form = forms.LoginForm()
+        return super(LoginView, self).render_to_response(context)
 
     def get_context_data(self, **kwargs):
         context = super(LoginView, self).get_context_data(**kwargs)
+        login_form = forms.LoginForm(data=self.request.POST or None)
+        context['login_form'] = login_form
         return context
-
 
 
 class Handle404View(TemplateView):
