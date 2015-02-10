@@ -59,6 +59,10 @@ a:hover {
     transition: background 0.5s ease, padding 0.8s linear;
 }
 
+#article-sharedby {
+	color: #666;
+}
+
 .og-grid li {
 	display: inline-block;
 	margin: 10px 5px 0 5px;

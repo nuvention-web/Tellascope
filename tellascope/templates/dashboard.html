@@ -21,7 +21,7 @@
 				<li>
 					<a href="{{ article.url }}" target="_blank" data-largesrc="../static/img/1.jpg" data-title="{{ article.title }}" data-description="{% for tag in article.tags.all %}
                                 <span class='article-tag'>{{ tag }}</span>
-                            {% endfor %}">
+                            {% endfor %}<p id='article-sharedby'>Shared by {{ article.share_count }} people you follow</p>">
 						<div class="article-element">
 							<h1>{{ article.title|truncatechars:50 }}</h1>
 							<p>{{ article.author }}</p>
@@ -40,6 +40,18 @@
 			});
 			$( document ).ready(function() {
 				$('#id_tags_tag').focus();
+			});
+			$(document).on('click', '.article-tag', function(event) {
+				event.preventDefault();
+				console.log('worked');
+				var tag = $(this).text();
+				if ($('#id_tags').val().length == 0) {
+					$('#id_tags').val( $('#id_tags').val() + tag );
+				} else {
+					$('#id_tags').val( $('#id_tags').val() + ',' + tag );
+				}
+				$('<span class="tag"><span>' + tag + '&nbsp;&nbsp;</span><a href="#" title="Removing tag">x</a></span>').appendTo('#id_tags_addTag');
+				$('form').submit();
 			});
 			$('#id_tags').tagsInput({
 				'width':'80%',
