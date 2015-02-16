@@ -73,7 +73,7 @@ sudo mkdir -p /var/www/tellascope/static/ && sudo chmod -R 777 /var/www/tellasco
 django-admin collectstatic
 ```
 
-Then, yoasu should be able to run the server:
+Then, you should be able to run the server:
 
 ```bash
 django-admin runserver

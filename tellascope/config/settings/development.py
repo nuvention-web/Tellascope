@@ -47,7 +47,7 @@ INSTALLED_APPS = (
     'tellascope.core',
 
     # local
-    'debug_toolbar',
+    # 'debug_toolbar',
 )
 
 MIDDLEWARE_CLASSES = (
