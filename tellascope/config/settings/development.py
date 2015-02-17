@@ -87,7 +87,7 @@ DATABASES = {
         'NAME': 'tellascope',
     }
 }
-DATABASES['default'] = dj_database_url.config(env='DATABASE_URL') or dj_database_url.parse('postgres://duner:postgres@localhost:5432/tellascope')
+# DATABASES['default'] = dj_database_url.config(env='DATABASE_URL') or dj_database_url.parse('postgres://duner:postgres@localhost:5432/tellascope')
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
