@@ -1,6 +1,6 @@
 import json
 
-from django.views.generic import TemplateView, RedirectView, FormView, ListView, View
+from django.views.generic import *
 from django.shortcuts import render_to_response, redirect, render, get_object_or_404
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
@@ -98,7 +98,21 @@ class ProfileView(LoginRequiredMixin, TemplateView):
         profile = get_object_or_404(models.UserProfile.objects
                 .select_related('user__username')
                 .filter(user__username=kwargs['username_slug']))
+        shares = models.UserArticleRelationship.objects.filter(sharer=profile)
         context['profile'] = profile
+        context['shares'] = shares
+        return context
+
+
+class TopicView(LoginRequiredMixin, TemplateView):
+    template_name = "topic.html"
+
+    def get_context_data(self, **kwargs):
+        print kwargs['topic_slug']
+        context = super(TopicView, self).get_context_data(**kwargs)
+        topic = get_object_or_404(models.Tag.objects
+                .filter(slug=kwargs['topic_slug']))
+        context['topic'] = topic
         return context
 
 
