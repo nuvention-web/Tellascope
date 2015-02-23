@@ -15,4 +15,7 @@ def create_user_profile(backend, details, response, uid, user, social, *args, **
         if profile.bio is None:
             profile.bio = profile.twitter_description
 
+    if backend.name == 'pocket':
+        print 'helloooo'
+
     profile.save()

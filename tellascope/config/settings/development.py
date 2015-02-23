@@ -120,6 +120,7 @@ STATICFILES_DIRS = (
 AUTHENTICATION_BACKENDS = (
     'social.backends.twitter.TwitterOAuth',
     'social.backends.facebook.FacebookOAuth2',
+    'social.backends.pocket.PocketAuth',
     'django.contrib.auth.backends.ModelBackend',
 )
 
