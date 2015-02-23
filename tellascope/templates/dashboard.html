@@ -41,26 +41,9 @@
 			$( document ).ready(function() {
 				$('#id_tags_tag').focus();
 			});
-			$(document).on('click', '.article-tag', function(event) {
-				event.preventDefault();
-				console.log('worked');
-				var tag = $(this).text();
-				if ($('#id_tags').val().length == 0) {
-					$('#id_tags').val( $('#id_tags').val() + tag );
-				} else {
-					$('#id_tags').val( $('#id_tags').val() + ',' + tag );
-				}
-				$('<span class="tag"><span>' + tag + '&nbsp;&nbsp;</span><a href="#" title="Removing tag">x</a></span>').appendTo('#id_tags_addTag');
-				$('form').submit();
-			});
 			$('#id_tags').tagsInput({
-				'width':'80%',
-				'height':'40px'
-			});
-			$('input').keypress(function(e) {
-				if (e.which == 13) {
-					$('form').submit();
-				}
+			  'width':'80%',
+			  'height':'40px'
 			});
 		</script>
 
