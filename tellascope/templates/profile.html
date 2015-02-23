@@ -8,9 +8,17 @@
 			{% if profile.bio %}<p>{{ profile.bio }}</p>{% endif %}
 
 			<form action="">
-				
 				<button>Follow</button>
 			</form>
+
+			<div>
+				<h4>Following</h4>
+				<ul>
+					{% for p in following %}
+					<li>{{ p }}</li>
+					{% endfor %}
+				</ul>
+			</div>
 
 		</div>
 	</div>
@@ -22,11 +30,11 @@
 					<h1>{{ share.article.title }}</h1>
 					<p class="author">{{ share.article.author }}</p>
 					<p class="source">{{ share.article.source }}</p>
-
+					{% if share.comment %}<p class="comment">{{ share.comment }}</p>{% endif %}
 					<div class="share-info">
 						<p class="share-date">Shared on {{ share.shared_datetime|date:"M d, Y" }}</p>
-						{% if share.article.share_count|add:"-1" > 0 %}
-							<p class="share-count">Shared by {{ share.article.share_count|add:"-1" }} people</p>
+						{% if share.share_count >= 2 %}
+							<p class="share-count">Shared by {{ share.share_count|add:"-1" }} other people</p>
 						{% endif %}
 					</div>
 
