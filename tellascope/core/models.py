@@ -3,60 +3,72 @@ from django.contrib.auth.models import User
 from taggit.managers import TaggableManager
 from taggit.models import TagBase, GenericTaggedItemBase
 
+from tellascope.core import helpers
+from tellascope.config.config import SOCIAL_AUTH_POCKET_CONSUMER_KEY
+
+import pocket
+
 class UserProfile(models.Model):
-    user = models.OneToOneField(User, related_name='profile')
-    bio = models.CharField(max_length=250, blank=True, null=True)
-    profile_picture = models.CharField(max_length=250, blank=True, null=True)
+	user = models.OneToOneField(User, related_name='profile')
+	bio = models.CharField(max_length=250, blank=True, null=True)
+	profile_picture = models.CharField(max_length=250, blank=True, null=True)
 
-    shared_articles = models.ManyToManyField('Article', through='UserArticleRelationship',
-                                           symmetrical=False,
-                                           related_name='shared_by')
+	shared_articles = models.ManyToManyField('Article', through='UserArticleRelationship',
+										   symmetrical=False,
+										   related_name='shared_by')
 
-    favorited_articles = models.ManyToManyField('Article', related_name='favorited_by')
+	following = models.ManyToManyField('self', through='FollowRelationship',
+										   symmetrical=False,
+										   related_name='followed_by')
 
-    following = models.ManyToManyField('self', through='FollowRelationship',
-                                           symmetrical=False,
-                                           related_name='followed_by')
+	topics_followed = models.ManyToManyField('Tag')
 
-    topics_followed = models.ManyToManyField('Tag')
+	twitter_username = models.CharField(max_length=50, blank=True, null=True)
+	twitter_description = models.CharField(max_length=250, blank=True, null=True)
+	twitter_profile_picture = models.CharField(max_length=250, blank=True, null=True)
 
-    twitter_username = models.CharField(max_length=50, blank=True, null=True)
-    twitter_description = models.CharField(max_length=250, blank=True, null=True)
-    twitter_profile_picture = models.CharField(max_length=250, blank=True, null=True)
+	# Auth Information
+	twitter_oauth_token = models.CharField(max_length=250, blank=True, null=True)
+	twitter_oauth_token_secret = models.CharField(max_length=250, blank=True, null=True)
+	pocket_access_token = models.CharField(max_length=250, blank=True, null=True)
 
-    def __unicode__(self):
-        return self.user.username
+	def __unicode__(self):
+		return self.user.username
 
-    def share_article(self, article, comment=''):
-    	share, created = UserArticleRelationship.objects.get_or_create(
-        	sharer=self,
-        	article=article,
-        	comment=comment)
-    	return share
+	def __save__(self):
+		super(UserProfile, self).save(*args, **kwargs)
+		self.pocket = pocket.Pocket(SOCIAL_AUTH_POCKET_CONSUMER_KEY, self.pocket_access_token)
 
-    def unshare_article(self, article):
-    	UserArticleRelationship.objects.filter(
-        	sharer=self,
-        	article=article).delete()
-    	return
+	def share_article(self, article, comment=''):
+		share, created = UserArticleRelationship.objects.get_or_create(
+			sharer=self,
+			article=article,
+			comment=comment)
+		return share
 
-    def follow_user(self, profile):
-    	relationship, created = FollowRelationship.objects.get_or_create(
-    		follower=self,
-    		followee=profile)
-    	return relationship
+	def unshare_article(self, article):
+		UserArticleRelationship.objects.filter(
+			sharer=self,
+			article=article).delete()
+		return
 
-    def unfollow_user(self, profile):
-    	FollowRelationship.objects.filter(
-    		follower=self,
-    		folowee=profile).delete()
-    	return
+	def follow_user(self, profile):
+		relationship, created = FollowRelationship.objects.get_or_create(
+			follower=self,
+			followee=profile)
+		return relationship
 
-    def get_following(self):
-    	return self.following.filter(followees__follower=self)
-    
-    def get_followers(self):
-    	return self.followed_by.filter(followers__follower=self)
+	def unfollow_user(self, profile):
+		FollowRelationship.objects.filter(
+			follower=self,
+			folowee=profile).delete()
+		return
+
+	def get_following(self):
+		return self.following.filter(followees__follower=self)
+	
+	def get_followers(self):
+		return self.followed_by.filter(followers__follower=self)
 
 	def get_mutual_followers(self):
 		return self.following.filter(
@@ -86,14 +98,20 @@ class Author(models.Model):
 class Article(models.Model):
 	url = models.URLField(blank=False, null=True)
 	title = models.CharField(max_length=500, blank=False, null=True)
+	excerpt = models.TextField(blank=True, null=True)
 	source = models.ForeignKey('Source', blank=True, null=True, 
 									related_name='articles_from_source')
 	author = models.ForeignKey('Author', blank=True, null=True, 
 									related_name='articles_by_author')
 	tags = TaggableManager(through=TaggedArticle, blank=True)
+	word_count = models.IntegerField(blank=False, null=True)
 
 	def __unicode__(self):
 		return self.title
+
+	@property
+	def clean_url(self):
+		return helpers.clean_url(self.url);
 
 
 class UserArticleRelationship(models.Model):
@@ -105,6 +123,6 @@ class UserArticleRelationship(models.Model):
 class FollowRelationship(models.Model):
 	follower = models.ForeignKey('UserProfile', related_name='followers')
 	followee = models.ForeignKey('UserProfile', related_name='followees')
-	created_at = models.DateTimeField(auto_now_add=True)
+	created_at = models.DateTimeField(blank=True)
 
 

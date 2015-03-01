@@ -11,9 +11,9 @@
 		<div class="create-account half-width">
 			<p class="instruct"><span>Create an Account With</span></p>
 			<div class="social row">
-				<a class="half-width" href="{% url 'social:begin' 'twitter' %}?next={{ request.path }}"><div class="twitter">Twitter</div></a>
-				<a class="half-width" href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}"><div class="facebook">Facebook</div></a>
-				<a class="half-width" href="{% url 'social:begin' 'pocket' %}?next={{ request.path }}"><div class="pocket">Pocket</div></a>
+				<!-- <a class="half-width" href="{% url 'social:begin' 'twitter' %}?next={{ request.path }}"><div class="twitter">Twitter</div></a> -->
+				<!-- <a class="half-width" href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}"><div class="facebook">Facebook</div></a> -->
+				<a class="twitter" href="{% url 'social:begin' 'pocket' %}?next={{ request.path }}"><div class="pocket">Pocket</div></a>
 			</div>
 			<p class="instruct"><span>Or</span></p>
 			<form method="post" action="">
@@ -79,11 +79,6 @@
 				<h3>Brian Lichliter</h3>
 				<img class = "memberImg" src = "../static/img/teamPictures/Brian.jpg">
 				<p class = "text-left">Currently pursuing a B.S. in Computer Engineering and the M.S. in Engineering Design and Innovation at Northwestern University. Worked as an automation engineer over the summer for Visa. His interests lie in the human-centered design of technology.<p>
-			</div>
-			<div class="team-member">
-				<h3>Karen Wang</h3>
-				<img class = "memberImg" src = "../static/img/teamPictures/Karen.jpg">
-				<p class = "text-left">Currently a graduate student in Integrated Marketing Communications at the Medill School of Journalism. Prior to Medill, she worked for six years in multiple industries including manufacturing, internet, education and social innovation. Passionate about serving people and making the world better.<p>
 			</div>
 			<div class="team-member">
 				<h3>Eric Swank</h3>

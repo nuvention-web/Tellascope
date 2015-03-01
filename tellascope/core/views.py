@@ -11,7 +11,11 @@ from django.contrib.auth.forms import PasswordChangeForm
 
 from django.http import HttpResponse, HttpResponseRedirect
 
+from pocket import Pocket
+
 from tellascope.core import forms, models
+from tellascope.config.config import SOCIAL_AUTH_POCKET_CONSUMER_KEY
+
 
 class JSONResponse(HttpResponse):
     def __init__(self, data, request, *args, **kwargs):
@@ -56,37 +60,22 @@ class LandingView(AnonymousRequiredMixin, TemplateView):
         return context
 
 
-class DashboardView(LoginRequiredMixin, ListView):
+class DashboardView(LoginRequiredMixin, TemplateView):
     model = models.Article
     template_name = 'dashboard.html'
-    object_list = []
-    context_object_name = 'articles'
-
-    def get_queryset(self):
-        form = self.get_context_data()['form']
-        user = self.get_context_data()['user']
-        if form.is_valid():
-            tags = form.cleaned_data['tags'].split(',')
-            tags_cleaned = []
-            for tag in tags:
-                tag = tag.strip()
-                tags_cleaned.append(tag)
-
-            articles = models.Article.objects.all()
-            for tag in tags_cleaned:
-                articles = articles.filter(tags__name__in=[tag]).distinct()
-        else:
-            articles = models.Article.objects.all()
-        friends_only = articles.filter(shared_by__in=user.profile.get_following())
-        ordered = friends_only.annotate(share_count=Count('shared_by')).order_by('-share_count')
-        return ordered
-
 
     def get_context_data(self, **kwargs):
         context = super(DashboardView, self).get_context_data(**kwargs)
         form = forms.SearchForm(self.request.GET or None)
         context['form'] = form
         context['user'] = self.request.user
+        self.pocket = Pocket(SOCIAL_AUTH_POCKET_CONSUMER_KEY, self.request.user.profile.pocket_access_token)
+        articles, header = self.pocket.get()
+        article_list = []
+        for key, value in articles.get('list').iteritems():
+            article_list.append(value)
+        context['articles'] = article_list
+        # import ipdb; ipdb.set_trace();
         return context
 
 
@@ -121,7 +110,6 @@ class TopicView(LoginRequiredMixin, TemplateView):
 class SettingsView(FormView):
     template_name = "settings.html"
     form_class = forms.UserProfileSettingsForm
-
 
 class LogoutView(RedirectView):
     url = '/'

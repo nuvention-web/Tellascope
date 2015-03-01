@@ -47,7 +47,7 @@ INSTALLED_APPS = (
     'tellascope.core',
 
     # local
-    # 'debug_toolbar',
+    'debug_toolbar',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -118,8 +118,8 @@ STATICFILES_DIRS = (
 
 # Social Authentication
 AUTHENTICATION_BACKENDS = (
-    'social.backends.twitter.TwitterOAuth',
-    'social.backends.facebook.FacebookOAuth2',
+    # 'social.backends.twitter.TwitterOAuth',
+    # 'social.backends.facebook.FacebookOAuth2',
     'social.backends.pocket.PocketAuth',
     'django.contrib.auth.backends.ModelBackend',
 )

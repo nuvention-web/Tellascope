@@ -13,3 +13,4 @@ SOCIAL_AUTH_LOGIN_URL = '/'
 
 LOGIN_URL = '/'
 LOGIN_REDIRECT_URL = '/dashboard/'
+

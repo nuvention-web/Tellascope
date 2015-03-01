@@ -23,7 +23,7 @@
                                 <span class='article-tag'>{{ tag }}</span>
                             {% endfor %}<p id='article-sharedby'>Shared by {{ article.share_count }} people you follow</p>">
 						<div class="article-element">
-							<h1>{{ article.title|truncatechars:50 }}</h1>
+							<h1>{{ article.given_title|truncatechars:50 }}</h1>
 							<p>{{ article.author }}</p>
 							<p id="article-source">via {{ article.source }}</p>
 						</div>
