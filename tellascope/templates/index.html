@@ -9,14 +9,15 @@
 			<h2 id="tagline">Magnifying context of the news that matters to you</h2>
 		</div>
 		<div class="create-account half-width">
-			<p class="instruct"><span>Create an Account With</span></p>
+			<p class="instruct"><span>Sign up or sign in with Pocket</span></p>
 			<div class="social row">
 				<!-- <a class="half-width" href="{% url 'social:begin' 'twitter' %}?next={{ request.path }}"><div class="twitter">Twitter</div></a> -->
 				<!-- <a class="half-width" href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}"><div class="facebook">Facebook</div></a> -->
-				<a class="twitter" href="{% url 'social:begin' 'pocket' %}?next={{ request.path }}"><div class="pocket">Pocket</div></a>
+				<a class="pocket" href="{% url 'social:begin' 'pocket' %}?next={{ request.path }}"><div class="pocket">Get Started</div></a>
 			</div>
-			<p class="instruct"><span>Or</span></p>
-			<form method="post" action="">
+			<p class="info">Don't have a Pocket account? <a href="https://getpocket.com/signup" target="_blank">Create one now</a>.</p>
+
+			<!--<form method="post" action="">
 				{% csrf_token %}
 
 				{% if form.non_field_errors %}
@@ -34,7 +35,7 @@
 				{% endfor %}
 
 		    	<input class="half-width" type="submit" value="Submit">
-			</form>
+			</form>-->
 		</div>
 	</div>
 </div>

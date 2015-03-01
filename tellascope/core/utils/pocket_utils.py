@@ -2,6 +2,8 @@ import urlparse
 from pocket import Pocket
 
 from datetime import datetime
+from django.utils import timezone
+
 from tellascope.config.config import SOCIAL_AUTH_POCKET_CONSUMER_KEY
 
 def clean_url(url):
@@ -10,29 +12,42 @@ def clean_url(url):
 	return url
 
 def get_list_from_pocket(pocket):
-    articles, header = pocket.get(state='all')
+    articles, header = pocket.get(state='all', detailType='complete', contentType='article')
     article_list = []
     for key, value in articles.get('list').iteritems():
         article_list.append(value)
     return article_list
 
-def save_pocket_item_to_database(user, item):
-	from tellascope.core.models import UserArticleRelationship, Article
+def save_pocket_item_to_database(user, item, pocket=None):
+	from tellascope.core.models import Article, UserArticleRelationship, Author
 
-	article, created = Article.objects.update_or_create(
-		pocket_resolved_id = item['resolved_id'],
-		word_count = item['word_count'],
-		url = item['resolved_url'],
-		title = item['resolved_title'],
-		excerpt = item['excerpt'])
+	article, created = Article.objects.get_or_create(
+		pocket_resolved_id = item['resolved_id'], defaults = {
+			'word_count': item['word_count'],
+			'url': item['resolved_url'],
+			'title': item['resolved_title'],
+			'excerpt': item['excerpt']})
+
+	if 'authors' in item.keys():
+		for key, value in item['authors'].iteritems():
+			author, created = Author.objects.get_or_create(
+				pocket_author_id = value['author_id'], defaults={
+					'url': value['url'],
+					'name': value['name']
+				})
+	    	article.authors.add(author)
 
 	uar, created = UserArticleRelationship.objects.get_or_create(
 		pocket_item_id=item['item_id'],
 		sharer=user.profile,
 		article=article)
 	uar.status = item['status']
-	uar.pocket_date_added = datetime.utcfromtimestamp(float(item['time_added']))
-	uar.pocket_date_updated = datetime.utcfromtimestamp(float(item['time_updated']))
+	uar.pocket_date_added = timezone.make_aware(
+								datetime.utcfromtimestamp(float(item['time_added'])),
+								timezone.get_current_timezone())
+	uar.pocket_date_updated = timezone.make_aware(
+								datetime.utcfromtimestamp(float(item['time_updated'])),
+								timezone.get_current_timezone())
 
 	if item['favorite'] == '1': 
 		uar.favorited = True 
@@ -47,4 +62,4 @@ def update_user_pocket(user):
 	pocket = Pocket(SOCIAL_AUTH_POCKET_CONSUMER_KEY, user.profile.pocket_access_token)
 	articles = get_list_from_pocket(pocket)
 	for article in articles:
-		save_pocket_item_to_database(user, article)
+		save_pocket_item_to_database(user, article, pocket)

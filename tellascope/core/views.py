@@ -18,7 +18,6 @@ from tellascope.core import forms, models, utils
 from tellascope.core.utils import *
 from tellascope.config.config import SOCIAL_AUTH_POCKET_CONSUMER_KEY
 
-
 class JSONResponse(HttpResponse):
     def __init__(self, data, request, *args, **kwargs):
         super(JSONResponse, self).__init__(json.dumps(data), *args, **kwargs)
@@ -73,8 +72,8 @@ class DashboardView(LoginRequiredMixin, TemplateView):
         form = forms.SearchForm(self.request.GET or None)
         context['form'] = form
         context['user'] = self.request.user
-        context['articles'] = models.UserArticleRelationship.objects.filter(
-                                sharer=self.request.user.profile)
+        context['uars'] = models.UserArticleRelationship.objects.filter(
+                                sharer=self.request.user.profile).order_by("-pocket_date_added")
         return context
 
 
