@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from taggit.managers import TaggableManager
 from taggit.models import TagBase, GenericTaggedItemBase
 
-from tellascope.core import helpers
+from tellascope.core import utils
 from tellascope.config.config import SOCIAL_AUTH_POCKET_CONSUMER_KEY
 
 import pocket
@@ -105,6 +105,7 @@ class Article(models.Model):
 									related_name='articles_by_author')
 	tags = TaggableManager(through=TaggedArticle, blank=True)
 	word_count = models.IntegerField(blank=False, null=True)
+	pocket_resolved_id = models.CharField(max_length=100, null=True, unique=True)
 
 	def __unicode__(self):
 		return self.title
@@ -115,10 +116,29 @@ class Article(models.Model):
 
 
 class UserArticleRelationship(models.Model):
+
+	UNREAD = '0'
+	ARCHIVE = '1'
+	STATUS_OPTIONS = (
+	    (UNREAD, 'Unread'),
+	    (ARCHIVE, 'Archived'),
+	)
+
 	sharer = models.ForeignKey('UserProfile', related_name='shared_by')
 	article = models.ForeignKey('Article', related_name='shared_article')
 	comment = models.CharField(max_length=250, blank=True, null=True)
 	shared_datetime = models.DateTimeField(auto_now_add=True)
+
+	#From Pocket API
+	pocket_item_id = models.CharField(max_length=100, unique=True)
+	pocket_status = models.CharField(max_length=1,
+                                      choices=STATUS_OPTIONS,
+                                      default=UNREAD)
+	pocket_favorited = models.BooleanField(default=False)
+	pocket_date_added = models.DateTimeField(blank=True, null=True)
+	pocket_date_updated = models.DateTimeField(blank=True, null=True)
+	pocket_date_read = models.DateTimeField(blank=True, null=True)
+
 
 class FollowRelationship(models.Model):
 	follower = models.ForeignKey('UserProfile', related_name='followers')

@@ -13,7 +13,9 @@ from django.http import HttpResponse, HttpResponseRedirect
 
 from pocket import Pocket
 
-from tellascope.core import forms, models
+from tellascope.core import forms, models, utils
+
+from tellascope.core.utils import *
 from tellascope.config.config import SOCIAL_AUTH_POCKET_CONSUMER_KEY
 
 
@@ -65,17 +67,14 @@ class DashboardView(LoginRequiredMixin, TemplateView):
     template_name = 'dashboard.html'
 
     def get_context_data(self, **kwargs):
+        utils.update_user_pocket(self.request.user)
+
         context = super(DashboardView, self).get_context_data(**kwargs)
         form = forms.SearchForm(self.request.GET or None)
         context['form'] = form
         context['user'] = self.request.user
-        self.pocket = Pocket(SOCIAL_AUTH_POCKET_CONSUMER_KEY, self.request.user.profile.pocket_access_token)
-        articles, header = self.pocket.get()
-        article_list = []
-        for key, value in articles.get('list').iteritems():
-            article_list.append(value)
-        context['articles'] = article_list
-        # import ipdb; ipdb.set_trace();
+        context['articles'] = models.UserArticleRelationship.objects.filter(
+                                sharer=self.request.user.profile)
         return context
 
 
