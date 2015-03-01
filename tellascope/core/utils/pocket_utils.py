@@ -24,7 +24,7 @@ def save_pocket_item_to_database(user, item, pocket=None):
 	article, created = Article.objects.get_or_create(
 		pocket_resolved_id = item['resolved_id'], defaults = {
 			'word_count': item['word_count'],
-			'url': item['resolved_url'],
+			'url': clean_url(item['resolved_url']),
 			'title': item['resolved_title'],
 			'excerpt': item['excerpt']})
 
@@ -32,7 +32,7 @@ def save_pocket_item_to_database(user, item, pocket=None):
 		for key, value in item['authors'].iteritems():
 			author, created = Author.objects.get_or_create(
 				pocket_author_id = value['author_id'], defaults={
-					'url': value['url'],
+					'url': clean_url(value['url']),
 					'name': value['name']
 				})
 	    	article.authors.add(author)

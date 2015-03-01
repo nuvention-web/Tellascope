@@ -100,7 +100,7 @@ class Author(models.Model):
         return self.name
 
 class Article(models.Model):
-    url = models.URLField(blank=False, null=True)
+    url = models.URLField(max_length=1000, blank=False, null=True)
     title = models.CharField(max_length=500, blank=False, null=True)
     excerpt = models.TextField(blank=True, null=True)
     source = models.ForeignKey('Source', blank=True, null=True, 
