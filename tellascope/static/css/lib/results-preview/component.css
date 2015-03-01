@@ -1,6 +1,6 @@
 .og-grid {
 	list-style: none;
-	padding: 20px 0;
+	padding: 20px 50px;
 	margin: 0 auto;
 	text-align: center;
 	width: 100%;
@@ -11,8 +11,10 @@ a:hover {
 }
 
 .article-element {
-	width: 250px;
-	height: 250px;
+/*	width: 250px;
+	height: 250px;*/
+	width: 100%;
+	height: 275px;
 	background-color: #ddd;
 	padding: 20px;
 }
@@ -24,7 +26,7 @@ a:hover {
   	text-align: left;
 	font-weight: 300;
 	text-transform: uppercase;
-	font-size: 1.3em;
+	font-size: 1.5em;
 	border-bottom: 1px solid #018ace;
 }
 
@@ -92,7 +94,8 @@ a:hover {
 	display: inline-block;
 	margin: 10px 5px 0 5px;
 	vertical-align: top;
-	height: 250px;
+	width: 30%;
+	/*height: 250px;*/
 }
 
 .og-grid li > a,
@@ -198,7 +201,7 @@ a:hover {
 
 .og-details h3 {
 	font-weight: 300;
-	font-size: 36px;
+	font-size: 35px;
 	margin: 10px 0px 10px 0px;
 }
 
