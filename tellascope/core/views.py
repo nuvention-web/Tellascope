@@ -66,14 +66,14 @@ class DashboardView(LoginRequiredMixin, TemplateView):
     template_name = 'dashboard.html'
 
     def get_context_data(self, **kwargs):
-        utils.update_user_pocket(self.request.user)
+        # utils.update_user_pocket(self.request.user)
 
         context = super(DashboardView, self).get_context_data(**kwargs)
         form = forms.SearchForm(self.request.GET or None)
         context['form'] = form
         context['user'] = self.request.user
         context['uars'] = models.UserArticleRelationship.objects.filter(
-                                sharer=self.request.user.profile).order_by("-pocket_date_added")
+                                sharer=self.request.user.profile).order_by("-pocket_date_added")[:100]
         return context
 
 
