@@ -14,6 +14,17 @@
 		{% endfor %}
 	</div>
 
+	<select class = "chosen-select" multiple>
+		<optgroup label="read">
+			<option value = "unread">Unread</option>
+		</optgroup>
+		<optgroup label="time">
+			<option value = "0-15">0-15 minutes</option>
+			<option value = "16-30">16-30 minutes</option>
+			<option value = "30-60 minutes">30-60 minutes</option>
+			<option value = "60+">60+ minutes</option>
+		</optgroup>
+	</select>
 
 	<div class="main">
 			<ul id="og-grid" class="og-grid">
@@ -49,6 +60,7 @@
 			  'width':'80%',
 			  'height':'40px'
 			});
+			$(".chosen-select").chosen();
 		</script>
 
 {% endblock %}
