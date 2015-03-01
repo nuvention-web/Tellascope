@@ -73,7 +73,7 @@ class DashboardView(LoginRequiredMixin, TemplateView):
         context['form'] = form
         context['user'] = self.request.user
         context['uars'] = models.UserArticleRelationship.objects.filter(
-                                sharer=self.request.user.profile).order_by("-pocket_date_added")
+                                sharer=self.request.user.profile).order_by("-pocket_date_added")[:100]
         return context
 
 
