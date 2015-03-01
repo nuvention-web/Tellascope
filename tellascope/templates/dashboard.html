@@ -33,13 +33,14 @@
 				<li>
 					<a href="{{ article.url }}" target="_blank" data-largesrc="../static/img/1.jpg" data-title="{{ article.title }}" data-description="{% for tag in article.tags.all %}
                                 <span class='article-tag'>{{ tag }}</span>
-                            {% endfor %}<p id='article-sharedby'>Shared by {{ article.share_count }} people you follow</p><p id='article-sharedby'>{{ article.excerpt }}</p>">
+                            {% endfor %}{% for author in article.authors.all %}<p id='article-sharedby'>{{ author }}</p>{% endfor %}<p id='article-excerpt'>{{ article.excerpt }}</p>" data-comments="<p id='article-sharedby'>Shared by {{ article.share_count }} people you follow</p><div class='user-comment'><p class='article-comment'><i class='fa fa-user fa-4x'></i><span>Thought-provoking read!</span></p><p class='article-comment'><i class='fa fa-user fa-4x'></i><span>Killer passages!</span></p><p class='article-comment'><i class='fa fa-user fa-4x'></i><span>Insightful, incisive writing</span></p></div>">
 						<div class="article-element">
 							<h1>{{ article.title|truncatechars:50 }}</h1>
-							<p>A {{ article.read_time|time:"i" }} minute read</p>
-							<p>{{ article.author }}</p>
-<!-- 							<p>{{ article.excerpt }}</p> -->
-							<p id="article-source">via {{ article.source }}</p>
+							{% for author in article.authors.all %}
+							<p>{{ author }}</p>
+							{% endfor %}
+							<i class="fa fa-share"></i>
+							<p id="article-source">{{ article.read_time }} minute read</p>
 						</div>
 					</a>
 				</li>
