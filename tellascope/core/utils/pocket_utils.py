@@ -21,6 +21,10 @@ def get_list_from_pocket(pocket):
 def save_pocket_item_to_database(user, item, pocket=None):
 	from tellascope.core.models import Article, UserArticleRelationship, Author
 
+	if 'mailto' in item['resolved_url']:
+		return
+
+
 	article, created = Article.objects.get_or_create(
 		pocket_resolved_id = item['resolved_id'], defaults = {
 			'word_count': item['word_count'],
@@ -30,6 +34,10 @@ def save_pocket_item_to_database(user, item, pocket=None):
 
 	if 'authors' in item.keys():
 		for key, value in item['authors'].iteritems():
+
+			if 'mailto' in value['url']:
+				return
+
 			author, created = Author.objects.get_or_create(
 				pocket_author_id = value['author_id'], defaults={
 					'url': value['url'],
