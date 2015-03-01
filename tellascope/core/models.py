@@ -119,9 +119,8 @@ class Article(models.Model):
 
     @property
     def read_time(self):
-        minutes = self.word_count / 200
-        return timedelta(minutes=minutes)
-
+        minutes = self.word_count / 175
+        return minutes
 
 class UserArticleRelationship(models.Model):
 

@@ -24,7 +24,6 @@ def save_pocket_item_to_database(user, item, pocket=None):
 	if 'mailto' in item['resolved_url']:
 		return
 
-
 	article, created = Article.objects.get_or_create(
 		pocket_resolved_id = item['resolved_id'], defaults = {
 			'word_count': item['word_count'],
