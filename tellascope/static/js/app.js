@@ -8,6 +8,7 @@ tellascope.post.init = function(opts) {
 };
 
 $(document).ready(function (){
+  $("#og-gridHidden").hide();
   // pocket form
   $('label').hide();
   $('.filter-form p:first').prepend('I feel like reading a ');
@@ -98,7 +99,6 @@ $(document).ready(function (){
   });
 
   $('#youTab').on('click', function() {
-    console.log("you");
     $("#youTab").css("color","white");
     $("#youTab").css("background-color","black");
     $("#tellascopeTab").css("color","black");
@@ -106,7 +106,6 @@ $(document).ready(function (){
   });
 
   $('#tellascopeTab').on('click', function() {
-    console.log("tellascope");
     $("#youTab").css("color","black");
     $("#youTab").css("background-color","white");
     $("#tellascopeTab").css("color","white");
