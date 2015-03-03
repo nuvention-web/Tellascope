@@ -66,6 +66,14 @@ $(document).ready(function (){
     event.preventDefault();
     $('form').submit();
   });
+
+  $('.fa-share').on('click', function(e){
+    e.preventDefault();
+    id = this.id;
+    var inst = $.remodal.lookup[$('[data-remodal-id='+id+']').data('remodal')];
+    inst.open();
+    e.stopPropagation();
+  });
 });
 
 $(document).on('click', '.article-tag', function(event) {

@@ -57,7 +57,7 @@
 							{% for author in article.authors.all %}
 							<p>{{ author }}</p>
 							{% endfor %}
-							<i onclick = "shareModal('{{ article.pocket_resolved_id }}')" class="fa fa-share"></i>
+							<i id = "{{ article.pocket_resolved_id }}" class="fa fa-share"></i>
 							<p id="article-source">{{ article.read_time }} minute read</p>
 						</div>
 					</a>
@@ -65,11 +65,12 @@
 				<div class="remodal" data-remodal-id="{{ article.pocket_resolved_id }}">
 					<div class = "remodal-body">
 					    <h1>{{ article.title }}</h1>
-					    <h2>by 
+					    <h2>
 					    {% for author in article.authors.all %}
 						{{ author }}
 						{% endfor %}
 						</h2>
+						<p>{{ article.excerpt }}
 					    <br>
 					   	<p>Comment</p>
 					   	<textarea rows = "3" class = "uarComment"></textarea>
@@ -98,10 +99,6 @@
 			$( document ).ready(function() {
 				$('#id_tags_tag').focus();
 			});
-			function shareModal(id) {
-				var inst = $.remodal.lookup[$('[data-remodal-id='+id+']').data('remodal')];
-				inst.open();
-			}
 		</script>
 
 {% endblock %}
