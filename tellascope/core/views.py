@@ -89,6 +89,7 @@ class DashboardView(LoginRequiredMixin, FilterView):
     #    utils.update_user_pocket(self.request.user)
     #    context = super(DashboardView, self).get_context_data(**kwargs)
     #    return context
+    
     # def get_queryset(self, **kwargs):
     #     qs = super(DashboardView, self).get_queryset(**kwargs)
     #     return qs[:75]

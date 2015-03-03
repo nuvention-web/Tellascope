@@ -3,7 +3,6 @@
 
 {% block content %}
 	<div id = "searchBar">
-		<h2 id = "searchText">Search</h2>
 		{% for field in form %}
 		<form>
 		    <div class="field-wrapper {% if field.errors%} field-error {% endif %}">
@@ -12,13 +11,13 @@
 		</form>
 		{% endfor %}
 	</div>
-	<div>
+	<div class="filter-form">
 		<form action="" method="get">
 	        {{ filter.form.as_p }}
 	        <input type="submit" />
 	    </form>
 	</div>
-	<div id = "fsBar">
+	<!-- <div id = "fsBar">
 		<div id = "filterBar">
 			<i class="fa fa-filter"></i>&nbsp;
 			<select data-placeholder="Filter by..." id = "filter-select" multiple>
@@ -42,7 +41,7 @@
 				</select>
 			</div>
 		</div>
-	</div>
+	</div> -->
 
 	<div class="main">
 			<ul id="og-grid" class="og-grid">
