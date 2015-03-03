@@ -46,7 +46,7 @@
 				<li>
 					<a href="{{ article.url }}" target="_blank" data-largesrc="../static/img/1.jpg" data-title="{{ article.title }}" data-description="{% for tag in article.tags.all %}
                                 <span class='article-tag'>{{ tag }}</span>
-                            {% endfor %}{% for author in article.authors.all %}<p id='article-sharedby'>{{ author }}</p>{% endfor %}<p id='article-excerpt'>{{ article.excerpt }}</p>" data-comments="<p id='article-sharedby'>Shared by {{ article.share_count }} people you follow</p><div class='user-comment'><p class='article-comment'><i class='fa fa-user fa-4x'></i><span>Thought-provoking read!</span></p><p class='article-comment'><i class='fa fa-user fa-4x'></i><span>Killer passages!</span></p><p class='article-comment'><i class='fa fa-user fa-4x'></i><span>Insightful, incisive writing</span></p></div>">
+                            {% endfor %}{% for author in article.authors.all %}<p id='article-sharedby'>{{ author }}</p>{% endfor %}<p id='article-excerpt'>{{ article.excerpt }}</p>" data-comments="<p id='article-sharedby'>Shared by {{ article.share_count }} people you follow</p><div class='user-comment'><p class='article-comment'><i class='flaticon-user65'></i><span>Thought-provoking read!</span></p><p class='article-comment'><i class='flaticon-user65'></i><span>Killer passages!</span></p><p class='article-comment'><i class='flaticon-user65'></i><span>Insightful, incisive writing</span></p></div>">
 						<div class="article-element">
 							<h1>{{ article.title|truncatechars:50 }}</h1>
 							{% for author in article.authors.all %}
