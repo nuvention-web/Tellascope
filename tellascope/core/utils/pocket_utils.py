@@ -49,7 +49,7 @@ def save_pocket_item_to_database(user, item, pocket=None):
 		pocket_item_id=item['item_id'],
 		sharer=user.profile,
 		article=article)
-	uar.status = item['status']
+	uar.pocket_status = item['status']
 	uar.pocket_date_added = timezone.make_aware(
 								datetime.utcfromtimestamp(float(item['time_added'])),
 								timezone.get_current_timezone())

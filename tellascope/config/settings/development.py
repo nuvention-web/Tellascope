@@ -43,6 +43,8 @@ INSTALLED_APPS = (
     'social.apps.django_app.default',
     'taggit',
     'django_filters',
+    'endless_pagination',
+
 
     # apps
     'tellascope.core',
@@ -61,6 +63,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
+from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
 TEMPLATE_CONTEXT_PROCESSORS = (
     "django.contrib.auth.context_processors.auth",
     "django.core.context_processors.debug",
@@ -68,11 +71,11 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.media",
     "django.core.context_processors.static",
     "django.core.context_processors.tz",
+    'django.core.context_processors.request',
     "django.contrib.messages.context_processors.messages",
     'social.apps.django_app.context_processors.backends',
     'social.apps.django_app.context_processors.login_redirect',
 )
-
 
 ROOT_URLCONF = 'tellascope.urls'
 

@@ -1,7 +1,10 @@
 import json
 import django_filters
-from django_filters.views import FilterView
+
 from django.views.generic import *
+from django_filters.views import FilterView
+from endless_pagination.views import AjaxMultipleObjectTemplateResponseMixin    
+
 from django.shortcuts import render_to_response, redirect, render, get_object_or_404
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
@@ -64,22 +67,35 @@ class LandingView(AnonymousRequiredMixin, TemplateView):
 
 class UARFilter(django_filters.FilterSet):
     # word_count = django_filters.NumberFilter(lookup_type='lt')
+    # article__word_count = django_filters.RangeFilter()
+    article__read_time = django_filters.RangeFilter()
+    pocket_status = django_filters.ChoiceFilter(choices=models.UserArticleRelationship.STATUS_OPTIONS)
     class Meta:
         model = models.UserArticleRelationship
-        fields = {'article__word_count': ['lt']}
+        fields = [
+            'article__read_time',
+            'pocket_status'
+            ]
+        # fields = ['article__word_count']
+        # fields = {'article__word_count': ['lt']}
 
 
-class DashboardView(LoginRequiredMixin, FilterView):
+class DashboardView(LoginRequiredMixin, AjaxMultipleObjectTemplateResponseMixin, FilterView):
     model = models.UserArticleRelationship
-    template_name = 'dashboard.html'
-    # context_object_name = 'uars'
+    template_name = 'uar_index.html'
+    page_template = 'uar_index_page.html'
     filterset_class = UARFilter
     context_filter_name = 'uar_filter'
-    paginate_by = 25
 
-    # def get_queryset(self, **kwargs):
-    #     qs = super(DashboardView, self).get_queryset(**kwargs)
-    #     return qs[:75]
+    def get_queryset(self, **kwargs):
+        qs = super(DashboardView, self).get_queryset(**kwargs)
+        qs.annotate(share_count=Count('article__shared_by'))
+        return qs
+
+    def get_context_data(self, **kwargs):
+        context = super(DashboardView, self).get_context_data(**kwargs)
+        context['page_template'] = self.page_template
+        return context
 
 
 class ProfileView(LoginRequiredMixin, TemplateView):
