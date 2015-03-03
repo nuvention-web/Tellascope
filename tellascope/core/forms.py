@@ -7,6 +7,8 @@ from django.core.exceptions import ValidationError
 from tellascope.core import models
 from taggit.forms import *
 
+from tellascope.config.config import *
+
 class LoginForm(AuthenticationForm):
 
     class Meta:

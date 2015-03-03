@@ -1,6 +1,10 @@
 import json
+import django_filters
 
 from django.views.generic import *
+from django_filters.views import FilterView
+from endless_pagination.views import AjaxMultipleObjectTemplateResponseMixin    
+
 from django.shortcuts import render_to_response, redirect, render, get_object_or_404
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
@@ -11,7 +15,12 @@ from django.contrib.auth.forms import PasswordChangeForm
 
 from django.http import HttpResponse, HttpResponseRedirect
 
-from tellascope.core import forms, models
+from pocket import Pocket
+
+from tellascope.core import forms, models, utils
+
+from tellascope.core.utils import *
+from tellascope.config.config import SOCIAL_AUTH_POCKET_CONSUMER_KEY
 
 class JSONResponse(HttpResponse):
     def __init__(self, data, request, *args, **kwargs):
@@ -56,37 +65,36 @@ class LandingView(AnonymousRequiredMixin, TemplateView):
         return context
 
 
-class DashboardView(LoginRequiredMixin, ListView):
-    model = models.Article
-    template_name = 'dashboard.html'
-    object_list = []
-    context_object_name = 'articles'
+class UARFilter(django_filters.FilterSet):
+    # word_count = django_filters.NumberFilter(lookup_type='lt')
+    # article__word_count = django_filters.RangeFilter()
+    article__read_time = django_filters.RangeFilter()
+    pocket_status = django_filters.ChoiceFilter(choices=models.UserArticleRelationship.STATUS_OPTIONS)
+    class Meta:
+        model = models.UserArticleRelationship
+        fields = [
+            'article__read_time',
+            'pocket_status'
+            ]
+        # fields = ['article__word_count']
+        # fields = {'article__word_count': ['lt']}
 
-    def get_queryset(self):
-        form = self.get_context_data()['form']
-        user = self.get_context_data()['user']
-        if form.is_valid():
-            tags = form.cleaned_data['tags'].split(',')
-            tags_cleaned = []
-            for tag in tags:
-                tag = tag.strip()
-                tags_cleaned.append(tag)
 
-            articles = models.Article.objects.all()
-            for tag in tags_cleaned:
-                articles = articles.filter(tags__name__in=[tag]).distinct()
-        else:
-            articles = models.Article.objects.all()
-        friends_only = articles.filter(shared_by__in=user.profile.get_following())
-        ordered = friends_only.annotate(share_count=Count('shared_by')).order_by('-share_count')
-        return ordered
+class DashboardView(LoginRequiredMixin, AjaxMultipleObjectTemplateResponseMixin, FilterView):
+    model = models.UserArticleRelationship
+    template_name = 'uar_index.html'
+    page_template = 'uar_index_page.html'
+    filterset_class = UARFilter
+    context_filter_name = 'uar_filter'
 
+    def get_queryset(self, **kwargs):
+        qs = super(DashboardView, self).get_queryset(**kwargs)
+        qs.annotate(share_count=Count('article__shared_by'))
+        return qs
 
     def get_context_data(self, **kwargs):
         context = super(DashboardView, self).get_context_data(**kwargs)
-        form = forms.SearchForm(self.request.GET or None)
-        context['form'] = form
-        context['user'] = self.request.user
+        context['page_template'] = self.page_template
         return context
 
 
@@ -121,7 +129,6 @@ class TopicView(LoginRequiredMixin, TemplateView):
 class SettingsView(FormView):
     template_name = "settings.html"
     form_class = forms.UserProfileSettingsForm
-
 
 class LogoutView(RedirectView):
     url = '/'

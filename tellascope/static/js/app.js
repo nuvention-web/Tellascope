@@ -1,4 +1,20 @@
+var tellascope = tellascope || {};
+tellascope.post = tellascope.post || {};
+var user_id;
+
+tellascope.post.init = function(opts) {
+  options = opts;
+  user_id = options.user_id;
+};
+
 $(document).ready(function (){
+  $("#og-gridHidden").hide();
+  // pocket form
+  $('label').hide();
+  $('.filter-form p:first').prepend('I feel like reading a ');
+  $('.filter-form p:first').append(' minute article ');
+  $('.filter-form p:nth-child(2)').prepend('that is ');
+
   function scrollTo(section) {
     var sticky_nav = $('.main-nav').outerHeight();
     $('html,body').animate({scrollTop: $(section).offset().top - sticky_nav}, 800);
@@ -65,6 +81,35 @@ $(document).ready(function (){
   $('.tag a').on('click', function(event) {
     event.preventDefault();
     $('form').submit();
+  });
+
+  $('.fa-share').on('click', function(e){
+    e.preventDefault();
+    id = this.id;
+    var inst = $.remodal.lookup[$('[data-remodal-id='+id+']').data('remodal')];
+    inst.open();
+    e.stopPropagation();
+  });
+
+  $('.remodal-confirm').on('click', function(e){
+    var comment = $(this).parent().prev().children("textarea").val();
+    var id = $(this).parent().parent().attr("data-remodal-id");
+    // $.post("api/uar/post/makepublic/?user_id="+user_id+"item_id="+id+"&comment="+encodeURIComponent(comment));
+    console.log("api/uar/post/makepublic/?user_id="+user_id+"item_id="+id+"&comment="+encodeURIComponent(comment));
+  });
+
+  $('#youTab').on('click', function() {
+    $("#youTab").css("color","white");
+    $("#youTab").css("background-color","black");
+    $("#tellascopeTab").css("color","black");
+    $("#tellascopeTab").css("background-color","white");
+  });
+
+  $('#tellascopeTab').on('click', function() {
+    $("#youTab").css("color","black");
+    $("#youTab").css("background-color","white");
+    $("#tellascopeTab").css("color","white");
+    $("#tellascopeTab").css("background-color","black");
   });
 });
 

@@ -1,6 +1,12 @@
+.flaticon-user65::before {
+	font-size: 70px !important;
+	font-style: normal;
+	margin-left: 0px !important;
+}
+
 .og-grid {
 	list-style: none;
-	padding: 20px 0;
+	padding: 20px 50px;
 	margin: 0 auto;
 	text-align: center;
 	width: 100%;
@@ -11,8 +17,10 @@ a:hover {
 }
 
 .article-element {
-	width: 250px;
-	height: 250px;
+/*	width: 250px;
+	height: 250px;*/
+	width: 100%;
+	height: 275px;
 	background-color: #ddd;
 	padding: 20px;
 }
@@ -63,11 +71,41 @@ a:hover {
 	color: #666;
 }
 
+#article-excerpt {
+	color: #333;
+}
+
+.fa-share {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	margin: 10px 20px;
+}
+
+.fa-share:hover {
+	color: #57ce57;
+}
+
+.article-comment {
+	font-size: 1.3em;
+}
+
+.article-comment span {
+	margin-left: 30px;
+	position: relative;
+	top: 50%;
+	-webkit-transform: translateY(-50%);
+	-ms-transform: translateY(-50%);
+	transform: translateY(-50%);
+	display: inline-block;
+}
+
 .og-grid li {
 	display: inline-block;
 	margin: 10px 5px 0 5px;
 	vertical-align: top;
-	height: 250px;
+	width: 30%;
+	/*height: 250px;*/
 }
 
 .og-grid li > a,
@@ -143,9 +181,10 @@ a:hover {
 }
 
 .og-fullimg,
-.og-details {
+.og-details,
+.og-comments {
 	width: 50%;
-/*	float: left;*/
+	float: left;
 	height: 100%;
 	overflow: hidden;
 	position: relative;
@@ -153,7 +192,11 @@ a:hover {
 }
 
 .og-details {
-/*	padding: 0 40px 0 85px;*/
+	padding: 0 40px 0 85px;
+}
+
+.og-comments {
+	padding: 0 85px 0 40px;
 }
 
 .og-fullimg {
@@ -168,8 +211,8 @@ a:hover {
 
 .og-details h3 {
 	font-weight: 300;
-	font-size: 40px;
-	margin-bottom: 10px;
+	font-size: 2em;
+	margin: 10px 0px 10px 0px;
 }
 
 .og-details p {
