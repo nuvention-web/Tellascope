@@ -3,6 +3,10 @@
 {% load endless %}
 
 {% block content %}
+	<div id = "tabs">
+		<div id = "youTab"><h2>You</h2></div>
+		<div id = "tellascopeTab"><h2>Tellascope</h2></div>
+	</div>
 	<div id = "searchBar">
 		{% for field in form %}
 		<form>
@@ -65,6 +69,12 @@
 		$( document ).ready(function() {
 			$('#id_tags_tag').focus();
 		});
+	</script>
+
+	<script>
+	  tellascope.post.init({
+	    user_id: '{{ user.pk }}',
+	  });
 	</script>
 
 	{# Endless Paginate #}

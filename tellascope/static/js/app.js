@@ -1,3 +1,12 @@
+var tellascope = tellascope || {};
+tellascope.post = tellascope.post || {};
+var user_id;
+
+tellascope.post.init = function(opts) {
+  options = opts;
+  user_id = options.user_id;
+};
+
 $(document).ready(function (){
   // pocket form
   $('label').hide();
@@ -84,15 +93,26 @@ $(document).ready(function (){
   $('.remodal-confirm').on('click', function(e){
     var comment = $(this).parent().prev().children("textarea").val();
     var id = $(this).parent().parent().attr("data-remodal-id");
-    // $.post( "/uar//?item_id="+id+"&comment="+encodeURIComponent(comment));
-    console.log("/uar/makepublic/?item_id="+id+"&comment="+encodeURIComponent(comment));
+    // $.post("api/uar/post/makepublic/?user_id="+user_id+"item_id="+id+"&comment="+encodeURIComponent(comment));
+    console.log("api/uar/post/makepublic/?user_id="+user_id+"item_id="+id+"&comment="+encodeURIComponent(comment));
+  });
+
+  $('#youTab').on('click', function() {
+    console.log("you");
+    $("#youTab").css("color","white");
+    $("#youTab").css("background-color","black");
+    $("#tellascopeTab").css("color","black");
+    $("#tellascopeTab").css("background-color","white");
+  });
+
+  $('#tellascopeTab').on('click', function() {
+    console.log("tellascope");
+    $("#youTab").css("color","black");
+    $("#youTab").css("background-color","white");
+    $("#tellascopeTab").css("color","white");
+    $("#tellascopeTab").css("background-color","black");
   });
 });
-
-function shareModal(id) {
-  var inst = $.remodal.lookup[$('[data-remodal-id='+id+']').data('remodal')];
-  inst.open();
-}
 
 $(document).on('click', '.article-tag', function(event) {
   event.preventDefault();
