@@ -20,7 +20,7 @@
 				<option value = "unread">Unread</option>
 				<optgroup label="Time">
 					<option value = "0-15">0-15 minutes</option>
-					<option value = "16-30">16-30 minutes</option>
+					<option value = "15-30">16-30 minutes</option>
 					<option value = "30-60 minutes">30-60 minutes</option>
 					<option value = "60+">60+ minutes</option>
 				</optgroup>
@@ -75,7 +75,7 @@
 			  'height':'40px'
 			});
 			$("#filter-select").chosen();
-			$("#sort-select").chosen();
+			$("#sort-select").chosen({disable_search_threshold: 10});
 		</script>
 
 {% endblock %}
