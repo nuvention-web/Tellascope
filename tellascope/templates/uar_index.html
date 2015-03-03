@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% load endless %}
+
+{% block content %}
+	<div id = "tabs">
+		<div id = "youTab"><h2>You</h2></div>
+		<div id = "tellascopeTab"><h2>Tellascope</h2></div>
+	</div>
+	<div id = "searchBar">
+		{% for field in form %}
+		<form>
+		    <div class="field-wrapper {% if field.errors%} field-error {% endif %}">
+		        {{ field }}
+		    </div>
+		</form>
+		{% endfor %}
+	</div>
+	<div class="filter-form">
+		<form action="" method="get">
+	        {{ filter.form.as_p }}
+	        <input type="submit" />
+	    </form>
+	</div>
+	<!-- <div id = "fsBar">
+		<div id = "filterBar">
+			<i class="fa fa-filter"></i>&nbsp;
+			<select data-placeholder="Filter by..." id = "filter-select" multiple>
+				<option value = "unread">Unread</option>
+				<optgroup label="Time">
+					<option value = "0-15">0-15 minutes</option>
+					<option value = "15-30">16-30 minutes</option>
+					<option value = "30-60 minutes">30-60 minutes</option>
+					<option value = "60+">60+ minutes</option>
+				</optgroup>
+			</select>
+		</div>
+		<div id = "sortBar">
+			<div id = "sortRight">
+				<span id = "sort-text">Sort By&nbsp;</span>
+				<select id = "sort-select">
+					<option value = "datePosted">Date posted</option>
+					<option value = "sharesTellascope">Shares on Tellascope</option>
+					<option value = "sharesFriends">Shares from friends</option>
+					<option value = "readingFriends">Friends reading</option>
+				</select>
+			</div>
+		</div>
+	</div> -->
+
+	<div class="main">
+		<ul id="og-grid" class="og-grid article_list">
+		{% include page_template %}
+		</ul>
+	</div>
+
+
+	<script src="../static/js/lib/results-preview/grid.js"></script>
+	<script type="text/javascript">
+		$("#filter-select").chosen();
+		$("#sort-select").chosen({disable_search_threshold: 10});
+		$('#id_tags').tagsInput({
+		  'width':'80%',
+		  'height':'40px'
+		});
+		$(function() {
+			Grid.init();
+		});
+		$( document ).ready(function() {
+			$('#id_tags_tag').focus();
+		});
+	</script>
+
+	<script>
+	  tellascope.post.init({
+	    user_id: '{{ user.pk }}',
+	  });
+	</script>
+
+	{# Endless Paginate #}
+	{% block js %}
+		{{ block.super }}
+		<script src="{{ STATIC_URL }}endless_pagination/js/endless-pagination.js"></script>
+		<script>
+		$.endlessPaginate({
+			paginateOnScroll: true,
+			paginateOnScrollChunkSize: 3,
+			paginateOnScrollMargin: 10,
+            onCompleted: function(data) {
+            	addToGrid();
+            }
+		});
+
+		function addToGrid() {
+			$articleList = $('.article_list li');
+			Grid.addItems($articleList);
+		}
+		</script>
+	{% endblock%}
+
+
+{% endblock %}
