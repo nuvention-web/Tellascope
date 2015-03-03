@@ -69,18 +69,23 @@
 	text-align: right;
 }
 
-.filter-form p {
-	font-size: 1.5em;
+.filter-form {
+	text-align: center;
+
+	p {
+		font-size: 1.5em;
+		margin: 10px;
+		// display: inline-block;
+	}
 }
 
 .filter-form input {
-	width: 15%;
+	width: 5%;
+	text-align: center;
 
-}
-
-.filter-form input:focus {
-	outline: none;
-	padding: 0px 25px;
+	&:focus {
+		outline: none;
+	}
 }
 
 .filter-form input,
@@ -101,7 +106,25 @@
 .filter-form select  {
 	line-height: inherit;
 	display: inline-block;
-	color: #b14943;
+	color: #018ace;
 	cursor: pointer;
-	border-bottom: 1px dashed #b14943;
+	border-bottom: 1px dashed #018ace;
+}
+
+.filter-form input[type=submit] {
+	border: 2px solid;
+	padding: 10px;
+	width: 15%;
+	text-align: center;
+	font-size: 1.2em;
+	margin-top: 10px;
+
+	&:hover {
+		background-color: #018ace;
+		color: #fff;
+	    -webkit-transition: background 0.5s ease, padding 0.8s linear;
+	    -moz-transition: background 0.5s ease, padding 0.8s linear;
+	    -o-transition: background 0.5s ease, padding 0.8s linear;
+	    transition: background 0.5s ease, padding 0.8s linear;
+	}
 }
