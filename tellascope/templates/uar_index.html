@@ -45,7 +45,7 @@
 	</div> -->
 
 	<div class="main">
-		<ul id="og-grid article_list" class="og-grid endless_container">
+		<ul id="og-grid" class="og-grid article_list">
 		{% include page_template %}
 		</ul>
 	</div>
@@ -79,11 +79,16 @@
 		$.endlessPaginate({
 			paginateOnScroll: true,
 			paginateOnScrollChunkSize: 3,
+			paginateOnScrollMargin: 10,
             onCompleted: function(data) {
-            	console.log(data);
-            	// Grid.addItems();
+            	addToGrid();
             }
 		});
+
+		function addToGrid() {
+			$articleList = $('.article_list li');
+			Grid.addItems($articleList);
+		}
 		</script>
 	{% endblock%}
 
