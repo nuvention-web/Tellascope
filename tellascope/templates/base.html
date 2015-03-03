@@ -19,13 +19,15 @@
     <script src="{% static 'js/lib/jQuery-tagsinput/jquery.tagsinput.js' %}"></script>
     <link rel="stylesheet" href="{% static 'css/lib/results-preview/component.css' %}">
     <link rel="stylesheet" href="{% static 'css/lib/chosen/chosen.css' %}">
+    <link rel="stylesheet" href="{% static 'css/lib/remodal/jquery.remodal.css' %}">
     <link rel="stylesheet" href="{% static 'fonts/flaticon.css' %}"> 
-    <script src="{% static 'js/lib/chosen/chosen.jquery.min.js' %}"></script> 
+    <script src="{% static 'js/lib/chosen/chosen.jquery.min.js' %}"></script>
+    <script src="{% static 'js/lib/remodal/jquery.remodal.js' %}"></script> 
     <script src="{% static 'js/lib/results-preview/modernizr.custom.js' %}"></script>
   
 </head>
 <body>
-
+<div class = "remodal-bg">
   <nav class="main-nav">
     <h1 class="site-header">
       <div class="site-logo"></div>
@@ -44,6 +46,7 @@
 	{% block content %}{% endblock %}
 
   <footer>&#169; 2015 Tellascope</footer>
+</div>
 
   <script type="text/javascript">
    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

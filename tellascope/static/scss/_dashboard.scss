@@ -58,3 +58,13 @@
 		@include span-columns(3 of 12);
 	}
 }
+.remodal-body {
+	text-align: left;
+	.uarComment {
+		width: 100%;
+	}
+}
+.remodal-footer {
+	margin-top: 2em;
+	text-align: right;
+}
