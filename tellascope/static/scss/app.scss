@@ -2,6 +2,8 @@
 @import 'neat/neat';
 @import 'font-awesome/font-awesome';
 
+@import '_bootstrap-custom';
+
 @import '_normalize';
 
 @import '_variables';
@@ -15,3 +17,4 @@
 @import '_tagsinput';
 @import '_dashboard';
 @import '_article-list';
+@import '_modal';

@@ -1,0 +1,9 @@
+{% if uar.public %}
+<p class="update">
+	<button class="unshare"></button>
+</p>
+{% else %}
+<p class="update">
+	<a href="{% url 'uar_update' uar.pk %}" class="fm-update" data-fm-head="Updating UAR" data-fm-callback="replace" data-fm-target="#uar-{{ uar.pk }}">Update</a>
+</p>
+{% endif %}

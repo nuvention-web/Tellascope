@@ -6,9 +6,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.db.models import Count
-
 from django.contrib.auth.forms import PasswordChangeForm
-
 from django.http import HttpResponse, HttpResponseRedirect
 
 from pocket import Pocket
@@ -17,6 +15,8 @@ from tellascope.core import forms, models, utils
 
 from tellascope.core.utils import *
 from tellascope.config.config import SOCIAL_AUTH_POCKET_CONSUMER_KEY
+
+from fm.views import AjaxUpdateView
 
 class JSONResponse(HttpResponse):
     def __init__(self, data, request, *args, **kwargs):
@@ -34,6 +34,11 @@ class AnonymousRequiredMixin(object):
             return HttpResponseRedirect(self.redirect_to)
         return super(AnonymousRequiredMixin, self).dispatch(request, *args, **kwargs)
 
+class UpdateUARView(AjaxUpdateView):
+    message_template = "uar_update.html"
+    form_class = forms.UpdateUARForm
+    model = models.UserArticleRelationship
+    pk_url_kwarg = 'uar_pk'
 
 class LandingView(AnonymousRequiredMixin, TemplateView):
     template_name = 'index.html'
@@ -65,15 +70,20 @@ class DashboardView(LoginRequiredMixin, TemplateView):
     model = models.Article
     template_name = 'dashboard.html'
 
+    def post(self, request, *args, **kwargs):
+        context = self.get_context_data()
+        form = context['uar_form']
+
     def get_context_data(self, **kwargs):
         # utils.update_user_pocket(self.request.user)
 
         context = super(DashboardView, self).get_context_data(**kwargs)
-        form = forms.SearchForm(self.request.GET or None)
-        context['form'] = form
+
+        uar_form = forms.UpdateUARForm(self.request.POST or None)
+        context['uar_form'] = uar_form or None
         context['user'] = self.request.user
         context['uars'] = models.UserArticleRelationship.objects.filter(
-                                sharer=self.request.user.profile).order_by("-pocket_date_added")[:100]
+                                sharer=self.request.user.profile).order_by("-pocket_date_added")[:20]
         return context
 
 

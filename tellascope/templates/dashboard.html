@@ -1,33 +1,23 @@
 {% extends "base.html" %}
-
-
 {% block content %}
-
-	<div id = "searchBar">
-		<h2 id = "searchText">Search</h2>
-		{% for field in form %}
-		<form>
-		    <div class="field-wrapper {% if field.errors%} field-error {% endif %}">
-		        {{ field }}
-		    </div>
-		</form>
-		{% endfor %}
-	</div>
 
 	<div class="main">
 			<ul id="og-grid" class="og-grid">
 				{% for uar in uars %}
 				{% with uar.article as article %}
-				<li>
-					<div></div>
-					<a href="{{ article.url }}" target="_blank" data-largesrc="../static/img/1.jpg" data-title="{{ article.title }}" data-description="{% for tag in article.tags.all %}
-                                <span class='article-tag'>{{ tag }}</span>
-                            {% endfor %}<p id='article-sharedby'>Shared by {{ article.share_count }} people you follow</p><p id='article-sharedby'>{{ article.excerpt }}</p>">
+				<li id="uar-{{ uar.pk }}">
+					<a href="{{ article.url }}" target="_blank" data-largesrc="../static/img/1.jpg" data-title="{{ article.title }}" data-description="
+						{% for tag in article.tags.all %}
+	                        <span class='article-tag'>{{ tag }}</span>
+	                    {% endfor %}
+						<p id='article-sharedby'>Shared by {{ article.share_count }} people you follow</p>
+						<p id='article-sharedby'>{{ article.excerpt }}</p>">
+
 						<div class="article-element">
 							<h1>{{ article.title|truncatechars:50 }}</h1>
 							<p>A {{ article.read_time }} minute read</p>
+							{% include 'uar_update.html' %}
 							<p>{{ article.author }}</p>
-<!-- 							<p>{{ article.excerpt }}</p> -->
 							<p id="article-source">via {{ article.source }}</p>
 						</div>
 					</a>
@@ -50,5 +40,10 @@
 			  'height':'40px'
 			});
 		</script>
-
+		<script type="text/javascript">
+		    $(function() {
+		        $.fm({debug: true});
+		    });
+		</script>
+		{% include "includes/uar_modal.html" %}
 {% endblock %}

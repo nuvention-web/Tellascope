@@ -4,10 +4,14 @@ from django.views.generic.base import RedirectView
 
 from core import views
 
-urlpatterns = patterns('',
+urlpatterns = patterns(
+    '',
+
     url(r'^404/$', views.Handle404View.as_view(), name='404'),
     url(r'^admin/', include(admin.site.urls)),
     url('', include('social.apps.django_app.urls', namespace='social')),
+
+    url(r'^uar/update/(?P<uar_pk>\d+)/$', views.UpdateUARView.as_view(), name="uar_update"),
 
     url(r'^$', views.LandingView.as_view(), name='landing'),
     url(r'^u/(?P<username_slug>[-\w]+)/$', views.ProfileView.as_view(), name='profile'),

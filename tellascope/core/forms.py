@@ -22,6 +22,14 @@ class LoginForm(AuthenticationForm):
         self.fields['password'].widget.attrs['placeholder'] = 'Password'
 
 
+class UpdateUARForm(forms.ModelForm):
+
+    class Meta:
+        model = models.UserArticleRelationship
+        fields = ['public', 'comment']
+
+
+
 class UserCreateForm(UserCreationForm):
     def validate_unique_email(email):
         if email and User.objects.filter(email=email).count() > 0:
