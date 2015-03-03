@@ -1,4 +1,10 @@
 $(document).ready(function (){
+  // pocket form
+  $('label').hide();
+  $('.filter-form p:first').prepend('I feel like reading a ');
+  $('.filter-form p:first').append(' minute article ');
+  $('.filter-form p:nth-child(2)').prepend('that is ');
+
   function scrollTo(section) {
     var sticky_nav = $('.main-nav').outerHeight();
     $('html,body').animate({scrollTop: $(section).offset().top - sticky_nav}, 800);

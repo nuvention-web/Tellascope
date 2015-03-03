@@ -68,3 +68,40 @@
 	margin-top: 2em;
 	text-align: right;
 }
+
+.filter-form p {
+	font-size: 1.5em;
+}
+
+.filter-form input {
+	width: 15%;
+
+}
+
+.filter-form input:focus {
+	outline: none;
+	padding: 0px 25px;
+}
+
+.filter-form input,
+.filter-form select {
+	border: none;
+	background: transparent;
+	font-family: inherit;
+	font-size: inherit;
+	color: inherit;
+	font-weight: inherit;
+	line-height: inherit;
+	display: inline-block;
+	padding: 0;
+	margin: 0;
+}
+
+.filter-form input,
+.filter-form select  {
+	line-height: inherit;
+	display: inline-block;
+	color: #b14943;
+	cursor: pointer;
+	border-bottom: 1px dashed #b14943;
+}
