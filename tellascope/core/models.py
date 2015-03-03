@@ -110,18 +110,16 @@ class Article(models.Model):
     tags = TaggableManager(through=TaggedArticle, blank=True)
     word_count = models.IntegerField(blank=False, null=True)
     pocket_resolved_id = models.CharField(max_length=100, null=True, unique=True)
+    read_time = models.IntegerField(blank=False, null=True)
 
     def __unicode__(self):
         return self.title
 
-    @property
-    def clean_url(self):
-        return utils.clean_url(self.url);
-
-    @property
-    def read_time(self):
-        minutes = self.word_count / 200
-        return timedelta(minutes=minutes)
+    def save(self, *args, **kwargs):
+        print self.pk
+        if self.word_count:
+            self.read_time = self.word_count / 180
+        super(Article, self).save(*args, **kwargs)
 
 
 class UserArticleRelationship(models.Model):
@@ -148,6 +146,9 @@ class UserArticleRelationship(models.Model):
     pocket_date_added = models.DateTimeField(blank=True, null=True)
     pocket_date_updated = models.DateTimeField(blank=True, null=True)
     pocket_date_read = models.DateTimeField(blank=True, null=True)
+
+    def get_status_options():
+        return self.STATUS_OPTIONS
 
 
 class FollowRelationship(models.Model):
