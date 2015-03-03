@@ -12,12 +12,12 @@
 			{% for author in article.authors.all %}
 			<p>{{ author }}</p>
 			{% endfor %}
-			<i onclick = "shareModal('{{ article.pocket_resolved_id }}')" class="fa fa-share"></i>
+			<i id = "{{ uar.pocket_item_id }}" class="fa fa-share"></i>
 			<p id="article-source">{{ article.read_time }} minute read</p>
 		</div>
 	</a>
 </li>
-<div class="remodal" data-remodal-id="{{ article.pocket_resolved_id }}">
+<div class="remodal" data-remodal-id="{{ uar.pocket_item_id }}">
 	<div class = "remodal-body">
 	    <h1>{{ article.title }}</h1>
 	    <h2>by 

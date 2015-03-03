@@ -80,6 +80,13 @@ $(document).ready(function (){
     inst.open();
     e.stopPropagation();
   });
+
+  $('.remodal-confirm').on('click', function(e){
+    var comment = $(this).parent().prev().children("textarea").val();
+    var id = $(this).parent().parent().attr("data-remodal-id");
+    // $.post( "/uar//?item_id="+id+"&comment="+encodeURIComponent(comment));
+    console.log("/uar/makepublic/?item_id="+id+"&comment="+encodeURIComponent(comment));
+  });
 });
 
 $(document).on('click', '.article-tag', function(event) {
