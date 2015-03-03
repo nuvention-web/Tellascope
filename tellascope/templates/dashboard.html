@@ -2,7 +2,6 @@
 
 
 {% block content %}
-
 	<div id = "searchBar">
 		<h2 id = "searchText">Search</h2>
 		{% for field in form %}
@@ -12,6 +11,12 @@
 		    </div>
 		</form>
 		{% endfor %}
+	</div>
+	<div>
+		<form action="" method="get">
+	        {{ filter.form.as_p }}
+	        <input type="submit" />
+	    </form>
 	</div>
 	<div id = "fsBar">
 		<div id = "filterBar">
@@ -41,7 +46,7 @@
 
 	<div class="main">
 			<ul id="og-grid" class="og-grid">
-				{% for uar in uars %}
+				{% for uar in object_list %}
 				{% with uar.article as article %}
 				<li>
 					<a href="{{ article.url }}" target="_blank" data-largesrc="../static/img/1.jpg" data-title="{{ article.title }}" data-description="{% for tag in article.tags.all %}

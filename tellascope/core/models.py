@@ -8,6 +8,7 @@ from tellascope.core import utils
 from tellascope.config.config import SOCIAL_AUTH_POCKET_CONSUMER_KEY
 
 import pocket
+import django_filters
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, related_name='profile')
@@ -153,5 +154,4 @@ class FollowRelationship(models.Model):
     follower = models.ForeignKey('UserProfile', related_name='followers')
     followee = models.ForeignKey('UserProfile', related_name='followees')
     created_at = models.DateTimeField(blank=True)
-
 

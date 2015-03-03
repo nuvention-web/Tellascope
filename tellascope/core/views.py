@@ -1,5 +1,6 @@
 import json
-
+import django_filters
+from django_filters.views import FilterView
 from django.views.generic import *
 from django.shortcuts import render_to_response, redirect, render, get_object_or_404
 from django.contrib.auth import login, logout, authenticate
@@ -61,20 +62,24 @@ class LandingView(AnonymousRequiredMixin, TemplateView):
         return context
 
 
-class DashboardView(LoginRequiredMixin, TemplateView):
-    model = models.Article
+class UARFilter(django_filters.FilterSet):
+    # word_count = django_filters.NumberFilter(lookup_type='lt')
+    class Meta:
+        model = models.UserArticleRelationship
+        fields = {'article__word_count': ['lt']}
+
+
+class DashboardView(LoginRequiredMixin, FilterView):
+    model = models.UserArticleRelationship
     template_name = 'dashboard.html'
+    # context_object_name = 'uars'
+    filterset_class = UARFilter
+    context_filter_name = 'uar_filter'
+    paginate_by = 25
 
-    def get_context_data(self, **kwargs):
-        # utils.update_user_pocket(self.request.user)
-
-        context = super(DashboardView, self).get_context_data(**kwargs)
-        form = forms.SearchForm(self.request.GET or None)
-        context['form'] = form
-        context['user'] = self.request.user
-        context['uars'] = models.UserArticleRelationship.objects.filter(
-                                sharer=self.request.user.profile).order_by("-pocket_date_added")[:100]
-        return context
+    # def get_queryset(self, **kwargs):
+    #     qs = super(DashboardView, self).get_queryset(**kwargs)
+    #     return qs[:75]
 
 
 class ProfileView(LoginRequiredMixin, TemplateView):
