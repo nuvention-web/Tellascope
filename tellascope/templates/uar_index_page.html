@@ -1,6 +1,6 @@
 {% load endless %}
 
-{% lazy_paginate object_list %}
+{% paginate 50 object_list %}
 {% for uar in object_list %}
 {% with uar.article as article %}
 <li>

@@ -52,6 +52,7 @@
 
 
 	<script src="../static/js/lib/results-preview/grid.js"></script>
+	<script src="../static/js/lib/remodal/jquery.remodal.js"></script>
 	<script type="text/javascript">
 		$("#filter-select").chosen();
 		$("#sort-select").chosen({disable_search_threshold: 10});
@@ -67,26 +68,26 @@
 		});
 	</script>
 
-	{# Endless Paginate #}
-	{% block js %}
-		{{ block.super }}
+<!-- 	{# Endless Paginate #}
+	{ % block js % }
+		{{ block.super }} -->
 		<script src="{{ STATIC_URL }}endless_pagination/js/endless-pagination.js"></script>
 		<script>
-		$.endlessPaginate({
-			paginateOnScroll: true,
-			paginateOnScrollChunkSize: 3,
-			paginateOnScrollMargin: 10,
-            onCompleted: function(data) {
-            	addToGrid();
-            }
-		});
+		// $.endlessPaginate({
+		// 	paginateOnScroll: true,
+		// 	paginateOnScrollChunkSize: 3,
+		// 	paginateOnScrollMargin: 10,
+  //           onCompleted: function(data) {
+  //           	addToGrid();
+  //           }
+		// });
 
-		function addToGrid() {
-			$articleList = $('.article_list li');
-			Grid.addItems($articleList);
-		}
+		// function addToGrid() {
+		// 	$articleList = $('.article_list li');
+		// 	Grid.addItems($articleList);
+		// }
 		</script>
-	{% endblock%}
+<!-- 	{% endblock% }  -->
 
 
 {% endblock %}
