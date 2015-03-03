@@ -66,6 +66,28 @@ $(document).ready(function (){
     event.preventDefault();
     $('form').submit();
   });
+
+  function shareModal(id) {
+    var inst = $.remodal.lookup[$('[data-remodal-id='+id+']').data('remodal')];
+    inst.open();
+  }
+
+  $('#youTab').on('click', function() {
+    console.log("you");
+    $("#youTab").css("color","white");
+    $("#youTab").css("background-color","black");
+    $("#tellascopeTab").css("color","black");
+    $("#tellascopeTab").css("background-color","white");
+  });
+
+  $('#tellascopeTab').on('click', function() {
+    console.log("tellascope");
+    $("#youTab").css("color","black");
+    $("#youTab").css("background-color","white");
+    $("#tellascopeTab").css("color","white");
+    $("#tellascopeTab").css("background-color","black");
+  });
+
 });
 
 $(document).on('click', '.article-tag', function(event) {
