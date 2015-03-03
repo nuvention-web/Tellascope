@@ -67,11 +67,6 @@ $(document).ready(function (){
     $('form').submit();
   });
 
-  function shareModal(id) {
-    var inst = $.remodal.lookup[$('[data-remodal-id='+id+']').data('remodal')];
-    inst.open();
-  }
-
   $('#youTab').on('click', function() {
     console.log("you");
     $("#youTab").css("color","white");
@@ -89,6 +84,11 @@ $(document).ready(function (){
   });
 
 });
+
+function shareModal(id) {
+  var inst = $.remodal.lookup[$('[data-remodal-id='+id+']').data('remodal')];
+  inst.open();
+}
 
 $(document).on('click', '.article-tag', function(event) {
   event.preventDefault();
