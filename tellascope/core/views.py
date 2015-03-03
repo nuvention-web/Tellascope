@@ -109,6 +109,22 @@ class TopicView(LoginRequiredMixin, TemplateView):
         context['topic'] = topic
         return context
 
+class MakeUARPublicView(LoginRequiredMixin, View):
+
+    def post(self, request, *args, **kwargs):
+        user_pk = self.kwargs['user_id']
+        uar_id = self.kwargs['item_id']
+        comment = self.kwargs['comment']
+        return self.handle_response()
+
+    def handle_response(self, id):
+        post = models.Post.objects.get(id=id)
+        data = {
+            'overall': post.stats.distribution,
+            'male': post.stats.male['distribution'],
+            'female': post.stats.female['distribution']
+        }
+        return JSONResponse(data, self.request)
 
 class SettingsView(FormView):
     template_name = "settings.html"
