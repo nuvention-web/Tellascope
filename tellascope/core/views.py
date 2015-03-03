@@ -64,9 +64,17 @@ class LandingView(AnonymousRequiredMixin, TemplateView):
 
 class UARFilter(django_filters.FilterSet):
     # word_count = django_filters.NumberFilter(lookup_type='lt')
+    # article__word_count = django_filters.RangeFilter()
+    article__read_time = django_filters.RangeFilter()
+    pocket_status = django_filters.ChoiceFilter(choices=models.UserArticleRelationship.STATUS_OPTIONS)
     class Meta:
         model = models.UserArticleRelationship
-        fields = {'article__word_count': ['lt']}
+        fields = [
+            'article__read_time',
+            'pocket_status'
+            ]
+        # fields = ['article__word_count']
+        # fields = {'article__word_count': ['lt']}
 
 
 class DashboardView(LoginRequiredMixin, FilterView):
@@ -77,6 +85,10 @@ class DashboardView(LoginRequiredMixin, FilterView):
     context_filter_name = 'uar_filter'
     paginate_by = 25
 
+    # def get_context_data(self, **kwargs):
+    #    utils.update_user_pocket(self.request.user)
+    #    context = super(DashboardView, self).get_context_data(**kwargs)
+    #    return context
     # def get_queryset(self, **kwargs):
     #     qs = super(DashboardView, self).get_queryset(**kwargs)
     #     return qs[:75]
