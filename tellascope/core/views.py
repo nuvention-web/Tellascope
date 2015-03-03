@@ -87,6 +87,11 @@ class DashboardView(LoginRequiredMixin, AjaxMultipleObjectTemplateResponseMixin,
     filterset_class = UARFilter
     context_filter_name = 'uar_filter'
 
+    def get_queryset(self, **kwargs):
+        qs = super(DashboardView, self).get_queryset(**kwargs)
+        qs.annotate(share_count=Count('article__shared_by'))
+        return qs
+
     def get_context_data(self, **kwargs):
         context = super(DashboardView, self).get_context_data(**kwargs)
         context['page_template'] = self.page_template

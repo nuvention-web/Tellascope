@@ -224,6 +224,10 @@ var Grid = (function() {
 
 		$newitems.each( function() {
 			var $item = $( this );
+
+			if ($item.hasClass('grid-item')) { return; } 
+
+			$item.addClass('grid-item');
 			$item.data( {
 				offsetTop : $item.offset().top,
 				height : $item.height()
@@ -231,7 +235,6 @@ var Grid = (function() {
 		} );
 
 		initItemsEvents( $newitems );
-
 	}
 
 	// saves the item´s offset top and height (if saveheight is true)
