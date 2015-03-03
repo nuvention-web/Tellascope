@@ -25,7 +25,7 @@
 				<option value = "unread">Unread</option>
 				<optgroup label="Time">
 					<option value = "0-15">0-15 minutes</option>
-					<option value = "16-30">16-30 minutes</option>
+					<option value = "15-30">16-30 minutes</option>
 					<option value = "30-60 minutes">30-60 minutes</option>
 					<option value = "60+">60+ minutes</option>
 				</optgroup>
@@ -57,11 +57,28 @@
 							{% for author in article.authors.all %}
 							<p>{{ author }}</p>
 							{% endfor %}
-							<i class="fa fa-share"></i>
+							<i onclick = "shareModal('{{ article.pocket_resolved_id }}')" class="fa fa-share"></i>
 							<p id="article-source">{{ article.read_time }} minute read</p>
 						</div>
 					</a>
 				</li>
+				<div class="remodal" data-remodal-id="{{ article.pocket_resolved_id }}">
+					<div class = "remodal-body">
+					    <h1>{{ article.title }}</h1>
+					    <h2>by 
+					    {% for author in article.authors.all %}
+						{{ author }}
+						{% endfor %}
+						</h2>
+					    <br>
+					   	<p>Comment</p>
+					   	<textarea rows = "3" class = "uarComment"></textarea>
+					</div>
+					<div class = "remodal-footer">
+					    <a class="remodal-cancel" href="#">Cancel</a>
+					    <a class="remodal-confirm" href="#">Share</a>
+					</div>
+				</div>
 				{% endwith %}
 				{% endfor %}
 			</ul>
@@ -69,18 +86,22 @@
 
 		<script src="../static/js/lib/results-preview/grid.js"></script>
 		<script type="text/javascript">
+			$("#filter-select").chosen();
+			$("#sort-select").chosen({disable_search_threshold: 10});
+			$('#id_tags').tagsInput({
+			  'width':'80%',
+			  'height':'40px'
+			});
 			$(function() {
 					Grid.init();
 			});
 			$( document ).ready(function() {
 				$('#id_tags_tag').focus();
 			});
-			$('#id_tags').tagsInput({
-			  'width':'80%',
-			  'height':'40px'
-			});
-			$("#filter-select").chosen();
-			$("#sort-select").chosen();
+			function shareModal(id) {
+				var inst = $.remodal.lookup[$('[data-remodal-id='+id+']').data('remodal')];
+				inst.open();
+			}
 		</script>
 
 {% endblock %}
