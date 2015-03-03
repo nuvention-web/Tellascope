@@ -60,11 +60,12 @@
 				<div class="remodal" data-remodal-id="{{ article.pocket_resolved_id }}">
 					<div class = "remodal-body">
 					    <h1>{{ article.title }}</h1>
-					    <h2>by 
+					    <h2>
 					    {% for author in article.authors.all %}
 						{{ author }}
 						{% endfor %}
 						</h2>
+						<p>{{ article.excerpt }}
 					    <br>
 					   	<p>Comment</p>
 					   	<textarea rows = "3" class = "uarComment"></textarea>
