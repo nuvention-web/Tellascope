@@ -98,8 +98,10 @@ class ProfileView(LoginRequiredMixin, TemplateView):
         profile = get_object_or_404(models.UserProfile.objects
                 .select_related('user__username')
                 .filter(user__username=kwargs['username_slug']))
-        shares = models.UserArticleRelationship.objects.filter(sharer=profile)
+        shares = models.UserArticleRelationship.objects.filter(sharer=profile).annotate(share_count=Count('article__shared_by'))
         context['profile'] = profile
+        context['followers'] = profile.get_followers()
+        context['following'] = profile.get_following()
         context['shares'] = shares
         return context
 
