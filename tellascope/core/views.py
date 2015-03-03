@@ -1,6 +1,8 @@
 import json
 import django_filters
 
+from datetime import datetime
+
 from django.views.generic import *
 from django_filters.views import FilterView
 from endless_pagination.views import AjaxMultipleObjectTemplateResponseMixin    
@@ -68,16 +70,16 @@ class LandingView(AnonymousRequiredMixin, TemplateView):
 class UARFilter(django_filters.FilterSet):
     # word_count = django_filters.NumberFilter(lookup_type='lt')
     # article__word_count = django_filters.RangeFilter()
+    public = django_filters.BooleanFilter()
     article__read_time = django_filters.RangeFilter()
     pocket_status = django_filters.ChoiceFilter(choices=models.UserArticleRelationship.STATUS_OPTIONS)
     class Meta:
         model = models.UserArticleRelationship
         fields = [
             'article__read_time',
-            'pocket_status'
+            'pocket_status',
+            'public'
             ]
-        # fields = ['article__word_count']
-        # fields = {'article__word_count': ['lt']}
 
 
 class DashboardView(LoginRequiredMixin, AjaxMultipleObjectTemplateResponseMixin, FilterView):
@@ -125,20 +127,28 @@ class TopicView(LoginRequiredMixin, TemplateView):
         context['topic'] = topic
         return context
 
+
 class MakeUARPublicView(LoginRequiredMixin, View):
 
     def post(self, request, *args, **kwargs):
+        print 'POSTING!!!!!!!!'
         user_pk = self.kwargs['user_id']
         uar_id = self.kwargs['item_id']
-        comment = self.kwargs['comment']
-        return self.handle_response()
+        comment = urllib.unquote(self.kwargs['comment']).decode("utf-8")  
+        if self.request.user.pk == user_pk:
+            print 'AUTHETICATING!!!!!!!!'
+            uar = models.UserArticleRelationship.objects.filter(pocket_item_id=uar_id)
+            uar.public = True
+            uar.comment = comment
+            uar.shared_datetime = datetime.now()
+            uar.save()
+            print 'SAVING!!!!!!!!'
+            handle_response(uar, success=True)
 
-    def handle_response(self, id):
-        post = models.Post.objects.get(id=id)
+    def handle_response(uar, success=False):
         data = {
-            'overall': post.stats.distribution,
-            'male': post.stats.male['distribution'],
-            'female': post.stats.female['distribution']
+            'uar': uar,
+            'success': true,
         }
         return JSONResponse(data, self.request)
 

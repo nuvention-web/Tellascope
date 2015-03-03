@@ -1,13 +1,48 @@
 var tellascope = tellascope || {};
 tellascope.post = tellascope.post || {};
 var user_id;
+// var csrf;
+var csrftoken;
 
 tellascope.post.init = function(opts) {
   options = opts;
+  console.log(options);
   user_id = options.user_id;
+  // csrf = options.csrfToken;
 };
 
 $(document).ready(function (){
+
+  // using jQuery
+  function getCookie(name) {
+      var cookieValue = null;
+      if (document.cookie && document.cookie != '') {
+          var cookies = document.cookie.split(';');
+          for (var i = 0; i < cookies.length; i++) {
+              var cookie = jQuery.trim(cookies[i]);
+              // Does this cookie string begin with the name we want?
+              if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                  cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                  break;
+              }
+          }
+      }
+      return cookieValue;
+  }
+  csrftoken = getCookie('csrftoken');
+
+  function csrfSafeMethod(method) {
+      // these HTTP methods do not require CSRF protection
+      return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+  }
+  $.ajaxSetup({
+      beforeSend: function(xhr, settings) {
+          if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+              xhr.setRequestHeader("X-CSRFToken", csrftoken);
+          }
+      }
+  });
+
   // pocket form
   $('label').hide();
   $('.filter-form p:first').prepend('I feel like reading a ');
@@ -93,8 +128,8 @@ $(document).ready(function (){
   $('.remodal-confirm').on('click', function(e){
     var comment = $(this).parent().prev().children("textarea").val();
     var id = $(this).parent().parent().attr("data-remodal-id");
-    // $.post("api/uar/post/makepublic/?user_id="+user_id+"item_id="+id+"&comment="+encodeURIComponent(comment));
-    console.log("api/uar/post/makepublic/?user_id="+user_id+"item_id="+id+"&comment="+encodeURIComponent(comment));
+    $.post("/api/uar/post/makepublic/?user_id="+user_id+"&item_id="+id+"&comment='"+encodeURIComponent(comment)+"'");
+    // console.log("api/uar/post/makepublic/?user_id="+user_id+"item_id="+id+"&comment="+encodeURIComponent(comment));
   });
 
   $('#youTab').on('click', function() {
