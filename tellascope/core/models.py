@@ -147,8 +147,22 @@ class UserArticleRelationship(models.Model):
     pocket_date_updated = models.DateTimeField(blank=True, null=True)
     pocket_date_read = models.DateTimeField(blank=True, null=True)
 
+    def __unicode__():
+        return self.article.title + " shared by " + self.sharer.user.username
+
     def get_status_options():
         return self.STATUS_OPTIONS
+
+    def as_json(self):
+        as_dict = {
+            "pk": self.pk,
+            "publc": self.public,
+            "pocket_item_id": self.pocket_item_id,
+            "title": self.article.title,
+            "article_pk": self.article.pk
+        }
+        return as_dict
+
 
 
 class FollowRelationship(models.Model):

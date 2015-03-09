@@ -8,7 +8,6 @@ from django.utils import timezone
 from django.views.generic import *
 from django.views.generic.edit import ProcessFormView
 from django_filters.views import FilterView
-from restless.views import Endpoint
 from endless_pagination.views import AjaxMultipleObjectTemplateResponseMixin    
 
 from django.shortcuts import render_to_response, redirect, render, get_object_or_404
@@ -16,6 +15,8 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.db.models import Count
+
+from django.core import serializers
 
 from django.contrib.auth.forms import PasswordChangeForm
 
@@ -129,9 +130,7 @@ class TopicView(LoginRequiredMixin, TemplateView):
 
 
 class MakeUARPublicView(View):
-
     def post(self, request):
-        # import ipdb; ipdb.set_trace();
         user_pk = int(request.POST.get('user_id', None))
         uar_id = int(request.POST.get('item_id', None))
         comment = request.POST.get('comment', None)
@@ -150,7 +149,7 @@ class MakeUARPublicView(View):
             uar.save()
         else:
             return HttpResponse(status=403)
-        return JsonResponse({'gocats': True})
+        return JsonResponse(uar.as_json());
 
 
 
