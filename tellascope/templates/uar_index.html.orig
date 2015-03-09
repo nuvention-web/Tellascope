@@ -44,7 +44,7 @@
 	</div> -->
 
 	<div class="main">
-		<ul id="og-grid" class="og-grid article_list">
+		<ul id="og-grid" class="og-grid">
 		{% include page_template %}
 		</ul>
 	</div>
@@ -67,6 +67,7 @@
 		});
 	</script>
 
+<<<<<<< HEAD
 	<script>
 	  tellascope.post.init({
 	    user_id: '{{ user.pk }}',
@@ -76,6 +77,11 @@
 <!-- 	{# Endless Paginate #}
 	{ % block js % }
 		{{ block.super }} -->
+=======
+	{# Endless Paginate #}
+	{% block js %}
+		{{ block.super }}
+>>>>>>> make-public-api
 		<script src="{{ STATIC_URL }}endless_pagination/js/endless-pagination.js"></script>
 		<script>
 		// $.endlessPaginate({

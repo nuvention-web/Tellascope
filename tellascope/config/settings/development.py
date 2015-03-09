@@ -43,8 +43,8 @@ INSTALLED_APPS = (
     'social.apps.django_app.default',
     'taggit',
     'django_filters',
+    'restless',
     'endless_pagination',
-
 
     # apps
     'tellascope.core',
