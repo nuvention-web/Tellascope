@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-
 {% load endless %}
 
 {% block content %}
@@ -49,7 +48,7 @@
 	</div> -->
 
 	<div class="main">
-		<ul id="og-grid" class="og-grid article_list">
+		<ul id="og-grid" class="og-grid">
 		{% include page_template %}
 		</ul>
 	</div>
@@ -69,12 +68,6 @@
 		$( document ).ready(function() {
 			$('#id_tags_tag').focus();
 		});
-	</script>
-
-	<script>
-	  tellascope.post.init({
-	    user_id: '{{ user.pk }}',
-	  });
 	</script>
 
 	{# Endless Paginate #}

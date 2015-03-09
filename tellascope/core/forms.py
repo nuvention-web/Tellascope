@@ -57,5 +57,12 @@ class SearchForm(forms.Form):
     tags = forms.CharField(max_length=250, required=True)
 
 
+class ShareUARForm(forms.ModelForm):
 
+    class Meta:
+        model = models.UserArticleRelationship
+        fields = ['comment']
 
+    def form_valid(self, form):
+        form.instance.created_by = self.request.user
+        return super(ShareUARForm, self).form_valid(form)

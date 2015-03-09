@@ -1,47 +1,50 @@
 var tellascope = tellascope || {};
 tellascope.post = tellascope.post || {};
 var user_id;
-// var csrf;
-var csrftoken;
+var opened = false;
 
 tellascope.post.init = function(opts) {
   options = opts;
-  console.log(options);
   user_id = options.user_id;
-  // csrf = options.csrfToken;
 };
 
+
+// This function gets cookie with a given name
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie != '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+var csrftoken = getCookie('csrftoken');
+
+/*
+The functions below will create a header with csrftoken
+*/
+
+function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+$.ajaxSetup({
+    beforeSend: function(xhr, settings) {
+        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        }
+    }
+});
+
+
 $(document).ready(function (){
-
-  // using jQuery
-  function getCookie(name) {
-      var cookieValue = null;
-      if (document.cookie && document.cookie != '') {
-          var cookies = document.cookie.split(';');
-          for (var i = 0; i < cookies.length; i++) {
-              var cookie = jQuery.trim(cookies[i]);
-              // Does this cookie string begin with the name we want?
-              if (cookie.substring(0, name.length + 1) == (name + '=')) {
-                  cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                  break;
-              }
-          }
-      }
-      return cookieValue;
-  }
-  csrftoken = getCookie('csrftoken');
-
-  function csrfSafeMethod(method) {
-      // these HTTP methods do not require CSRF protection
-      return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-  }
-  $.ajaxSetup({
-      beforeSend: function(xhr, settings) {
-          if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-              xhr.setRequestHeader("X-CSRFToken", csrftoken);
-          }
-      }
-  });
 
   // pocket form
   $('label').hide();
@@ -117,19 +120,69 @@ $(document).ready(function (){
     $('form').submit();
   });
 
-  $('.fa-share').on('click', function(e){
-    e.preventDefault();
-    id = this.id;
-    var inst = $.remodal.lookup[$('[data-remodal-id='+id+']').data('remodal')];
-    inst.open();
+  // SHARE CONTAINER FUNCTIONALITY
+  $('.open-share-button').click(function(e) {    
+    itemId = $(this).data('itemId');
+    $shareContainer = $('#uar-' + itemId + ' .article-share-container');
+    $shareContainer.addClass('opened');
+    opened = true;
     e.stopPropagation();
+    e.preventDefault();
+    $('#form-' + itemId).focus();
   });
 
-  $('.remodal-confirm').on('click', function(e){
-    var comment = $(this).parent().prev().children("textarea").val();
-    var id = $(this).parent().parent().attr("data-remodal-id");
-    $.post("/api/uar/post/makepublic/?user_id="+user_id+"&item_id="+id+"&comment='"+encodeURIComponent(comment)+"'");
-    // console.log("api/uar/post/makepublic/?user_id="+user_id+"item_id="+id+"&comment="+encodeURIComponent(comment));
+  function closeShareContainer(itemId) {
+    $shareContainer = $('#uar-' + itemId + ' .article-share-container');
+    $shareContainer.removeClass('opened');
+  }
+
+  $(".share-uar textarea").bind('keypress', function(e) {
+    if ((e.keyCode || e.which) == 13) {
+      if (!opened) {
+        return false;
+      }
+      $(this).parents('form').submit();
+      return false;
+    }
+  });
+
+  $('.share-uar').submit(function(e){
+
+    e.preventDefault();
+
+    if (!opened) { return false; }
+    console.log(e);
+    window.e = e;
+
+    itemId = $(e.target).data('itemId');
+
+    var $form = $('#form-' + itemId);
+
+    var values = {};
+    var inputs = $form.serializeArray();
+    $.each(inputs, function (i, input) {
+        values[input.name] = input.value;
+    });
+
+    console.log(values);
+    window.v = values;
+
+    $.ajax({
+      type: "POST",
+      url: "/api/uar/post/makepublic/",
+      data: $form.serializeArray(),
+      complete: function(data) { console.log(data); },
+      success: function(data) { console.log(data); },
+      error: function(data) { console.log(data); }
+    });
+
+    opened = false;
+    closeShareContainer(itemId);
+  });
+
+  $('.article-share-container').click(function(e){
+    e.stopPropagation();
+    e.preventDefault();
   });
 
   $('#youTab').on('click', function() {

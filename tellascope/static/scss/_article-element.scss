@@ -1,0 +1,179 @@
+.article-element {
+	width: 100%;
+	height: 275px;
+	background-color: #ddd;
+	padding: 20px;
+	z-index: 1;
+	// position: relative;
+}
+
+.public .article-element {
+	background-color: transparentize($salmon, 0.3);
+}
+
+.article-element h1 {
+	position: relative;
+  	text-align: left;
+	font-weight: 300;
+	text-transform: uppercase;
+	font-size: 1.5em;
+	border-bottom: 1px solid #018ace;
+}
+
+.article-element p {
+	color: #333;
+	position: relative;
+  	transform: translateY(-50%);
+  	text-align: left;
+  	line-height: 5px;
+  	font-weight: 300;
+}
+
+.article-tag {
+	background-color: #FFA07A;
+	padding: 5px 10px;
+	cursor: pointer;
+}
+
+.article-tag:hover {
+	background-color: #018ace;
+    -webkit-transition: background 0.5s ease, padding 0.8s linear;
+    -moz-transition: background 0.5s ease, padding 0.8s linear;
+    -o-transition: background 0.5s ease, padding 0.8s linear;
+    transition: background 0.5s ease, padding 0.8s linear;
+}
+
+#article-sharedby {
+	color: #666;
+}
+
+#article-excerpt {
+	color: #333;
+}
+
+.article-comment {
+	font-size: 1.3em;
+}
+
+.article-comment span {
+	margin-left: 30px;
+	position: relative;
+	top: 50%;
+	-webkit-transform: translateY(-50%);
+	-ms-transform: translateY(-50%);
+	transform: translateY(-50%);
+	display: inline-block;
+}
+
+
+.article-element-footer {
+	width: 100%;
+	padding: 20px;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+
+	.footer-container {
+		position: relative;
+	}
+
+	p.open-share-button {
+		position: absolute;
+		left: -5px;
+		bottom: -5px;
+		padding: 10px;
+		margin: 0;
+		transform: translateY(25%);
+		&:hover {
+			color: #57ce57;
+		}
+		z-index: 10;
+	}
+
+	#article-source {
+		color: #666;
+		font-size: 0.8em;
+		position: absolute;
+		right: 0px;
+		bottom: 0px;
+		margin: 0;
+	}
+}
+
+
+
+// Share Container
+
+
+
+.article-share-container {
+	position: absolute;
+	overflow: hidden;
+	bottom: 0;
+	left: 0;
+	height: 0%;
+	width: 100%;
+	// background-color: lighten($salmon, 15%);
+	background-color: lighten($salmon, 5%);
+	@include transition(all 0.3s ease-in-out);
+
+	&.opened {
+		height: 100%;
+	}
+
+	p {
+		background-color: transparentize($salmon, 0.4);
+		z-index: 10;
+		line-height: initial;
+		padding: 10px 20px;
+		transform: none;
+		margin: 0;
+		font-weight: 300;
+		em {
+			font-weight: 500;
+			font-style: normal;
+		}
+	}
+
+	form.share-uar {
+		z-index: 5;
+		height: 100%;
+		width: 100%;
+		position: absolute;
+
+		textarea {
+			padding: 20px;
+			padding-top: 10px;
+			box-sizing: border-box;
+			outline: none;
+			resize: none;
+			border: none;
+			width: 100%;
+			height: 150px;
+			background-color: transparentize(lighten($salmon, 5%), 0.5);
+			font-weight: 300;
+			&::-webkit-input-placeholder { color: black; }
+			&:-moz-placeholder { /* FF 4-18 */ color: black; }
+			&::-moz-placeholder { /* FF 19+ */ color: black; }
+			&:-ms-input-placeholder { /* IE 10+ */ color: black; }
+		}
+	}
+
+	button {
+		z-index: 10;
+		position: absolute;
+		bottom: 0;
+		right: 0;
+		margin-right: 20px;
+		margin-bottom: 20px;
+		border: 2px solid;
+		background-color: #fff;
+		color: #018ace;
+		border-color: #018ace;
+
+		&:hover {
+			color: #fff;
+			background-color: #018ace;
+		}
+	}
+}

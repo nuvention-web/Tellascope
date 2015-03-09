@@ -1,10 +1,14 @@
 import json
+import urllib
 import django_filters
 
 from datetime import datetime
+from django.utils import timezone
 
 from django.views.generic import *
+from django.views.generic.edit import ProcessFormView
 from django_filters.views import FilterView
+from restless.views import Endpoint
 from endless_pagination.views import AjaxMultipleObjectTemplateResponseMixin    
 
 from django.shortcuts import render_to_response, redirect, render, get_object_or_404
@@ -15,7 +19,7 @@ from django.db.models import Count
 
 from django.contrib.auth.forms import PasswordChangeForm
 
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 
 from pocket import Pocket
 
@@ -23,10 +27,6 @@ from tellascope.core import forms, models, utils
 
 from tellascope.core.utils import *
 from tellascope.config.config import SOCIAL_AUTH_POCKET_CONSUMER_KEY
-
-class JSONResponse(HttpResponse):
-    def __init__(self, data, request, *args, **kwargs):
-        super(JSONResponse, self).__init__(json.dumps(data), *args, **kwargs)
 
 class LoginRequiredMixin(object):
     @classmethod
@@ -128,29 +128,31 @@ class TopicView(LoginRequiredMixin, TemplateView):
         return context
 
 
-class MakeUARPublicView(LoginRequiredMixin, View):
+class MakeUARPublicView(View):
 
-    def post(self, request, *args, **kwargs):
-        print 'POSTING!!!!!!!!'
-        user_pk = self.kwargs['user_id']
-        uar_id = self.kwargs['item_id']
-        comment = urllib.unquote(self.kwargs['comment']).decode("utf-8")  
+    def post(self, request):
+        # import ipdb; ipdb.set_trace();
+        user_pk = int(request.POST.get('user_id', None))
+        uar_id = int(request.POST.get('item_id', None))
+        comment = request.POST.get('comment', None)
+        if comment:
+            comment = urllib.unquote(comment.decode("utf-8"))
         if self.request.user.pk == user_pk:
-            print 'AUTHETICATING!!!!!!!!'
-            uar = models.UserArticleRelationship.objects.filter(pocket_item_id=uar_id)
-            uar.public = True
-            uar.comment = comment
-            uar.shared_datetime = datetime.now()
-            uar.save()
-            print 'SAVING!!!!!!!!'
-            handle_response(uar, success=True)
+            uar = models.UserArticleRelationship.objects.get(pk=uar_id)
+            
+            if uar.public:
+                uar.public = False
+            else:
+                uar.public = True
 
-    def handle_response(uar, success=False):
-        data = {
-            'uar': uar,
-            'success': true,
-        }
-        return JSONResponse(data, self.request)
+            uar.comment = comment
+            uar.shared_datetime = timezone.make_aware(datetime.now(), timezone.get_current_timezone())
+            uar.save()
+        else:
+            return HttpResponse(status=403)
+        return JsonResponse({'gocats': True})
+
+
 
 class SettingsView(FormView):
     template_name = "settings.html"

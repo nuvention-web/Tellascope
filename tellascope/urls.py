@@ -18,3 +18,4 @@ urlpatterns = patterns('',
 	url(r'^dashboard/$', views.DashboardView.as_view(), name='dashboard'),
     url(r'^api/uar/post/makepublic/$', views.MakeUARPublicView.as_view(), name='makepublic')
 )
+

@@ -224,14 +224,11 @@ var Grid = (function() {
 
 		$newitems.each( function() {
 			var $item = $( this );
-
-			if ($item.hasClass('grid-item')) { return; } 
-
 			$item.addClass('grid-item');
 			$item.data( {
 				offsetTop : $item.offset().top,
 				height : $item.height()
-			} );
+			});
 		} );
 
 		initItemsEvents( $newitems );
@@ -239,6 +236,7 @@ var Grid = (function() {
 
 	// saves the item´s offset top and height (if saveheight is true)
 	function saveItemInfo( saveheight ) {
+
 		$items.each( function() {
 			var $item = $( this );
 			$item.data( 'offsetTop', $item.offset().top );
@@ -274,11 +272,15 @@ var Grid = (function() {
 	}
 
 	function initItemsEvents( $items ) {
+		window.item = $items;
+
 		$items.on( 'click', 'span.og-close', function() {
 			hidePreview();
 			return false;
-		} ).children( 'a' ).on( 'click', function(e) {
+		} )
 
+		$links = $items.children('a');
+		$links.on('click', function(e) {
 			var $item = $( this ).parent();
 			// check if item already opened
 			current === $item.index() ? hidePreview() : showPreview( $item );
@@ -292,7 +294,6 @@ var Grid = (function() {
 	}
 
 	function showPreview( $item ) {
-
 		var preview = $.data( this, 'preview' ),
 			// item´s offset top
 			position = $item.data( 'offsetTop' );
@@ -382,7 +383,7 @@ var Grid = (function() {
 			current = this.$item.index();
 
 			// update preview´s content
-			var $itemEl = this.$item.children( 'a' ),
+			var $itemEl = this.$item.children('a'),
 				eldata = {
 					href : $itemEl.attr( 'href' ),
 					largesrc : $itemEl.data( 'largesrc' ),
