@@ -18,12 +18,11 @@ def get_list_from_pocket(pocket):
         article_list.append(value)
     return article_list
 
-def save_pocket_item_to_database(user, item, pocket=None):
+def save_pocket_item_to_database(user, item):
 	from tellascope.core.models import Article, UserArticleRelationship, Author
 
 	if 'mailto' in item['resolved_url']:
 		return
-
 
 	article, created = Article.objects.get_or_create(
 		pocket_resolved_id = item['resolved_id'], defaults = {
@@ -62,6 +61,8 @@ def save_pocket_item_to_database(user, item, pocket=None):
 	else:
 		uar.favorited = False
 
+	article.read_time = int(item['word_count']) / 180
+
 	print article.title
 	uar.save()
 
@@ -70,4 +71,4 @@ def update_user_pocket(user):
 	pocket = Pocket(SOCIAL_AUTH_POCKET_CONSUMER_KEY, user.profile.pocket_access_token)
 	articles = get_list_from_pocket(pocket)
 	for article in articles:
-		save_pocket_item_to_database(user, article, pocket)
+		save_pocket_item_to_database(user, article)

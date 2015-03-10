@@ -116,10 +116,11 @@ class Article(models.Model):
         return self.title
 
     def save(self, *args, **kwargs):
-        print self.pk
-        if self.word_count:
-            self.read_time = self.word_count / 180
         super(Article, self).save(*args, **kwargs)
+        if self.word_count:
+            pass
+            # print self.pk
+            # self.read_time = int(self.word_count) / 180
 
 
 class UserArticleRelationship(models.Model):
@@ -147,10 +148,10 @@ class UserArticleRelationship(models.Model):
     pocket_date_updated = models.DateTimeField(blank=True, null=True)
     pocket_date_read = models.DateTimeField(blank=True, null=True)
 
-    def __unicode__():
+    def __unicode__(self):
         return self.article.title + " shared by " + self.sharer.user.username
 
-    def get_status_options():
+    def get_status_options(self):
         return self.STATUS_OPTIONS
 
     def as_json(self):

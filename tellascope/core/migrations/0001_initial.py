@@ -18,11 +18,12 @@ class Migration(migrations.Migration):
             name='Article',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('url', models.URLField(null=True)),
+                ('url', models.URLField(max_length=1000, null=True)),
                 ('title', models.CharField(max_length=500, null=True)),
                 ('excerpt', models.TextField(null=True, blank=True)),
                 ('word_count', models.IntegerField(null=True)),
                 ('pocket_resolved_id', models.CharField(max_length=100, unique=True, null=True)),
+                ('read_time', models.IntegerField(null=True)),
             ],
             options={
             },
@@ -32,8 +33,8 @@ class Migration(migrations.Migration):
             name='Author',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('name', models.CharField(max_length=100, blank=True)),
-                ('url', models.URLField(null=True)),
+                ('name', models.CharField(max_length=250, blank=True)),
+                ('url', models.URLField(max_length=500, null=True)),
                 ('pocket_author_id', models.CharField(max_length=100, unique=True, null=True)),
             ],
             options={
