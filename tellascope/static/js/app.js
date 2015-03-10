@@ -149,12 +149,20 @@ $(document).ready(function (){
     }
   });
 
+  $('.share-uar input[type="submit"]').on('click', function(e) {
+    $(this).parents('.grid-item').addClass('public')
+    $(this).parents('form').submit();
+    return false;
+  });
+
   $('.fa-close').on('click', function() {
     console.log(this);
     itemId = $(this).parent().next().data('itemId');
     closeShareContainer(itemId);
     // get share to show up if person x'ed out of it
-    $(this).parent().parent().prev().closest('p').children().show();
+    var share_icon = $(this).parent().parent().prev().children().children().children();
+    console.log(share_icon);
+    share_icon.show();
   });
 
   $('.share-uar').submit(function(e){

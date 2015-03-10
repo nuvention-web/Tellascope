@@ -71,15 +71,15 @@ class LandingView(AnonymousRequiredMixin, TemplateView):
 class UARFilter(django_filters.FilterSet):
     # word_count = django_filters.NumberFilter(lookup_type='lt')
     # article__word_count = django_filters.RangeFilter()
-    public = django_filters.BooleanFilter()
+    # public = django_filters.BooleanFilter()
     article__read_time = django_filters.RangeFilter()
     pocket_status = django_filters.ChoiceFilter(choices=models.UserArticleRelationship.STATUS_OPTIONS)
     class Meta:
         model = models.UserArticleRelationship
         fields = [
             'article__read_time',
-            'pocket_status',
-            'public'
+            'pocket_status'
+            # 'public'
         ]
 
 
