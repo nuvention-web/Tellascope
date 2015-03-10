@@ -61,7 +61,10 @@ def save_pocket_item_to_database(user, item):
 	else:
 		uar.favorited = False
 
-	article.read_time = int(item['word_count']) / 180
+	article.word_count = int(item['word_count'])
+	article.read_time = int(float(item['word_count'])/180)
+	article.save(force_update=True)
+	print article.read_time
 
 	print article.title
 	uar.save()
@@ -70,6 +73,7 @@ def save_pocket_item_to_database(user, item):
 def update_user_pocket(user):
 	pocket = Pocket(SOCIAL_AUTH_POCKET_CONSUMER_KEY, user.profile.pocket_access_token)
 	articles = get_list_from_pocket(pocket)
+	print len(articles)
 	for article in articles:
 		try:
 			save_pocket_item_to_database(user, article)
