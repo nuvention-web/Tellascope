@@ -97,6 +97,10 @@ class DashboardView(LoginRequiredMixin, AjaxMultipleObjectTemplateResponseMixin,
         return qs.order_by('-pocket_date_added')
 
     def get_context_data(self, **kwargs):
+<<<<<<< HEAD
+        # utils.update_user_pocket(self.request.user)
+=======
+>>>>>>> 039caa864e21e5102b7699a42cf03f6604333d8d
         context = super(DashboardView, self).get_context_data(**kwargs)
         context['page_template'] = self.page_template
         return context

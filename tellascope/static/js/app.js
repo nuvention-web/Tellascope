@@ -143,6 +143,7 @@ $(document).ready(function (){
       if (!opened) {
         return false;
       }
+      $(this).parents('.grid-item').addClass('public')
       $(this).parents('form').submit();
       return false;
     }
