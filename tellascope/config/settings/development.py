@@ -42,12 +42,15 @@ INSTALLED_APPS = (
 
     'social.apps.django_app.default',
     'taggit',
+    'django_filters',
+    'restless',
+    'endless_pagination',
 
     # apps
     'tellascope.core',
 
     # local
-    # 'debug_toolbar',
+    'debug_toolbar',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -60,6 +63,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
+from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
 TEMPLATE_CONTEXT_PROCESSORS = (
     "django.contrib.auth.context_processors.auth",
     "django.core.context_processors.debug",
@@ -67,11 +71,11 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.media",
     "django.core.context_processors.static",
     "django.core.context_processors.tz",
+    'django.core.context_processors.request',
     "django.contrib.messages.context_processors.messages",
     'social.apps.django_app.context_processors.backends',
     'social.apps.django_app.context_processors.login_redirect',
 )
-
 
 ROOT_URLCONF = 'tellascope.urls'
 
@@ -87,7 +91,7 @@ DATABASES = {
         'NAME': 'tellascope',
     }
 }
-DATABASES['default'] = dj_database_url.config(env='DATABASE_URL') or dj_database_url.parse('postgres://duner:postgres@localhost:5432/tellascope')
+#DATABASES['default'] = dj_database_url.config(env='DATABASE_URL') or dj_database_url.parse('postgres://duner:postgres@localhost:5432/tellascope')
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
@@ -101,6 +105,7 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+TIME_ZONE = 'UTC'
 
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'tellascope/templates'),
@@ -118,8 +123,9 @@ STATICFILES_DIRS = (
 
 # Social Authentication
 AUTHENTICATION_BACKENDS = (
-    'social.backends.twitter.TwitterOAuth',
-    'social.backends.facebook.FacebookOAuth2',
+    # 'social.backends.twitter.TwitterOAuth',
+    # 'social.backends.facebook.FacebookOAuth2',
+    'social.backends.pocket.PocketAuth',
     'django.contrib.auth.backends.ModelBackend',
 )
 

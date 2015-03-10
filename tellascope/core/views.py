@@ -1,21 +1,33 @@
 import json
+import urllib
+import django_filters
+
+from datetime import datetime
+from django.utils import timezone
 
 from django.views.generic import *
+from django.views.generic.edit import ProcessFormView
+from django_filters.views import FilterView
+from endless_pagination.views import AjaxMultipleObjectTemplateResponseMixin    
+
 from django.shortcuts import render_to_response, redirect, render, get_object_or_404
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.db.models import Count
 
+from django.core import serializers
+
 from django.contrib.auth.forms import PasswordChangeForm
 
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 
-from tellascope.core import forms, models
+from pocket import Pocket
 
-class JSONResponse(HttpResponse):
-    def __init__(self, data, request, *args, **kwargs):
-        super(JSONResponse, self).__init__(json.dumps(data), *args, **kwargs)
+from tellascope.core import forms, models, utils
+
+from tellascope.core.utils import *
+from tellascope.config.config import SOCIAL_AUTH_POCKET_CONSUMER_KEY
 
 class LoginRequiredMixin(object):
     @classmethod
@@ -56,37 +68,37 @@ class LandingView(AnonymousRequiredMixin, TemplateView):
         return context
 
 
-class DashboardView(LoginRequiredMixin, ListView):
-    model = models.Article
-    template_name = 'dashboard.html'
-    object_list = []
-    context_object_name = 'articles'
+class UARFilter(django_filters.FilterSet):
+    # word_count = django_filters.NumberFilter(lookup_type='lt')
+    # article__word_count = django_filters.RangeFilter()
+    public = django_filters.BooleanFilter()
+    article__read_time = django_filters.RangeFilter()
+    pocket_status = django_filters.ChoiceFilter(choices=models.UserArticleRelationship.STATUS_OPTIONS)
+    class Meta:
+        model = models.UserArticleRelationship
+        fields = [
+            'article__read_time',
+            'pocket_status',
+            'public'
+        ]
 
-    def get_queryset(self):
-        form = self.get_context_data()['form']
-        user = self.get_context_data()['user']
-        if form.is_valid():
-            tags = form.cleaned_data['tags'].split(',')
-            tags_cleaned = []
-            for tag in tags:
-                tag = tag.strip()
-                tags_cleaned.append(tag)
 
-            articles = models.Article.objects.all()
-            for tag in tags_cleaned:
-                articles = articles.filter(tags__name__in=[tag]).distinct()
-        else:
-            articles = models.Article.objects.all()
-        friends_only = articles.filter(shared_by__in=user.profile.get_following())
-        ordered = friends_only.annotate(share_count=Count('shared_by')).order_by('-share_count')
-        return ordered
+class DashboardView(LoginRequiredMixin, AjaxMultipleObjectTemplateResponseMixin, FilterView):
+    model = models.UserArticleRelationship
+    template_name = 'uar_index.html'
+    page_template = 'uar_index_page.html'
+    filterset_class = UARFilter
+    context_filter_name = 'uar_filter'
 
+    def get_queryset(self, **kwargs):
+        qs = super(DashboardView, self).get_queryset(**kwargs)
+        qs.annotate(share_count=Count('article__shared_by'))
+        return qs.order_by('-pocket_date_added')
 
     def get_context_data(self, **kwargs):
+        utils.update_user_pocket(self.request.user)
         context = super(DashboardView, self).get_context_data(**kwargs)
-        form = forms.SearchForm(self.request.GET or None)
-        context['form'] = form
-        context['user'] = self.request.user
+        context['page_template'] = self.page_template
         return context
 
 
@@ -118,10 +130,38 @@ class TopicView(LoginRequiredMixin, TemplateView):
         return context
 
 
+class UpdateUserPocket(LoginRequiredMixin, View):
+    def post(self, request):
+        print "updating pocket..."
+        utils.update_user_pocket(request.user)
+
+
+class MakeUARPublicView(View):
+    def post(self, request):
+        user_pk = int(request.POST.get('user_id', None))
+        uar_id = int(request.POST.get('item_id', None))
+        comment = request.POST.get('comment', None)
+        if comment:
+            comment = urllib.unquote(comment.decode("utf-8"))
+        if self.request.user.pk == user_pk:
+            uar = models.UserArticleRelationship.objects.get(pk=uar_id)
+            
+            if uar.public:
+                uar.public = False
+            else:
+                uar.public = True
+
+            uar.comment = comment
+            uar.shared_datetime = timezone.make_aware(datetime.now(), timezone.get_current_timezone())
+            uar.save()
+        else:
+            return HttpResponse(status=403)
+        return JsonResponse(uar.as_json());
+
+
 class SettingsView(FormView):
     template_name = "settings.html"
     form_class = forms.UserProfileSettingsForm
-
 
 class LogoutView(RedirectView):
     url = '/'

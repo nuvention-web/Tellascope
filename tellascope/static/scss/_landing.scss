@@ -17,8 +17,6 @@ h3 { font-weight: 600; }
 	}
 }
 
-
-
 .logo {
 	z-index: 120;
 	color : white;
@@ -48,6 +46,10 @@ h3 { font-weight: 600; }
 .create-account {
 	padding: 1em 2.5em;
 	background-color: #fff;
+
+	.info {
+		text-align: center;
+	}
 
 	.instruct {
 		text-transform: uppercase;
@@ -86,6 +88,7 @@ h3 { font-weight: 600; }
 				text-align: center;
 				font-size: 1em;
 
+				&.pocket { border-color: $pocket-red; color: $pocket-red;}
 				&.twitter { border-color: #55acee; color: #55acee;}
 				&.facebook { border-color: #3b5998; color: #3b5998;}
 
@@ -93,6 +96,7 @@ h3 { font-weight: 600; }
 
 			&:hover div { 
 				color: #fff; 
+				&.pocket { background-color: $pocket-red; }
 				&.twitter { background-color: #55acee; }
 				&.facebook { background-color: #3b5998; }
 			}

@@ -1,6 +1,12 @@
+.flaticon-user65::before {
+	font-size: 70px !important;
+	font-style: normal;
+	margin-left: 0px !important;
+}
+
 .og-grid {
 	list-style: none;
-	padding: 20px 0;
+	padding: 20px 50px;
 	margin: 0 auto;
 	text-align: center;
 	width: 100%;
@@ -10,68 +16,16 @@ a:hover {
 	background-color: transparent;
 }
 
-.article-element {
-	width: 250px;
-	height: 250px;
-	background-color: #ddd;
-	padding: 20px;
-}
-
-.article-element h1 {
-	position: relative;
-/*  	top: 65%;
-  	transform: translateY(-80%);*/
-  	text-align: left;
-	font-weight: 300;
-	text-transform: uppercase;
-	font-size: 1.5em;
-	border-bottom: 1px solid #018ace;
-}
-
-.article-element p {
-	color: #333;
-	position: relative;
-  	transform: translateY(-50%);
-  	text-align: left;
-  	line-height: 5px;
-  	font-weight: 300;
-}
-
-#article-source {
-	color: #666;
-	font-size: 0.8em;
-	position: absolute;
-	bottom: 0px;
-	right: 10px;
-}
-
-.article-tag {
-	background-color: #FFA07A;
-	padding: 5px 10px;
-	cursor: pointer;
-}
-
-.article-tag:hover {
-	background-color: #018ace;
-    -webkit-transition: background 0.5s ease, padding 0.8s linear;
-    -moz-transition: background 0.5s ease, padding 0.8s linear;
-    -o-transition: background 0.5s ease, padding 0.8s linear;
-    transition: background 0.5s ease, padding 0.8s linear;
-}
-
-#article-sharedby {
-	color: #666;
-}
 
 .og-grid li {
 	display: inline-block;
 	margin: 10px 5px 0 5px;
 	vertical-align: top;
-	height: 250px;
+	width: 30%;
 }
 
-.og-grid li > a,
-.og-grid li > a img {
+.og-grid li > a.expand-preview,
+.og-grid li > a.expand-preview img {
 	border: none;
 	outline: none;
 	display: block;
@@ -143,9 +97,10 @@ a:hover {
 }
 
 .og-fullimg,
-.og-details {
+.og-details,
+.og-comments {
 	width: 50%;
-/*	float: left;*/
+	float: left;
 	height: 100%;
 	overflow: hidden;
 	position: relative;
@@ -153,7 +108,11 @@ a:hover {
 }
 
 .og-details {
-/*	padding: 0 40px 0 85px;*/
+	padding: 0 40px 0 85px;
+}
+
+.og-comments {
+	padding: 0 85px 0 40px;
 }
 
 .og-fullimg {
@@ -168,8 +127,8 @@ a:hover {
 
 .og-details h3 {
 	font-weight: 300;
-	font-size: 40px;
-	margin-bottom: 10px;
+	font-size: 2em;
+	margin: 10px 0px 10px 0px;
 }
 
 .og-details p {

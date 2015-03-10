@@ -18,8 +18,12 @@ class Migration(migrations.Migration):
             name='Article',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('url', models.URLField(null=True)),
+                ('url', models.URLField(max_length=1000, null=True)),
                 ('title', models.CharField(max_length=500, null=True)),
+                ('excerpt', models.TextField(null=True, blank=True)),
+                ('word_count', models.IntegerField(null=True)),
+                ('pocket_resolved_id', models.CharField(max_length=100, unique=True, null=True)),
+                ('read_time', models.IntegerField(null=True)),
             ],
             options={
             },
@@ -29,7 +33,9 @@ class Migration(migrations.Migration):
             name='Author',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('name', models.CharField(max_length=100, blank=True)),
+                ('name', models.CharField(max_length=250, blank=True)),
+                ('url', models.URLField(max_length=500, null=True)),
+                ('pocket_author_id', models.CharField(max_length=100, unique=True, null=True)),
             ],
             options={
             },
@@ -39,7 +45,7 @@ class Migration(migrations.Migration):
             name='FollowRelationship',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
+                ('created_at', models.DateTimeField(blank=True)),
             ],
             options={
             },
@@ -87,6 +93,13 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('comment', models.CharField(max_length=250, null=True, blank=True)),
                 ('shared_datetime', models.DateTimeField(auto_now_add=True)),
+                ('public', models.BooleanField(default=False)),
+                ('pocket_item_id', models.CharField(unique=True, max_length=100)),
+                ('pocket_status', models.CharField(default=b'0', max_length=1, choices=[(b'0', b'Unread'), (b'1', b'Archived')])),
+                ('pocket_favorited', models.BooleanField(default=False)),
+                ('pocket_date_added', models.DateTimeField(null=True, blank=True)),
+                ('pocket_date_updated', models.DateTimeField(null=True, blank=True)),
+                ('pocket_date_read', models.DateTimeField(null=True, blank=True)),
                 ('article', models.ForeignKey(related_name=b'shared_article', to='core.Article')),
             ],
             options={
@@ -102,7 +115,9 @@ class Migration(migrations.Migration):
                 ('twitter_username', models.CharField(max_length=50, null=True, blank=True)),
                 ('twitter_description', models.CharField(max_length=250, null=True, blank=True)),
                 ('twitter_profile_picture', models.CharField(max_length=250, null=True, blank=True)),
-                ('favorited_articles', models.ManyToManyField(related_name=b'favorited_by', to='core.Article')),
+                ('twitter_oauth_token', models.CharField(max_length=250, null=True, blank=True)),
+                ('twitter_oauth_token_secret', models.CharField(max_length=250, null=True, blank=True)),
+                ('pocket_access_token', models.CharField(max_length=250, null=True, blank=True)),
                 ('following', models.ManyToManyField(related_name=b'followed_by', through='core.FollowRelationship', to='core.UserProfile')),
                 ('shared_articles', models.ManyToManyField(related_name=b'shared_by', through='core.UserArticleRelationship', to='core.Article')),
                 ('topics_followed', models.ManyToManyField(to='core.Tag')),
@@ -132,8 +147,8 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='article',
-            name='author',
-            field=models.ForeignKey(related_name=b'articles_by_author', blank=True, to='core.Author', null=True),
+            name='authors',
+            field=models.ManyToManyField(to='core.Author'),
             preserve_default=True,
         ),
         migrations.AddField(

@@ -1,0 +1,62 @@
+{% load endless %}
+
+{% paginate 50 object_list %}
+{% for uar in object_list %}
+{% with uar.article as article %}
+<li id="uar-{{ uar.pk }}" class="grid-item {% if uar.public %}public{% endif %}" >
+		<a class="expand-preview" href="{{ article.url }}" target="_blank" data-largesrc="../static/img/1.jpg" data-title="{{ article.title }}" data-description="{% for tag in article.tags.all %}
+            <span class='article-tag'>{{ tag }}</span>
+        {% endfor %}{% for author in article.authors.all %}<p id='article-sharedby'>{{ author }}</p>{% endfor %}<p id='article-excerpt'>{{ article.excerpt }}</p>" data-comments="<p id='article-sharedby'>Shared by {{ article.share_count }} people you follow</p><div class='user-comment'><p class='article-comment'><i class='flaticon-user65'></i><span>Thought-provoking read!</span></p><p class='article-comment'><i class='flaticon-user65'></i><span>Killer passages!</span></p><p class='article-comment'><i class='flaticon-user65'></i><span>Insightful, incisive writing</span></p></div>">
+		<div class="article-element">
+			<div class="article-content">
+				<h1>{{ article.title|truncatechars:50 }}</h1>
+				{% for author in article.authors.all %}
+				<p>{{ author }}</p>
+				{% endfor %}
+			</div>
+			<div class="article-element-footer">
+				<div class="footer-container">
+					<p class="open-share-button" data-item-id='{{ uar.pk }}'><i class="fa fa-share"></i></p>
+					<p id="article-source">{{ article.read_time }} minute read</p>
+				</div>
+			</div>
+			<div class="article-share-container">
+				<p>Share <em>{{ article.title|truncatechars:50 }}</em> on Tellascope.</p>
+				<form class="share-uar" id="form-{{ uar.pk }}" data-item-id='{{ uar.pk }}'>
+					{% csrf_token %}
+					<input type="hidden" name="user_id" value="{{ user.pk }}">
+					<input type="hidden" name="item_id" value="{{ uar.pk }}">
+					<div class="textarea-wrapper">
+						<textarea name="comment" form="form-{{ uar.pk }}" placeholder="Why is this interesting?"></textarea>
+					</div>
+					<input type="submit" value="submit"/>
+				</form>
+				<p class="close-share-container" data-item-id='{{ uar.pk }}'><i class="fa fa-close"></i></p>
+			</div>
+		</div>
+	</a>
+</li>
+
+<!--<div class="remodal" data-remodal-id="modal-{{ uar.pk }}">
+	<div class="remodal-body">
+	    <h1>{{ article.title }}</h1>
+	    <h2>by 
+	    {% for author in article.authors.all %}
+		{{ author }}
+		{% endfor %}
+		</h2>
+
+		<form method="POST" class="share-uar" id="form-{{ uar.pk }}">
+			{% csrf_token %}
+			<input type="hidden" name="user_id" value="{{ user.pk }}">
+			<input type="hidden" name="item_id" value="{{ uar.pk }}">
+			<input type="text" name="comment">
+			<textarea form="form-{{ uar.pk }}"></textarea>
+		</form>
+	</div>
+	<div class="remodal-footer"></div>
+	</div>
+ -->
+{% endwith %}
+{% endfor %}
+{% show_more %}
