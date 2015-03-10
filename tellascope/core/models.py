@@ -117,8 +117,7 @@ class Article(models.Model):
 
     def save(self, *args, **kwargs):
         super(Article, self).save(*args, **kwargs)
-        if self.word_count:
-            pass
+        # if self.word_count:
             # print self.pk
             # self.read_time = int(self.word_count) / 180
 

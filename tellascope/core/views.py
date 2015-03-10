@@ -92,11 +92,11 @@ class DashboardView(LoginRequiredMixin, AjaxMultipleObjectTemplateResponseMixin,
 
     def get_queryset(self, **kwargs):
         qs = super(DashboardView, self).get_queryset(**kwargs)
-        qs.annotate(share_count=Count('article__shared_by'))
+        qs.filter(sharer=self.request.user.profile)
+        qs.annotate(article_share_count=Count('article__shared_by'))
         return qs.order_by('-pocket_date_added')
 
     def get_context_data(self, **kwargs):
-        utils.update_user_pocket(self.request.user)
         context = super(DashboardView, self).get_context_data(**kwargs)
         context['page_template'] = self.page_template
         return context
@@ -145,12 +145,7 @@ class MakeUARPublicView(View):
             comment = urllib.unquote(comment.decode("utf-8"))
         if self.request.user.pk == user_pk:
             uar = models.UserArticleRelationship.objects.get(pk=uar_id)
-            
-            if uar.public:
-                uar.public = False
-            else:
-                uar.public = True
-
+            uar.public = True
             uar.comment = comment
             uar.shared_datetime = timezone.make_aware(datetime.now(), timezone.get_current_timezone())
             uar.save()

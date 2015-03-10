@@ -36,7 +36,7 @@
     <p href="#" id="logo">Tellascope</p>
     <ul class="social">
       {% if user.is_authenticated %}
-        <a href="javascript;" class="update-pocket">{{ user.username }}</a>
+        <a href="javascript:;" class="update-pocket">{{ user.username }}</a>
         <a href="/logout">Logout</a>
       {% else %}
         <a href="{% url 'login' %}">Log In</a>
