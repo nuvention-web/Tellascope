@@ -121,7 +121,9 @@ $(document).ready(function (){
   });
 
   // SHARE CONTAINER FUNCTIONALITY
-  $('.open-share-button').click(function(e) {    
+  $('.open-share-button').click(function(e) {
+    console.log(this);
+    $(this).children().hide();
     itemId = $(this).data('itemId');
     $shareContainer = $('#uar-' + itemId + ' .article-share-container');
     $shareContainer.addClass('opened');
@@ -144,6 +146,14 @@ $(document).ready(function (){
       $(this).parents('form').submit();
       return false;
     }
+  });
+
+  $('.fa-close').on('click', function() {
+    console.log(this);
+    itemId = $(this).parent().next().data('itemId');
+    closeShareContainer(itemId);
+    // get share to show up if person x'ed out of it
+    $(this).parent().parent().prev().closest('p').children().show();
   });
 
   $('.share-uar').submit(function(e){

@@ -6,7 +6,7 @@
 <li id="uar-{{ uar.pk }}" class="grid-item {% if uar.public %}public{% endif %}" >
 		<a class="expand-preview" href="{{ article.url }}" target="_blank" data-largesrc="../static/img/1.jpg" data-title="{{ article.title }}" data-description="{% for tag in article.tags.all %}
             <span class='article-tag'>{{ tag }}</span>
-        {% endfor %}{% for author in article.authors.all %}<p id='article-sharedby'>{{ author }}</p>{% endfor %}<p id='article-excerpt'>{{ article.excerpt }}</p>" data-comments="<p id='article-sharedby'>Shared by {{ article.share_count }} people you follow</p><div class='user-comment'><p class='article-comment'><i class='flaticon-user65'></i><span>Thought-provoking read!</span></p><p class='article-comment'><i class='flaticon-user65'></i><span>Killer passages!</span></p><p class='article-comment'><i class='flaticon-user65'></i><span>Insightful, incisive writing</span></p></div>">
+        {% endfor %}{% for author in article.authors.all %}<p id='article-sharedby'>{{ author }}</p>{% endfor %}<p id='article-excerpt'>{{ article.excerpt }}</p>" data-comments="<p id='article-sharedby'>Shared by {{ article.share_count }} people you follow</p><div class='user-comment'><p class='article-comment'><span>I never taught I would ever feel ashamed of my passion for computers.. that maybe I have been part of the decline of freedom and privacy, the same things I've always believed in and fought for.</span></p><p class='article-comment'><span>I think the paradox of the NSA and like spy/surveillance bodies in other countries, is that the more they grasp for control of everything & everybody, the less they will get.</span></p><p class='article-comment'><span>The Internet is an amazing technology where people can speak freely but now we let greedy guys run businesses that try to replicate the physical world. We're basically transforming what was a door to creativity and freedom to a mirror of our daily lives.</span></p></div>">
 		<div class="article-element">
 			<div class="article-content">
 				<h1>{{ article.title|truncatechars:50 }}</h1>
@@ -21,7 +21,7 @@
 				</div>
 			</div>
 			<div class="article-share-container">
-				<p>Share <em>{{ article.title|truncatechars:50 }}</em> on Tellascope.</p>
+				<p>Share <em>{{ article.title|truncatechars:50 }}</em> on Tellascope.<i class="fa fa-close"></i></p>
 				<form class="share-uar" id="form-{{ uar.pk }}" data-item-id='{{ uar.pk }}'>
 					{% csrf_token %}
 					<input type="hidden" name="user_id" value="{{ user.pk }}">
@@ -31,7 +31,7 @@
 					</div>
 					<input type="submit" value="submit"/>
 				</form>
-				<p class="close-share-container" data-item-id='{{ uar.pk }}'><i class="fa fa-close"></i></p>
+				<p class="close-share-container" data-item-id='{{ uar.pk }}'></p>
 			</div>
 		</div>
 	</a>
