@@ -16,6 +16,9 @@ urlpatterns = patterns('',
     url(r'^login/$', views.LoginView.as_view(), name='login'),
 	url(r'^logout/$', views.LogoutView.as_view(), name='logout'),
 	url(r'^dashboard/$', views.DashboardView.as_view(), name='dashboard'),
-    url(r'^api/uar/post/makepublic/$', views.MakeUARPublicView.as_view(), name='makepublic')
+
+    # APIs
+    url(r'^api/uar/post/makepublic/$', views.MakeUARPublicView.as_view(), name='makepublic'),
+    url(r'^api/user/post/refreshpocket/$', views.UpdateUserPocket.as_view(), name='updatepocket')
 )
 

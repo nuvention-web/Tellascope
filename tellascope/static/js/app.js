@@ -185,6 +185,17 @@ $(document).ready(function (){
     e.preventDefault();
   });
 
+  $('.update-pocket').click(function(e) {
+    e.preventDefault();
+    $.ajax({
+      type: "POST",
+      url: "/api/user/post/refreshpocket/",
+      complete: function(data) { console.log(data); },
+      success: function(data) { console.log(data); },
+      error: function(data) { console.log(data); }
+    });
+  })
+
   $('#youTab').on('click', function() {
     $("#youTab").css("color","white");
     $("#youTab").css("background-color","black");

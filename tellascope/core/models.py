@@ -154,13 +154,13 @@ class UserArticleRelationship(models.Model):
     def get_status_options(self):
         return self.STATUS_OPTIONS
 
-    def as_json(self):
+    def as_json():
         as_dict = {
             "pk": self.pk,
             "publc": self.public,
             "pocket_item_id": self.pocket_item_id,
             "title": self.article.title,
-            "article_pk": self.article.pk
+            "article_pk": self.article_id
         }
         return as_dict
 

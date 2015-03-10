@@ -71,4 +71,7 @@ def update_user_pocket(user):
 	pocket = Pocket(SOCIAL_AUTH_POCKET_CONSUMER_KEY, user.profile.pocket_access_token)
 	articles = get_list_from_pocket(pocket)
 	for article in articles:
-		save_pocket_item_to_database(user, article)
+		try:
+			save_pocket_item_to_database(user, article)
+		except:
+			pass

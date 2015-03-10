@@ -80,7 +80,7 @@ class UARFilter(django_filters.FilterSet):
             'article__read_time',
             'pocket_status',
             'public'
-            ]
+        ]
 
 
 class DashboardView(LoginRequiredMixin, AjaxMultipleObjectTemplateResponseMixin, FilterView):
@@ -93,9 +93,10 @@ class DashboardView(LoginRequiredMixin, AjaxMultipleObjectTemplateResponseMixin,
     def get_queryset(self, **kwargs):
         qs = super(DashboardView, self).get_queryset(**kwargs)
         qs.annotate(share_count=Count('article__shared_by'))
-        return qs
+        return qs.order_by('-pocket_date_added')
 
     def get_context_data(self, **kwargs):
+        utils.update_user_pocket(self.request.user)
         context = super(DashboardView, self).get_context_data(**kwargs)
         context['page_template'] = self.page_template
         return context
@@ -129,6 +130,12 @@ class TopicView(LoginRequiredMixin, TemplateView):
         return context
 
 
+class UpdateUserPocket(LoginRequiredMixin, View):
+    def post(self, request):
+        print "updating pocket..."
+        utils.update_user_pocket(request.user)
+
+
 class MakeUARPublicView(View):
     def post(self, request):
         user_pk = int(request.POST.get('user_id', None))
@@ -150,7 +157,6 @@ class MakeUARPublicView(View):
         else:
             return HttpResponse(status=403)
         return JsonResponse(uar.as_json());
-
 
 
 class SettingsView(FormView):
