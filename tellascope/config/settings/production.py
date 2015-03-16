@@ -24,7 +24,7 @@ SECRET_KEY = os.environ.get('TELLASCOPE_DJANGO_SECRET_KEY', None)
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 TEMPLATE_DEBUG = False
 
@@ -49,7 +49,7 @@ INSTALLED_APPS = (
     'tellascope.core',
 
     # local
-    # 'debug_toolbar',
+    'debug_toolbar',
 )
 
 MIDDLEWARE_CLASSES = (
