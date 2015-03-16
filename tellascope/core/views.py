@@ -71,15 +71,15 @@ class LandingView(AnonymousRequiredMixin, TemplateView):
 class UARFilter(django_filters.FilterSet):
     # word_count = django_filters.NumberFilter(lookup_type='lt')
     # article__word_count = django_filters.RangeFilter()
-    public = django_filters.BooleanFilter()
+    # public = django_filters.BooleanFilter()
     article__read_time = django_filters.RangeFilter()
     pocket_status = django_filters.ChoiceFilter(choices=models.UserArticleRelationship.STATUS_OPTIONS)
     class Meta:
         model = models.UserArticleRelationship
         fields = [
             'article__read_time',
-            'pocket_status',
-            'public'
+            'pocket_status'
+            # 'public'
         ]
 
 
@@ -92,11 +92,18 @@ class DashboardView(LoginRequiredMixin, AjaxMultipleObjectTemplateResponseMixin,
 
     def get_queryset(self, **kwargs):
         qs = super(DashboardView, self).get_queryset(**kwargs)
-        qs.annotate(share_count=Count('article__shared_by'))
+        qs.filter(sharer=self.request.user.profile)
+        
+        # profile = get_object_or_404(models.UserProfile.objects
+        #         .select_related('user__username')
+        #         .filter(user__username=self.request.user.username))
+
+        # qs.filter(sharer=profile)
+
+        qs.annotate(article_share_count=Count('article__shared_by'))
         return qs.order_by('-pocket_date_added')
 
     def get_context_data(self, **kwargs):
-        utils.update_user_pocket(self.request.user)
         context = super(DashboardView, self).get_context_data(**kwargs)
         context['page_template'] = self.page_template
         return context
@@ -145,12 +152,7 @@ class MakeUARPublicView(View):
             comment = urllib.unquote(comment.decode("utf-8"))
         if self.request.user.pk == user_pk:
             uar = models.UserArticleRelationship.objects.get(pk=uar_id)
-            
-            if uar.public:
-                uar.public = False
-            else:
-                uar.public = True
-
+            uar.public = True
             uar.comment = comment
             uar.shared_datetime = timezone.make_aware(datetime.now(), timezone.get_current_timezone())
             uar.save()
