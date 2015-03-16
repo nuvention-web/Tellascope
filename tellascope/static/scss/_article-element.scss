@@ -8,7 +8,7 @@
 }
 
 .public .article-element {
-	background-color: transparentize($salmon, 0.3);
+	background-color: transparentize(#018ace, 0.8);
 }
 
 .article-element h1 {
@@ -52,17 +52,26 @@
 }
 
 .article-comment {
-	font-size: 1.3em;
+	font-size: 1.2em;
+	clear: both;
+}
+
+.author-comment {
+	float: right;
+	font-weight: 600;
+	font-style: italic;
+	margin-top: 15px;
+	margin-bottom: 10px;
 }
 
 .article-comment span {
-	margin-left: 30px;
+	// margin-left: 30px;
 	position: relative;
 	top: 50%;
 	-webkit-transform: translateY(-50%);
 	-ms-transform: translateY(-50%);
 	transform: translateY(-50%);
-	display: inline-block;
+	// display: inline-block;
 }
 
 
@@ -85,7 +94,7 @@
 		margin: 0;
 		transform: translateY(25%);
 		&:hover {
-			color: #57ce57;
+			color: #018ace;
 		}
 		z-index: 10;
 	}
@@ -114,7 +123,7 @@
 	height: 0%;
 	width: 100%;
 	// background-color: lighten($salmon, 15%);
-	background-color: lighten($salmon, 5%);
+	background-color: #018ace;
 	@include transition(all 0.3s ease-in-out);
 
 	&.opened {
@@ -122,16 +131,19 @@
 	}
 
 	p {
-		background-color: transparentize($salmon, 0.4);
+		background-color: #ddd;
 		z-index: 10;
 		line-height: initial;
-		padding: 10px 20px;
 		transform: none;
+		padding: 20px 40px 0px 20px;
 		margin: 0;
 		font-weight: 300;
+		color: #333;
+		font-size: 1.2em;
 		em {
-			font-weight: 500;
+			font-weight: 600;
 			font-style: normal;
+			color: #333;
 		}
 	}
 
@@ -149,13 +161,28 @@
 			resize: none;
 			border: none;
 			width: 100%;
-			height: 150px;
-			background-color: transparentize(lighten($salmon, 5%), 0.5);
+			height: 135px;
+			background-color: #018ace;
 			font-weight: 300;
-			&::-webkit-input-placeholder { color: black; }
-			&:-moz-placeholder { /* FF 4-18 */ color: black; }
-			&::-moz-placeholder { /* FF 19+ */ color: black; }
-			&:-ms-input-placeholder { /* IE 10+ */ color: black; }
+			font-size: 1em;
+			color: #fafafa;
+			&::-webkit-input-placeholder { color: #ddd; }
+			&:-moz-placeholder { /* FF 4-18 */ color: #ddd; }
+			&::-moz-placeholder { /* FF 19+ */ color: #ddd; }
+			&:-ms-input-placeholder { /* IE 10+ */ color: #ddd; }
+		}
+
+		input[type=submit] {
+			font-weight: 400;
+			font-size: 12px;
+			color: #fafafa;
+			text-transform: uppercase;
+			letter-spacing: 2px;
+			padding: 7px 12px;
+			border: 2px solid #fafafa;
+			display: inline-block;
+			outline: none;
+			background: transparent;
 		}
 	}
 
@@ -176,4 +203,14 @@
 			background-color: #018ace;
 		}
 	}
+}
+
+.fa-close {
+	position: absolute;
+	top: 20px;
+	right: 15px;
+}
+
+.textarea-wrapper {
+	margin-top: 1.5em;
 }

@@ -113,6 +113,7 @@ a:hover {
 
 .og-comments {
 	padding: 0 85px 0 40px;
+	overflow: scroll;
 }
 
 .og-fullimg {
