@@ -121,6 +121,13 @@ class Article(models.Model):
             # print self.pk
             # self.read_time = int(self.word_count) / 180
 
+    @classmethod
+    def get_comments(self):
+        comments = []
+        for uar in self.shared_article.all():
+            comments.append(uar.comment)
+        return comments
+
 
 class UserArticleRelationship(models.Model):
 
