@@ -121,11 +121,15 @@ class Article(models.Model):
             # print self.pk
             # self.read_time = int(self.word_count) / 180
 
-    @classmethod
+    @property
     def get_comments(self):
         comments = []
         for uar in self.shared_article.all():
-            comments.append(uar.comment)
+            comm = {}
+            if uar.comment is not None:
+                comm['text'] = uar.comment
+                comm['user'] = uar.sharer.user.username
+                comments.append(comm)
         return comments
 
 

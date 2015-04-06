@@ -3,6 +3,11 @@
 {% paginate 50 object_list %}
 {% for uar in object_list %}
 {% with uar.article as article %}
+	
+	{% for comment in article.get_comments %}
+		<p>{{ comment.text }} - {{ comment.user }} </p>
+	{% endfor %}
+
 	<li id="uar-{{ uar.pk }}" class="grid-item {% if uar.public %}public{% endif %}" >
 		<a class="expand-preview" href="{{ article.url }}" target="_blank" data-largesrc="../static/img/1.jpg" data-title="{{ article.title }}" data-description="{% for tag in article.tags.all %}
             <span class='article-tag'>{{ tag }}</span>

@@ -94,14 +94,13 @@ class DashboardView(LoginRequiredMixin, AjaxMultipleObjectTemplateResponseMixin,
         qs = super(DashboardView, self).get_queryset(**kwargs)
         qs.filter(sharer=self.request.user.profile)
         
-        profile = get_object_or_404(models.UserProfile.objects
-                .select_related('user__username')
-                .filter(user__username=self.request.user.username))
+        # profile = get_object_or_404(models.UserProfile.objects
+        #         .select_related('user__username')
+        #         .filter(user__username=self.request.user.username))
 
-        qs.filter(sharer=profile)
+        # qs.filter(sharer=profile)
 
         qs.annotate(article_share_count=Count('article__shared_by'))
-
         return qs.order_by('-pocket_date_added')
 
     def get_context_data(self, **kwargs):
