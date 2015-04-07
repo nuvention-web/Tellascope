@@ -1,6 +1,5 @@
 tellascope
 =============
-# Week 9 #
 ## Requirements
 
 - `virtualenv` and `virtualenvwrapper`
@@ -79,13 +78,8 @@ Then, you should be able to run the server:
 django-admin runserver
 ```
 
-
-
-
 To deploy:
 
 ```bash
 git push heroku dev:master
 ```
-
-
