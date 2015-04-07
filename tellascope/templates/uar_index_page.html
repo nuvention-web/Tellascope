@@ -4,14 +4,14 @@
 {% for uar in object_list %}
 {% with uar.article as article %}
 	
-	{% for comment in article.get_comments %}
+<!-- 	{% for comment in article.get_comments %}
 		<p>{{ comment.text }} - {{ comment.user }} </p>
-	{% endfor %}
+	{% endfor %} -->
 
 	<li id="uar-{{ uar.pk }}" class="grid-item {% if uar.public %}public{% endif %}" >
 		<a class="expand-preview" href="{{ article.url }}" target="_blank" data-largesrc="../static/img/1.jpg" data-title="{{ article.title }}" data-description="{% for tag in article.tags.all %}
             <span class='article-tag'>{{ tag }}</span>
-        {% endfor %}{% for author in article.authors.all %}<p id='article-sharedby'>{{ author }}</p>{% endfor %}<p id='article-excerpt'>{{ article.excerpt }}</p>" data-comments="<p id='article-sharedby'>Shared by {{ article.share_count }} people you follow</p><div class='user-comment'><p class='article-comment'><span>I never taught I would ever feel ashamed of my passion for computers.. that maybe I have been part of the decline of freedom and privacy, the same things I've always believed in and fought for.</span><br /><span class='author-comment'>- Sarah Turbin</span></p><p class='article-comment'><span>I think the paradox of the NSA and like spy/surveillance bodies in other countries, is that the more they grasp for control of everything & everybody, the less they will get.</span><br /><span class='author-comment'>- Gabe Bergado</span></p><p class='article-comment'><span>The Internet is an amazing technology where people can speak freely but now we let greedy guys run businesses that try to replicate the physical world. We're basically transforming what was a door to creativity and freedom to a mirror of our daily lives.</span><br /><span class='author-comment'>- Katherine Mirani</span></p></div>">
+        {% endfor %}{% for author in article.authors.all %}<p id='article-sharedby'>{{ author }}</p>{% endfor %}<p id='article-excerpt'>{{ article.excerpt }}</p>" data-comments="<p id='article-sharedby'>Shared by {{ article.share_count }} people you follow</p><div class='user-comment'>{% for comment in article.get_comments %}<p class='article-comment'><span>{{ comment.text }}</span><br /><span class='author-comment'>- {{ comment.user }}</span></p>{% endfor %}</div>">
 		<div class="article-element">
 			<div class="article-content">
 				<h1>{{ article.title|truncatechars:50 }}</h1>
