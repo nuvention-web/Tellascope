@@ -82,4 +82,10 @@ django-admin runserver
 
 
 
+To deploy:
+
+```bash
+git push heroku dev:master
+```
+
 

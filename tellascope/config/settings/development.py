@@ -43,7 +43,6 @@ INSTALLED_APPS = (
     'social.apps.django_app.default',
     'taggit',
     'django_filters',
-    'restless',
     'endless_pagination',
 
     # apps
@@ -91,7 +90,6 @@ DATABASES = {
         'NAME': 'tellascope',
     }
 }
-#DATABASES['default'] = dj_database_url.config(env='DATABASE_URL') or dj_database_url.parse('postgres://duner:postgres@localhost:5432/tellascope')
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
