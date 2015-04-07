@@ -124,12 +124,11 @@ class Article(models.Model):
     @property
     def get_comments(self):
         comments = []
-        for uar in self.shared_article.all():
+        for uar in self.shared_article.filter(comment__isnull=False, public=True).exclude(comment=''):
             comm = {}
-            if uar.comment is not None:
-                comm['text'] = uar.comment
-                comm['user'] = uar.sharer.user.username
-                comments.append(comm)
+            comm['text'] = uar.comment
+            comm['user'] = uar.sharer.user.username
+            comments.append(comm)
         return comments
 
 

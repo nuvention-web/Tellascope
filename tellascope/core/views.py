@@ -55,7 +55,7 @@ class LandingView(AnonymousRequiredMixin, TemplateView):
             user = authenticate(username=form.cleaned_data['username'],
                                 password=form.cleaned_data['password2'])
             login(request, user)
-            return HttpResponseRedirect("/dashboard/")
+            return HttpResponseRedirect("/dashboard/private")
         else:
             print form.errors
             form = forms.UserCreateForm()
@@ -83,30 +83,35 @@ class UARFilter(django_filters.FilterSet):
         ]
 
 
-class DashboardView(LoginRequiredMixin, AjaxMultipleObjectTemplateResponseMixin, FilterView):
+class AbstractDashboardView(AjaxMultipleObjectTemplateResponseMixin, FilterView):
     model = models.UserArticleRelationship
     template_name = 'uar_index.html'
     page_template = 'uar_index_page.html'
     filterset_class = UARFilter
     context_filter_name = 'uar_filter'
 
-    def get_queryset(self, **kwargs):
-        qs = super(DashboardView, self).get_queryset(**kwargs)
-        qs.filter(sharer=self.request.user.profile)
-        
-        # profile = get_object_or_404(models.UserProfile.objects
-        #         .select_related('user__username')
-        #         .filter(user__username=self.request.user.username))
-
-        # qs.filter(sharer=profile)
-
-        qs.annotate(article_share_count=Count('article__shared_by'))
-        return qs.order_by('-pocket_date_added')
-
     def get_context_data(self, **kwargs):
-        context = super(DashboardView, self).get_context_data(**kwargs)
+        context = super(AbstractDashboardView, self).get_context_data(**kwargs)
         context['page_template'] = self.page_template
         return context
+
+
+class PrivateDashboardView(LoginRequiredMixin, AbstractDashboardView):
+    def get_queryset(self, **kwargs):
+        qs = super(PrivateDashboardView, self).get_queryset(**kwargs)
+        qs = qs.filter(sharer=self.request.user.profile)
+        qs = qs.annotate(article_share_count=Count('article__shared_by'))
+        qs = qs.order_by('-pocket_date_added')
+        return qs
+
+
+class PublicDashboardView(AbstractDashboardView):
+    def get_queryset(self, **kwargs):
+        qs = super(PublicDashboardView, self).get_queryset(**kwargs)
+        qs = qs.filter(sharer=self.request.user.profile)
+        qs = qs.annotate(article_share_count=Count('article__shared_by'))
+        qs = qs.order_by('-pocket_date_added')
+        return qs
 
 
 class ProfileView(LoginRequiredMixin, TemplateView):
