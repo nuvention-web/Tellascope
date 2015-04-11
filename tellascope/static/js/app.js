@@ -205,11 +205,16 @@ $(document).ready(function (){
   });
 
   $('.update-pocket').click(function(e) {
+    // show spinner
+    
     e.preventDefault();
     $.ajax({
       type: "POST",
       url: "/api/user/post/refreshpocket/",
-      complete: function(data) { console.log(data); },
+      complete: function(data) {
+        // hide spinner 
+        console.log(data); 
+      },
       success: function(data) { console.log(data); },
       error: function(data) { console.log(data); }
     });
