@@ -11,19 +11,19 @@
   <link href='http://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700,300italic,400italic,500italic,700italic' rel='stylesheet' type='text/css'>
   <script type="text/javascript" src="//use.typekit.net/adk4phw.js"></script>
   <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
-
+  <script src="{% static 'js/lib/remodal/jquery.remodal.js' %}"></script> 
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <script src="{% static 'js/app.js' %}"></script>
 
-    <link rel="stylesheet" href="{% static 'css/lib/jQuery-tagsinput/jquery.tagsinput.css' %}">
-    <script src="{% static 'js/lib/jQuery-tagsinput/jquery.tagsinput.js' %}"></script>
-    <link rel="stylesheet" href="{% static 'css/lib/results-preview/component.css' %}">
-    <link rel="stylesheet" href="{% static 'css/lib/chosen/chosen.css' %}">
-    <link rel="stylesheet" href="{% static 'css/lib/remodal/jquery.remodal.css' %}">
-    <link rel="stylesheet" href="{% static 'fonts/flaticon.css' %}"> 
-    <script src="{% static 'js/lib/chosen/chosen.jquery.min.js' %}"></script>
-    <script src="{% static 'js/lib/remodal/jquery.remodal.js' %}"></script> 
-    <script src="{% static 'js/lib/results-preview/modernizr.custom.js' %}"></script>
+  <link rel="stylesheet" href="{% static 'css/lib/jQuery-tagsinput/jquery.tagsinput.css' %}">
+  <script src="{% static 'js/lib/jQuery-tagsinput/jquery.tagsinput.js' %}"></script>
+  
+  <link rel="stylesheet" href="{% static 'css/lib/results-preview/component.css' %}">
+  <link rel="stylesheet" href="{% static 'css/lib/chosen/chosen.css' %}">
+  <link rel="stylesheet" href="{% static 'css/lib/remodal/jquery.remodal.css' %}">
+  <link rel="stylesheet" href="{% static 'fonts/flaticon.css' %}"> 
+  <script src="{% static 'js/lib/chosen/chosen.jquery.min.js' %}"></script>
+  <script src="{% static 'js/lib/results-preview/modernizr.custom.js' %}"></script>
   
 </head>
 <body>
@@ -44,11 +44,11 @@
       {% endif %}
     </ul>
   </nav>
-<a href="#modal">Call the modal with data-remodal-id="modal"</a>
-<div class="remodal" data-remodal-id="modal">
-    <div class="loader">Loading...</div>
-    <p class="loading-text">We're updating Tellascope with your Pocket articles!</p>
-</div>
+  <a href="#loading">Call the modal with data-remodal-id="modal"</a>
+  <div class="remodal" data-remodal-id="loading" data-remodal-options="closeOnAnyClick: false">
+      <div class="loader">Loading...</div>
+      <p class="loading-text">We're updating Tellascope with your Pocket articles!</p>
+  </div>
 
 	{% block content %}{% endblock %}
 
