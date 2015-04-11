@@ -15,8 +15,9 @@ urlpatterns = patterns('',
     url(r'^settings/$', views.SettingsView.as_view(), name='settings'),
     url(r'^login/$', views.LoginView.as_view(), name='login'),
 	url(r'^logout/$', views.LogoutView.as_view(), name='logout'),
-	url(r'^dashboard/private/$', views.PrivateDashboardView.as_view(), name='dashboard'),
-    url(r'^dashboard/public/$', views.PublicDashboardView.as_view(), name='dashboard'),
+    url(r'^dashboard/$', RedirectView.as_view(url='private/', permanent=False), name='dashboard'),
+	url(r'^dashboard/private/$', views.PrivateUARView.as_view(), name='dashboard_private'),
+    url(r'^dashboard/public/$', views.PublicArticleView.as_view(), name='dashboard_public'),
 
     # APIs
     url(r'^api/uar/post/makepublic/$', views.MakeUARPublicView.as_view(), name='makepublic'),
