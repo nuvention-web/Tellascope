@@ -2,6 +2,12 @@
 {% load endless %}
 
 {% block content %}
+
+	<div class="public-private-switch">
+		<a class="public" href="{% url 'dashboard_public' %}"></a>
+		<a class="private" href="{% url 'dashboard_private' %}"></a>
+	</div>
+
 	<div id = "searchBar">
 		{% for field in form %}
 		<form>
