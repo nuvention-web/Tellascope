@@ -2,6 +2,12 @@
 {% load endless %}
 
 {% block content %}
+	
+	<div class="public-private-switch">
+		<a class="public" href="{% url 'dashboard_public' %}"></a>
+		<a class="private" href="{% url 'dashboard_private' %}"></a>
+	</div>
+
 	<div id = "searchBar">
 		{% for field in form %}
 		<form>
@@ -23,7 +29,6 @@
 		{% include page_template %}
 		</ul>
 	</div>
-
 
 	<script src="{{ STATIC_URL }}js/lib/results-preview/grid.js"></script>
 	<script src="{{ STATIC_URL }}js/lib/remodal/jquery.remodal.js"></script>
