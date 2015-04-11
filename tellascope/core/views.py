@@ -44,7 +44,7 @@ class AnonymousRequiredMixin(object):
 
 class LandingView(AnonymousRequiredMixin, TemplateView):
     template_name = 'index.html'
-    redirect_to = '/dashboard/private'
+    redirect_to = '/dashboard/private/'
 
     def post(self, request, *args, **kwargs):
         context = self.get_context_data()
@@ -55,7 +55,7 @@ class LandingView(AnonymousRequiredMixin, TemplateView):
             user = authenticate(username=form.cleaned_data['username'],
                                 password=form.cleaned_data['password2'])
             login(request, user)
-            return HttpResponseRedirect("/dashboard/private")
+            return HttpResponseRedirect("/dashboard/private/")
         else:
             print form.errors
             form = forms.UserCreateForm()
