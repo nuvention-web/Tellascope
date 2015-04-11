@@ -69,9 +69,6 @@ class LandingView(AnonymousRequiredMixin, TemplateView):
 
 
 class UARFilter(django_filters.FilterSet):
-    # word_count = django_filters.NumberFilter(lookup_type='lt')
-    # article__word_count = django_filters.RangeFilter()
-    # public = django_filters.BooleanFilter()
     article__read_time = django_filters.RangeFilter()
     pocket_status = django_filters.ChoiceFilter(choices=models.UserArticleRelationship.STATUS_OPTIONS)
     class Meta:
@@ -79,7 +76,6 @@ class UARFilter(django_filters.FilterSet):
         fields = [
             'article__read_time',
             'pocket_status'
-            # 'public'
         ]
 
 
@@ -96,7 +92,7 @@ class AbstractDashboardView(AjaxMultipleObjectTemplateResponseMixin, FilterView)
         return context
 
 
-class PrivateDashboardView(LoginRequiredMixin, AbstractDashboardView):
+class PrivateUARView(LoginRequiredMixin, AbstractDashboardView):
     def get_queryset(self, **kwargs):
         qs = super(PrivateDashboardView, self).get_queryset(**kwargs)
         qs = qs.filter(sharer=self.request.user.profile)
@@ -105,7 +101,28 @@ class PrivateDashboardView(LoginRequiredMixin, AbstractDashboardView):
         return qs
 
 
+class ArticleFilter(django_filters.FilterSet):
+    article__read_time = django_filters.RangeFilter()
+    pocket_status = django_filters.ChoiceFilter(choices=models.UserArticleRelationship.STATUS_OPTIONS)
+    class Meta:
+        model = models.UserArticleRelationship
+        fields = [
+            'article__read_time',
+            'pocket_status'
+        ]
+        
 class PublicDashboardView(AbstractDashboardView):
+    model = models.Article
+    template_name = 'article_index.html'
+    page_template = 'article_index_page.html'
+    filterset_class = UARFilter
+    context_filter_name = 'article_filter'
+
+    def get_context_data(self, **kwargs):
+        context = super(AbstractDashboardView, self).get_context_data(**kwargs)
+        context['page_template'] = self.page_template
+        return context
+
     def get_queryset(self, **kwargs):
         qs = super(PublicDashboardView, self).get_queryset(**kwargs)
         qs = qs.filter(sharer=self.request.user.profile)
