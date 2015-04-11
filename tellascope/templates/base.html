@@ -27,6 +27,7 @@
   
 </head>
 <body>
+
 <div class="remodal-bg">
 
   <nav class="main-nav">
@@ -43,6 +44,10 @@
       {% endif %}
     </ul>
   </nav>
+<a href="#modal">Call the modal with data-remodal-id="modal"</a>
+<div class="remodal" data-remodal-id="modal">
+    <div class="loader">Loading...</div>
+</div>
 
 	{% block content %}{% endblock %}
 
