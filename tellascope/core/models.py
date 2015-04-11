@@ -131,6 +131,13 @@ class Article(models.Model):
             comments.append(comm)
         return comments
 
+    @property
+    def get_uars(self):
+        uars = []
+        for uar in self.shared_article.all():
+            uars.append(uar)
+        return uars
+
 
 class UserArticleRelationship(models.Model):
 
