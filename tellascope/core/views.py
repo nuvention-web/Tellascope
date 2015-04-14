@@ -164,6 +164,7 @@ class UpdateUserPocket(LoginRequiredMixin, View):
     def post(self, request):
         print "updating pocket..."
         utils.update_user_pocket(request.user)
+        return JsonResponse({'didItWork': "idk this api isn't finished"});
 
 
 class MakeUARPublicView(View):

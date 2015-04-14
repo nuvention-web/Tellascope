@@ -66,11 +66,10 @@ def save_pocket_item_to_database(user, item):
 	article.word_count = int(item['word_count'])
 	article.read_time = int(float(item['word_count'])/180)
 	article.save(force_update=True)
-	print article.title
 
 	uar.save()
 
-	print uar.pocket_date_added
+	print article.title + '\n\t' + str(uar.pocket_date_added) + '\n'
 
 
 def update_user_pocket(user):
