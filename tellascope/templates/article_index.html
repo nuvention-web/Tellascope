@@ -3,25 +3,26 @@
 
 {% block content %}
 	
-	{% include "includes/public_private_switch.html" %}
-
-	<div id = "searchBar">
-		{% for field in form %}
-		<form>
-		    <div class="field-wrapper {% if field.errors%} field-error {% endif %}">
-		        {{ field }}
-		    </div>
-		</form>
-		{% endfor %}
-	</div>
-	<div class="filter-form">
-		<form action="" method="get">
-	        {{ filter.form.as_p }}
-	        <input type="submit" />
-	    </form>
-	</div>
-
 	<div class="main">
+
+		{% include "includes/public_private_switch.html" with active='public'%}
+
+		<div id = "searchBar">
+			{% for field in form %}
+			<form>
+			    <div class="field-wrapper {% if field.errors%} field-error {% endif %}">
+			        {{ field }}
+			    </div>
+			</form>
+			{% endfor %}
+		</div>
+		<div class="filter-form">
+			<form action="" method="get">
+		        {{ filter.form.as_p }}
+		        <input type="submit" />
+		    </form>
+		</div>
+
 		<ul id="og-grid" class="og-grid article_list">
 		{% include page_template %}
 		</ul>
