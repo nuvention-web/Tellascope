@@ -40,6 +40,11 @@
         <a href="/logout">Logout</a>
       {% else %}
         <a href="{% url 'login' %}">Log In</a>
+        <script>
+          $(document).ready(function() {
+            $('.remodal').hide();
+          });
+        </script>
       {% endif %}
     </ul>
   </nav>
