@@ -44,7 +44,7 @@ class AnonymousRequiredMixin(object):
 
 class LandingView(AnonymousRequiredMixin, TemplateView):
     template_name = 'index.html'
-    redirect_to = '/dashboard/'
+    redirect_to = '/dashboard/private/'
 
     def post(self, request, *args, **kwargs):
         context = self.get_context_data()
@@ -55,7 +55,7 @@ class LandingView(AnonymousRequiredMixin, TemplateView):
             user = authenticate(username=form.cleaned_data['username'],
                                 password=form.cleaned_data['password2'])
             login(request, user)
-            return HttpResponseRedirect("/dashboard/")
+            return HttpResponseRedirect("/dashboard/private/")
         else:
             print form.errors
             form = forms.UserCreateForm()
@@ -69,9 +69,6 @@ class LandingView(AnonymousRequiredMixin, TemplateView):
 
 
 class UARFilter(django_filters.FilterSet):
-    # word_count = django_filters.NumberFilter(lookup_type='lt')
-    # article__word_count = django_filters.RangeFilter()
-    # public = django_filters.BooleanFilter()
     article__read_time = django_filters.RangeFilter()
     pocket_status = django_filters.ChoiceFilter(choices=models.UserArticleRelationship.STATUS_OPTIONS)
     class Meta:
@@ -79,35 +76,60 @@ class UARFilter(django_filters.FilterSet):
         fields = [
             'article__read_time',
             'pocket_status'
-            # 'public'
         ]
 
 
-class DashboardView(LoginRequiredMixin, AjaxMultipleObjectTemplateResponseMixin, FilterView):
+class AbstractDashboardView(AjaxMultipleObjectTemplateResponseMixin, FilterView):
     model = models.UserArticleRelationship
     template_name = 'uar_index.html'
     page_template = 'uar_index_page.html'
     filterset_class = UARFilter
     context_filter_name = 'uar_filter'
 
-    def get_queryset(self, **kwargs):
-        qs = super(DashboardView, self).get_queryset(**kwargs)
-        qs.filter(sharer=self.request.user.profile)
-        
-        profile = get_object_or_404(models.UserProfile.objects
-                .select_related('user__username')
-                .filter(user__username=self.request.user.username))
-
-        qs.filter(sharer=profile)
-
-        qs.annotate(article_share_count=Count('article__shared_by'))
-
-        return qs.order_by('-pocket_date_added')
-
     def get_context_data(self, **kwargs):
-        context = super(DashboardView, self).get_context_data(**kwargs)
+        context = super(AbstractDashboardView, self).get_context_data(**kwargs)
         context['page_template'] = self.page_template
         return context
+
+
+class PrivateUARView(LoginRequiredMixin, AbstractDashboardView):
+    def get_queryset(self, **kwargs):
+        qs = super(PrivateUARView, self).get_queryset(**kwargs)
+        qs = qs.filter(sharer=self.request.user.profile)
+        qs = qs.annotate(article_share_count=Count('article__shared_by'))
+        qs = qs.order_by('-pocket_date_added')
+        return qs
+
+
+class ArticleFilter(django_filters.FilterSet):
+    article__read_time = django_filters.RangeFilter()
+    pocket_status = django_filters.ChoiceFilter(choices=models.UserArticleRelationship.STATUS_OPTIONS)
+    class Meta:
+        model = models.UserArticleRelationship
+        fields = [
+            'article__read_time',
+        ]
+        
+class PublicArticleView(AjaxMultipleObjectTemplateResponseMixin, FilterView):
+    model = models.Article
+    template_name = 'article_index.html'
+    page_template = 'article_index_page.html'
+    filterset_class = UARFilter
+    context_filter_name = 'article_filter'
+
+    def get_context_data(self, **kwargs):
+        context = super(PublicArticleView, self).get_context_data(**kwargs)
+        context['page_template'] = self.page_template
+        return context
+
+    def get_queryset(self, **kwargs):
+        qs = super(PublicArticleView, self).get_queryset(**kwargs)
+        # order by number of shares in recent times
+        # qs = qs.order_by('-pocket_date_added')
+        qs = qs.annotate(share_count=Count('shared_by'))
+        qs = qs.order_by('share_count')
+        qs = qs.exclude(shared_article__public=False)
+        return qs
 
 
 class ProfileView(LoginRequiredMixin, TemplateView):

@@ -121,12 +121,22 @@ class Article(models.Model):
             # print self.pk
             # self.read_time = int(self.word_count) / 180
 
-    @classmethod
+    @property
     def get_comments(self):
         comments = []
-        for uar in self.shared_article.all():
-            comments.append(uar.comment)
+        for uar in self.shared_article.filter(comment__isnull=False, public=True).exclude(comment=''):
+            comm = {}
+            comm['text'] = uar.comment
+            comm['user'] = uar.sharer.user.username
+            comments.append(comm)
         return comments
+
+    @property
+    def get_uars(self):
+        uars = []
+        for uar in self.shared_article.all():
+            uars.append(uar)
+        return uars
 
 
 class UserArticleRelationship(models.Model):

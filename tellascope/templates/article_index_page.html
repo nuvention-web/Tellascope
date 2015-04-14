@@ -1,0 +1,27 @@
+{% load endless %}
+
+{% paginate 50 object_list %}
+{% for article in object_list %}
+	
+	<li id="uar-{{ article.pk }}" class="grid-item public" >
+		<a class="expand-preview" href="{{ article.url }}" target="_blank" data-largesrc="../static/img/1.jpg" data-title="{{ article.title }}" data-description="{% for tag in article.tags.all %}
+            <span class='article-tag'>{{ tag }}</span>
+        {% endfor %}{% for author in article.authors.all %}<p id='article-sharedby'>{{ author }}</p>{% endfor %}<p id='article-excerpt'>{{ article.excerpt }}</p>" data-comments="<p id='article-sharedby'>Shared by {{ article.share_count }} people</p><div class='user-comment'>{% for comment in article.get_comments %}<p class='article-comment'><span>{{ comment.text }}</span><br /><span class='author-comment'>- {{ comment.user }}</span></p>{% endfor %}</div>">
+		<div class="article-element">
+			<div class="article-content">
+				<h1>{{ article.title|truncatechars:50 }}</h1>
+				{% for author in article.authors.all %}
+				<p>{{ author }}</p>
+				{% endfor %}
+			</div>
+			<div class="article-element-footer">
+				<div class="footer-container">
+					<p id="article-source">{{ article.read_time }} minute read</p>
+				</div>
+			</div>
+		</div>
+	</a>
+</li>
+
+{% endfor %}
+{% show_more %}

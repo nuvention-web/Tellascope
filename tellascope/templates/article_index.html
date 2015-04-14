@@ -2,7 +2,7 @@
 {% load endless %}
 
 {% block content %}
-
+	
 	{% include "includes/public_private_switch.html" %}
 
 	<div id = "searchBar">
@@ -20,38 +20,12 @@
 	        <input type="submit" />
 	    </form>
 	</div>
-	<!-- <div id = "fsBar">
-		<div id = "filterBar">
-			<i class="fa fa-filter"></i>&nbsp;
-			<select data-placeholder="Filter by..." id = "filter-select" multiple>
-				<option value = "unread">Unread</option>
-				<optgroup label="Time">
-					<option value = "0-15">0-15 minutes</option>
-					<option value = "15-30">16-30 minutes</option>
-					<option value = "30-60 minutes">30-60 minutes</option>
-					<option value = "60+">60+ minutes</option>
-				</optgroup>
-			</select>
-		</div>
-		<div id = "sortBar">
-			<div id = "sortRight">
-				<span id = "sort-text">Sort By&nbsp;</span>
-				<select id = "sort-select">
-					<option value = "datePosted">Date posted</option>
-					<option value = "sharesTellascope">Shares on Tellascope</option>
-					<option value = "sharesFriends">Shares from friends</option>
-					<option value = "readingFriends">Friends reading</option>
-				</select>
-			</div>
-		</div>
-	</div> -->
 
 	<div class="main">
 		<ul id="og-grid" class="og-grid article_list">
 		{% include page_template %}
 		</ul>
 	</div>
-
 
 	<script src="{{ STATIC_URL }}js/lib/results-preview/grid.js"></script>
 	<script src="{{ STATIC_URL }}js/lib/remodal/jquery.remodal.js"></script>

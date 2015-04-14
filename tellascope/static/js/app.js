@@ -205,11 +205,18 @@ $(document).ready(function (){
   });
 
   $('.update-pocket').click(function(e) {
+    // show spinner
+    var spinner = $.remodal.lookup[$('[data-remodal-id=loading]').data('remodal')];
+    spinner.open();
     e.preventDefault();
     $.ajax({
       type: "POST",
       url: "/api/user/post/refreshpocket/",
-      complete: function(data) { console.log(data); },
+      complete: function(data) {
+        // hide spinner  
+        console.log(data);
+        window.location = window.location.pathname
+      },
       success: function(data) { console.log(data); },
       error: function(data) { console.log(data); }
     });
