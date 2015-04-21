@@ -49,12 +49,14 @@ def save_pocket_item_to_database(user, item):
 		sharer=user.profile,
 		article=article)
 	uar.pocket_status = item['status']
+
 	uar.pocket_date_added = timezone.make_aware(
 								datetime.utcfromtimestamp(float(item['time_added'])),
 								timezone.get_current_timezone())
 	uar.pocket_date_updated = timezone.make_aware(
 								datetime.utcfromtimestamp(float(item['time_updated'])),
 								timezone.get_current_timezone())
+
 
 	if item['favorite'] == '1': 
 		uar.favorited = True 
@@ -64,10 +66,10 @@ def save_pocket_item_to_database(user, item):
 	article.word_count = int(item['word_count'])
 	article.read_time = int(float(item['word_count'])/180)
 	article.save(force_update=True)
-	print article.read_time
 
-	print article.title
 	uar.save()
+
+	print article.title + '\n\t' + str(uar.pocket_date_added) + '\n'
 
 
 def update_user_pocket(user):

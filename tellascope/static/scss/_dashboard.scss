@@ -213,3 +213,32 @@
 .remodal {
 	background-color: transparent !important;
 }
+
+// Buttons Public Private
+
+.public-private-switch {
+	@include row();
+	margin-top: 1em;
+
+	div.buttons {
+		@include shift(4);
+		@include span-columns(4);
+
+		a {
+
+			@include span-columns(6 of 12);
+			
+			border: 2px solid #018ace;
+			color: #018ace;
+	  		cursor: pointer;
+	  		display: inline-block;
+	  		padding: 0.5em 1em;
+	  		text-align: center;
+			
+			&.active {
+				background-color: #018ace;
+				color: white;
+			}
+		}
+	}
+}

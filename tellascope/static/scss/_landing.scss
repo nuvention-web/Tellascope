@@ -49,6 +49,14 @@ h3 { font-weight: 600; }
 
 	.info {
 		text-align: center;
+
+		a {
+			text-decoration: none;
+			color: $blue;
+			&:hover {
+				text-decoration: underline;
+			}
+		}
 	}
 
 	.instruct {
