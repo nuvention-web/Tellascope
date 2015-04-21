@@ -22,7 +22,7 @@ body {
 
 .main-nav {
   background: #fff;
-  height: 70px;
+  height: 65px;
   z-index: 150;
   border-bottom: solid 1px #dfdfdf;
   vertical-align: middle;
@@ -70,17 +70,17 @@ body {
 
 .site-logo {
     display: block;
-    width: 100%;
+    width: 80%;
     height: 0;
-    padding-top: 100%;
+    padding-top: 95%;
     text-indent: -9999em;
     font-weight: 500;
-    background-image: url('../img/logo.png');
+    background-image: url('../img/logo2.png');
     background-position: center center;
     background-repeat: no-repeat;
     -webkit-background-size: 50% auto;
     background-size: 95% auto;
-    margin-left: 0.5em;
+    margin-left: 0.8em;
 }
 
 .main-nav .social {
@@ -95,8 +95,8 @@ body {
     display: inline-block;
     text-decoration: none;
     margin-right: -4px;
-    width: 140px;
-    height: 70px;
+    width: 100px;
+    height: 65px;
     text-align: center;
     border-left: 1px solid #efefef;
     overflow-y: hidden;
@@ -111,5 +111,10 @@ body {
         -moz-transition: background 0.5s ease, padding 0.8s linear;
         -o-transition: background 0.5s ease, padding 0.8s linear;
         transition: background 0.5s ease, padding 0.8s linear;
+        cursor: pointer;
+    }
+
+    .fa {
+        font-size: 1.25em;
     }
 }
