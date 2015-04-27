@@ -235,6 +235,10 @@ $(document).ready(function (){
     $("#tellascopeTab").css("color","white");
     $("#tellascopeTab").css("background-color","black");
   });
+
+  Tipped.create('#refresh', 'Sync with Pocket');
+  Tipped.create('#logout', 'Logout');
+
 });
 
 $(document).on('click', '.article-tag', function(event) {
