@@ -53,10 +53,12 @@
     </ul>
   </nav>
 
+  {% block remodal %}
   <div class="remodal" data-remodal-id="loading" data-remodal-options="closeOnAnyClick: false">
       <div class="loader">Loading...</div>
       <p class="loading-text">We're updating Tellascope with your Pocket articles!</p>
   </div>
+  {% endblock %}
 
 	{% block content %}{% endblock %}
 
