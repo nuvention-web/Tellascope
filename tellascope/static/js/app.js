@@ -208,6 +208,7 @@ $(document).ready(function (){
     // show spinner
     var spinner = $.remodal.lookup[$('[data-remodal-id=loading]').data('remodal')];
     spinner.open();
+    $('.remodal').show();
     e.preventDefault();
     $.ajax({
       type: "POST",
@@ -215,12 +216,13 @@ $(document).ready(function (){
       complete: function(data) {
         // hide spinner  
         console.log(data);
-        window.location = window.location.pathname
+        window.location = window.location.pathname;
+        $('.remodal').hide();
       },
       success: function(data) { console.log(data); },
       error: function(data) { console.log(data); }
     });
-  })
+  });
 
   $('#youTab').on('click', function() {
     $("#youTab").css("color","white");
@@ -235,6 +237,10 @@ $(document).ready(function (){
     $("#tellascopeTab").css("color","white");
     $("#tellascopeTab").css("background-color","black");
   });
+
+  Tipped.create('#refresh', 'Sync with Pocket');
+  Tipped.create('#logout', 'Logout');
+
 });
 
 $(document).on('click', '.article-tag', function(event) {

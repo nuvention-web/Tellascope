@@ -150,7 +150,7 @@ class UserArticleRelationship(models.Model):
 
     sharer = models.ForeignKey('UserProfile', related_name='shared_by')
     article = models.ForeignKey('Article', related_name='shared_article')
-    comment = models.CharField(max_length=250, blank=True, null=True)
+    comment = models.TextField(blank=True, null=True)
     shared_datetime = models.DateTimeField(auto_now_add=True)
     public = models.BooleanField(default=False)
 
