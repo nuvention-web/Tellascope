@@ -97,7 +97,7 @@ class PrivateUARView(LoginRequiredMixin, AbstractDashboardView):
         qs = super(PrivateUARView, self).get_queryset(**kwargs)
         qs = qs.filter(sharer=self.request.user.profile)
         qs = qs.annotate(article_share_count=Count('article__shared_by'))
-        qs = qs.order_by('-pocket_date_added')
+        qs = qs.order_by('-pocket_date_updated')
         return qs
 
 
