@@ -129,6 +129,8 @@ class PublicArticleView(AjaxMultipleObjectTemplateResponseMixin, FilterView):
         qs = qs.annotate(share_count=Count('shared_by'))
         qs = qs.order_by('share_count')
         qs = qs.exclude(shared_article__public=False)
+        qs = qs.exclude(share_count=0)
+        
         return qs
 
 
