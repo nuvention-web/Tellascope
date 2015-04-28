@@ -127,8 +127,10 @@ class PublicArticleView(AjaxMultipleObjectTemplateResponseMixin, FilterView):
         # order by number of shares in recent times
         # qs = qs.order_by('-pocket_date_added')
         qs = qs.annotate(share_count=Count('shared_by'))
-        qs = qs.order_by('share_count')
         qs = qs.exclude(shared_article__public=False)
+        # qs = qs.exclude(share_count=0)
+        qs = qs.order_by('share_count')
+        
         return qs
 
 
