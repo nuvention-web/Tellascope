@@ -12,7 +12,7 @@ def clean_url(url):
 	return url
 
 def get_list_from_pocket(pocket):
-    articles, header = pocket.get(state='all', detailType='complete', contentType='article')
+    articles, header = pocket.get(state='all', detailType='complete')
     article_list = []
     for key, value in articles.get('list').iteritems():
         article_list.append(value)
