@@ -38,6 +38,14 @@
 	margin-top: 10px;
 }
 
+.shared-img {
+	background-color: #c6e8f5 !important;
+}
+
+.private-img {
+	background-color: #ddd;
+}
+
 .article-tag {
 	background-color: #FFA07A;
 	padding: 5px 10px;
@@ -88,8 +96,7 @@
 	padding: 20px;
 	position: absolute;
 	bottom: 0;
-	left: 0;
-	background-color: #ddd;
+	left: 2px;
 
 	.footer-container {
 		position: relative;
