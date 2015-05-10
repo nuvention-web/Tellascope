@@ -22,6 +22,7 @@ a:hover {
 	margin: 10px 5px 0 5px;
 	vertical-align: top;
 	width: 30%;
+	overflow: hidden;
 }
 
 .og-grid li > a.expand-preview,
