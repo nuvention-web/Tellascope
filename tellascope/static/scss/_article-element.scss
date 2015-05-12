@@ -33,9 +33,11 @@
 }
 
 .img-preview {
-	display: block;
-	width: 100%;
 	margin-top: 10px;
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	height: 70%;
 }
 
 .shared-img {
