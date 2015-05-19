@@ -150,7 +150,8 @@ $(document).ready(function (){
   });
 
   $('.share-uar input[type="submit"]').on('click', function(e) {
-    $(this).parents('.grid-item').addClass('public')
+    $(this).parents('.grid-item').addClass('public');
+    $(this).parent().parent().prev().addClass('shared-img');
     $(this).parents('form').submit();
     return false;
   });
