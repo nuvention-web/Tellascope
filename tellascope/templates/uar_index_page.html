@@ -19,7 +19,10 @@
 				<p>{{ author }}</p>
 				{% endfor %}
 			</div>
-			<div class="article-element-footer">
+			<div class="img-preview" style="background-image: url(/static/img/dog1.jpg);">
+				<!-- <img src="/static/img/dog1.jpg" /> -->
+			</div>
+			<div class="article-element-footer private-img {% if uar.public %}shared-img{% endif %}">
 				<div class="footer-container">
 					<p class="open-share-button" data-item-id='{{ uar.pk }}'><i class="fa fa-share"></i></p>
 					<p id="article-source">{{ article.read_time }} minute read</p>
