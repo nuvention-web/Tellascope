@@ -107,6 +107,7 @@ class Article(models.Model):
     source = models.ForeignKey('Source', blank=True, null=True, 
                                     related_name='articles_from_source')
     authors = models.ManyToManyField('Author')
+    image = models.URLField(max_length=1000, blank=False, null=True)
     tags = TaggableManager(through=TaggedArticle, blank=True)
     word_count = models.IntegerField(blank=False, null=True)
     pocket_resolved_id = models.CharField(max_length=100, null=True, unique=True)
