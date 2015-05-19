@@ -62,7 +62,8 @@ def save_pocket_item_to_database(user, item):
         uar.favorited = True 
     else:
         uar.favorited = False
-
+ 
+    # try:
     article.image = item['images']['1']['src']
 
     article.word_count = int(item['word_count'])
