@@ -102,19 +102,18 @@ class PrivateUARView(LoginRequiredMixin, AbstractDashboardView):
 
 
 class ArticleFilter(django_filters.FilterSet):
-    article__read_time = django_filters.RangeFilter()
-    pocket_status = django_filters.ChoiceFilter(choices=models.UserArticleRelationship.STATUS_OPTIONS)
+    read_time = django_filters.RangeFilter()
     class Meta:
         model = models.UserArticleRelationship
         fields = [
-            'article__read_time',
+            'read_time',
         ]
         
 class PublicArticleView(AjaxMultipleObjectTemplateResponseMixin, FilterView):
     model = models.Article
     template_name = 'article_index.html'
     page_template = 'article_index_page.html'
-    filterset_class = UARFilter
+    filterset_class = ArticleFilter
     context_filter_name = 'article_filter'
 
     def get_context_data(self, **kwargs):

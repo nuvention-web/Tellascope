@@ -1,8 +1,7 @@
 .article-element {
 	width: 100%;
-	height: 275px;
+	height: 325px;
 	background-color: #ddd;
-	padding: 20px;
 	z-index: 1;
 	// position: relative;
 }
@@ -27,6 +26,26 @@
   	text-align: left;
   	line-height: 5px;
   	font-weight: 300;
+}
+
+.article-content {
+	padding: 20px 20px 0px 20px;
+}
+
+.img-preview {
+	margin-top: 10px;
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	height: 70%;
+}
+
+.shared-img {
+	background-color: #c6e8f5 !important;
+}
+
+.private-img {
+	background-color: #ddd;
 }
 
 .article-tag {
@@ -74,13 +93,12 @@
 	// display: inline-block;
 }
 
-
 .article-element-footer {
 	width: 100%;
 	padding: 20px;
 	position: absolute;
 	bottom: 0;
-	left: 0;
+	left: 2px;
 
 	.footer-container {
 		position: relative;
@@ -92,7 +110,8 @@
 		bottom: -5px;
 		padding: 10px;
 		margin: 0;
-		transform: translateY(25%);
+		top: 50%;
+		transform: translateY(-75%);
 		&:hover {
 			color: #018ace;
 		}
@@ -106,15 +125,12 @@
 		right: 0px;
 		bottom: 0px;
 		margin: 0;
+		top: 50%;
+		transform: translateY(-75%);
 	}
 }
 
-
-
 // Share Container
-
-
-
 .article-share-container {
 	position: absolute;
 	overflow: hidden;
