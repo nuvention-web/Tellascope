@@ -63,8 +63,10 @@ def save_pocket_item_to_database(user, item):
     else:
         uar.favorited = False
  
-    # try:
-    article.image = item['images']['1']['src']
+    try:
+        article.image = item['images']['1']['src']
+    except:
+        article.image = False
 
     article.word_count = int(item['word_count'])
     article.read_time = int(float(item['word_count'])/180)
