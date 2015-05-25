@@ -1,4 +1,5 @@
 import urlparse
+import requests
 from pocket import Pocket
 
 from datetime import datetime
@@ -70,8 +71,18 @@ def save_pocket_item_to_database(user, item):
 
     article.word_count = int(item['word_count'])
     article.read_time = int(float(item['word_count'])/180)
-    article.save(force_update=True)
 
+    # if not article.facebook_share_count:
+    #     print 'facebooking'
+    #     fb_url = 'http://graph.facebook.com/?id=' + item['resolved_url']
+    #     article.facebook_share_count = requests.get(fb_url).json()['shares']
+
+    # if not article.twitter_share_count:
+    #     print 'tweetin'
+    #     twitter_url = 'http://cdn.api.twitter.com/1/urls/count.json?url=' + item['resolved_url']
+    #     article.twitter_share_count = requests.get(twitter_url).json()['count']
+
+    article.save(force_update=True)
     uar.save()
 
     print article.title + '\n\t' + str(uar.pocket_date_added) + '\n'
