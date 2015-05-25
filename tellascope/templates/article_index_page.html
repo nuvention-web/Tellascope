@@ -14,7 +14,9 @@
 				<p>{{ author }}</p>
 				{% endfor %}
 			</div>
-			<div class="article-element-footer">
+			<div class="img-preview" style="background-image: url({{ article.image }});">
+			</div>
+			<div class="article-element-footer shared-img">
 				<div class="footer-container">
 					<p id="article-source">{{ article.read_time }} minute read</p>
 				</div>
