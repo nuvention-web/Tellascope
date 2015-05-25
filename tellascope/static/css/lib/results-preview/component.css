@@ -117,6 +117,13 @@ a:hover {
 	overflow: scroll;
 }
 
+.social-shares {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	margin-right: 6em;
+}
+
 .og-fullimg {
 	text-align: center;
 }

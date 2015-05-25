@@ -11,13 +11,12 @@
 	<li id="uar-{{ uar.pk }}" class="grid-item {% if uar.public %}public{% endif %}" >
 		<a class="expand-preview" href="{{ article.url }}" target="_blank" data-largesrc="../static/img/1.jpg" data-title="{{ article.title }}" data-description="{% for tag in article.tags.all %}
             <span class='article-tag'>{{ tag }}</span>
-        {% endfor %}{% for author in article.authors.all %}<p id='article-sharedby'>{{ author }}</p>{% endfor %}<p id='article-excerpt'>{{ article.excerpt|truncatechars:140 }}</p>" data-comments="{% if uar.article_share_count > 1 %}<p id='article-sharedby'>Shared by {{ uar.article_share_count }} pe{{ article.share_count|pluralize:"rson,ople" }}</p>{% endif %}<div class='user-comment'>{% for comment in article.get_comments %}<p class='article-comment'><span>{{ comment.text }}</span><br /><span class='author-comment'>- {{ comment.user }} </span></p>{% endfor %}</div><div class='social-shares'><script>var url = '{{ article.url }}'; var facebook_shares = 'http://graph.facebook.com/?id=' + url; var twitter_shares = 'http://cdn.api.twitter.com/1/urls/count.json?url=' + url; $.getJSON(facebook_shares, function(json) { $('.social-shares').append('<p>' + json.shares + ' shares on Facebook</p>'); }); $.ajax({
+        {% endfor %}{% for author in article.authors.all %}<p id='article-sharedby'>{{ author }}</p>{% endfor %}<p id='article-excerpt'>{{ article.excerpt|truncatechars:140 }}</p>" data-comments="{% if uar.article_share_count > 1 %}<p id='article-sharedby'>Shared by {{ uar.article_share_count }} pe{{ article.share_count|pluralize:"rson,ople" }}</p>{% endif %}<div class='user-comment'>{% for comment in article.get_comments %}<p class='article-comment'><span>{{ comment.text }}</span><br /><span class='author-comment'>- {{ comment.user }} </span></p>{% endfor %}</div><div class='social-shares'><script>var url = '{{ article.url }}'; var facebook_shares = 'http://graph.facebook.com/?id=' + url; var twitter_shares = 'http://cdn.api.twitter.com/1/urls/count.json?url=' + url; $.getJSON(facebook_shares, function(json) { $('.social-shares').append('<p><i class=&quot;fa fa-facebook-square&quot;></i> SHARE (' + json.shares + ')</p>'); }); $.ajax({
     url: twitter_shares,
     type: 'GET',
     crossDomain: true,
     dataType: 'jsonp',
-    success: function(data) { $('.social-shares').append('<p>' + data.count + ' shares on Twitter</p>');
-    },
+    success: function(data) { $('.social-shares').append('<p><i class=&quot;fa fa-twitter&quot;></i> TWEET (' + data.count + ')</p>') },
     error: function() { alert('Failed!'); }
 }); </script></div>">
 		<div class="article-element">
