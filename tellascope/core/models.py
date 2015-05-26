@@ -113,6 +113,9 @@ class Article(models.Model):
     pocket_resolved_id = models.CharField(max_length=100, null=True, unique=True)
     read_time = models.IntegerField(blank=False, null=True)
 
+    facebook_share_count = models.IntegerField(blank=False, null=True)
+    twitter_share_count = models.IntegerField(blank=False, null=True)
+
     def __unicode__(self):
         return self.title
 

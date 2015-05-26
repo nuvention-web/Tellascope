@@ -1,4 +1,5 @@
 import urlparse
+import requests
 from pocket import Pocket
 
 from datetime import datetime
@@ -70,8 +71,8 @@ def save_pocket_item_to_database(user, item):
 
     article.word_count = int(item['word_count'])
     article.read_time = int(float(item['word_count'])/180)
-    article.save(force_update=True)
 
+    article.save(force_update=True)
     uar.save()
 
     print article.title + '\n\t' + str(uar.pocket_date_added) + '\n'
