@@ -90,6 +90,8 @@ DATABASES = {
         'NAME': 'tellascope',
     }
 }
+
+# This should work now
 DATABASES['default'] = dj_database_url.config(env='DATABASE_URL') or dj_database_url.parse('postgres://duner:postgres@localhost:5432/tellascope')
 
 # Internationalization

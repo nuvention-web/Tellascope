@@ -1,6 +1,7 @@
 import json
 import urllib
 import django_filters
+import requests
 
 from datetime import datetime
 from django.utils import timezone
@@ -17,9 +18,7 @@ from django.utils.decorators import method_decorator
 from django.db.models import Count
 
 from django.core import serializers
-
 from django.contrib.auth.forms import PasswordChangeForm
-
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 
 from pocket import Pocket
@@ -28,6 +27,12 @@ from tellascope.core import forms, models, utils
 
 from tellascope.core.utils import *
 from tellascope.config.config import SOCIAL_AUTH_POCKET_CONSUMER_KEY
+
+
+class JSONResponse(HttpResponse):
+    def __init__(self, data, request, *args, **kwargs):
+        super(JSONResponse, self).__init__(json.dumps(data), *args, **kwargs)
+
 
 class LoginRequiredMixin(object):
     @classmethod
