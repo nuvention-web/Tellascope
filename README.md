@@ -1,6 +1,4 @@
 tellascope
-=============
-<<<<<<< HEAD
 ##Logo
 ![Tellascope](Logos/logo.png)
 ##Summary
@@ -35,8 +33,7 @@ Our key technologies are as follows:
 * Adam Morabito
 * Brian Lichliter
 
-=======
->>>>>>> 37932392959843369ef5e65fd90d8d945fc01a79
+
 ## Requirements
 
 - `virtualenv` and `virtualenvwrapper`
