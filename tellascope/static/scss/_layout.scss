@@ -1,0 +1,16 @@
+.row {
+  @include row();
+}
+
+body {
+    font-family: 'Proxima-Nova';
+}
+
+.content-wrapper {
+	@include outer-container
+}
+
+.half-width {
+	@include span-columns(6 of 12);
+	@include omega(2n);
+}

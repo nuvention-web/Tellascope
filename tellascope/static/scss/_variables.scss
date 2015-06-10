@@ -1,0 +1,18 @@
+$purple: #501F84;
+$orange: #EC380E;
+$grey: #333333;
+$blue: #018ace;
+
+$salmon: #FFA07A;
+
+$pocket-red: rgb(231,37,68);
+
+$large: new-breakpoint(min-width em(650));
+$medium: new-breakpoint(min-width em(401) max-width em(649) 12);
+$small: new-breakpoint(max-width em(400) 8);
+
+$masthead-height: 40px;
+
+@mixin serif {
+  font-family: "ff-meta-serif-web-pro", serif;
+}

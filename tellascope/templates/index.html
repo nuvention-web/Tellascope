@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% block remodal %}{% endblock %}
+
+{% block content %}
+
+<div class="section" id="header">
+	<div class="content-wrapper row">
+		<div class="logo half-width">
+			<h1 id="tellascope">Tellascope</h1>
+			<h2 id="tagline">Magnifying context of the news that matters to you</h2>
+		</div>
+		<div class="create-account half-width">
+			<p class="instruct"><span>Sign up or sign in with Pocket</span></p>
+			<div class="social row">
+				<!-- <a class="half-width" href="{% url 'social:begin' 'twitter' %}?next={{ request.path }}"><div class="twitter">Twitter</div></a> -->
+				<!-- <a class="half-width" href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}"><div class="facebook">Facebook</div></a> -->
+				<a class="pocket" href="{% url 'social:begin' 'pocket' %}?next={{ request.path }}"><div class="pocket">Get Started</div></a>
+			</div>
+			<p class="info">Don't have a Pocket account? <a href="https://getpocket.com/signup" target="_blank">Create one now</a>.</p>
+
+			<!--<form method="post" action="">
+				{% csrf_token %}
+
+				{% if form.non_field_errors %}
+					<ul class="errors">
+				    {% for error in form.non_field_errors %}
+				        <li>{{ error }}</li>
+				    {% endfor %}
+				    </ul>
+				{% endif %}
+				{% for field in form %}
+				    <div class="field-wrapper {% if field.errors%} field-error {% endif %}">
+				        {{ field.errors }}
+				        {{ field }}
+				    </div>
+				{% endfor %}
+
+		    	<input class="half-width" type="submit" value="Submit">
+			</form>-->
+		</div>
+	</div>
+</div>
+
+<div class="section" id="about">
+	<h1>About</h1>
+	<div class="values-container content-wrapper">
+		<div class="value">
+			<i class="fa fa-scissors"></i>
+			<h2>Cut through the clutter</h2>
+			<p class = "text-left">Tellascope does all the heavy lifting for you - sifting through the millions of news articles and bringing you the highest quality content, organized in a visually appealing manner. </p>
+		</div>
+		<div class="value">
+			<i class="fa fa-university"></i>
+			<h2>Learn from thought leaders</h2>
+			<p class = "text-left">Tellascope gives you direct access to top experts across a broad variety of categories. Tellascrope encourages everyone to be an expert and gives them the tools to create, share and store personalized collections.</p>
+		</div>
+		<div class="value">
+			<i class="fa fa-arrow-down"></i>
+			<h2>Dive as deep as you want</h2>
+			<p class = "text-left">There is no depth limitation on Tellascope. Tellascope’s aim is not to skim the surface of the news like others. By going deeper, we’re providing the context for comprehension of complex topics and contemporary issues.</p>
+		</div>
+	</div>
+</div>
+
+<div class="section" id="team">
+	<div class="content-wrapper">
+		<h1>Team</h1>
+		<h2 class = "text-center">We care about the why, not the what.</h2>
+		<div class="row">
+			<div class="team-member">
+				<h3>Alex Duner</h3>
+				<img class="memberImg" src="../static/img/teamPictures/Alex.jpg">
+				<p class = "text-left">Currently studying Journalism and Computer Science at Northwestern University. Works as a journalist and developer at the Knight Lab and North By Northwestern. Recently worked for the Texas Tribune.<p>
+			</div>
+			<div class="team-member">
+				<h3>Nicole Zhu</h3>
+				<img class = "memberImg" src = "../static/img/teamPictures/Nicole.jpg">
+				<p class = "text-left">Currently pursuing a B.A. in Computer Science at Northwestern University. She currently works as a Student Fellow at the Knight Lab and Creative Director of North by Northwestern. Previously worked at Vox Media. Interested in crowdsourcing and the intersection of journalism and technology.<p>
+			</div>
+			<div class="team-member">
+				<h3>Brian Lichliter</h3>
+				<img class = "memberImg" src = "../static/img/teamPictures/Brian.jpg">
+				<p class = "text-left">Currently pursuing a B.S. in Computer Engineering and the M.S. in Engineering Design and Innovation at Northwestern University. Worked as an automation engineer over the summer for Visa. His interests lie in the human-centered design of technology.<p>
+			</div>
+			<div class="team-member">
+				<h3>Eric Swank</h3>
+				<img class = "memberImg" src = "../static/img/teamPictures/Eric.jpg">
+				<p class = "text-left">Currently pursuing a B.A. in Economics, Business Institutions and a Certificate in Entrepreneurship at Northwestern University. Incoming business analyst for a global consulting firm specializing in sales and marketing strategy. <p>
+			</div>
+			<div class="team-member">
+				<h3>Lindsay Saran</h3>
+				<img class = "memberImg" src = "../static/img/teamPictures/Lindsay.jpg">
+				<p class = "text-left">Currently a graduate student in Integrated Marketing Communications at the Medill School of Journalism. Raised, bred and fed in Chicago. Working at a media agency, specializing in developing, activating and evaluating digital media programs across CPG, Beauty, Retail and Financial categories.<p>
+			</div>
+			<div class="team-member">
+				<h3>Adam Morabito</h3>
+				<img class = "memberImg" src = "../static/img/teamPictures/Adam.jpg">
+				<p class = "text-left">Currently pursing a B.S. in Chemical Engineering and the M.S. in Engineering Design and Innovation at Northwestern University. Held previous internships at 3M, SC Johnson, and Pfizer where he discovered his interest in human centered design. Having a grounding in his actual users, Morabito creates experiences that deliver delight and functionality in the simplest way possible.<p>
+			</div>	
+		</div>
+	</div>
+</div>
+{% endblock %}

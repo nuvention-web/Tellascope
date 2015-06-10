@@ -1,5 +1,6 @@
 tellascope
 =============
+<<<<<<< HEAD
 ##Logo
 ![Tellascope](Logos/logo.png)
 ##Summary
@@ -35,18 +36,23 @@ Our key technologies are as follows:
 * Adam Morabito
 * Brian Lichliter
 
+<<<<<<< HEAD
 ##Names of former team members
 * Karen Wang
 * Lindsay Saran
 
+=======
+=======
+>>>>>>> 37932392959843369ef5e65fd90d8d945fc01a79
+>>>>>>> 19ed61815b0d0137c39e274988336e9d454b6847
 ## Requirements
 
 - `virtualenv` and `virtualenvwrapper`
 
 ## Getting started
-Please note – this guide assumes you are using OS X. If you aren't, you hopefully know the equivalent commands to make these things happen. If you don't, find someone to help you!
+Please note – this guide assumes you are using OS X. If you aren't, you hopefully know the equivalent commands to make these things happen. If you don't, find someone to help you! Yay learning!
 
-First, clone this project.
+First clone this project.
 
 ```bash
 git clone git@github.com:nuvention-web/dac.git
@@ -92,6 +98,12 @@ django-admin makemigrations
 django-admin migrate
 ```
 
+And import the test data:
+
+```bash
+python manage.py import_mvp_data tellascope/core/management/commands/mvp_data.csv
+ ```
+
 You will also need to install Grunt and other Node dependencies to compile the Sass (this assumes you already have `node` and `grunt-cli` installed).
 
 ```bash
@@ -109,4 +121,10 @@ Then, you should be able to run the server:
 
 ```bash
 django-admin runserver
+```
+
+To deploy:
+
+```bash
+git push heroku dev:master
 ```

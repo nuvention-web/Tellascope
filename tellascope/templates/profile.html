@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+	<div class="row content-wrapper">
+		<div class="header">
+			<h1>{{ profile.user.username }}</h1>
+			{% if profile.bio %}<p>{{ profile.bio }}</p>{% endif %}
+
+			<form action="">
+				<button>Follow</button>
+			</form>
+
+			<div>
+				<h4>Following</h4>
+				<ul>
+					{% for p in following %}
+					<li>{{ p }}</li>
+					{% endfor %}
+				</ul>
+			</div>
+
+		</div>
+	</div>
+	<div class="row content-wrapper">
+		<div class="article-list">
+			{% for share in shares %} 
+				<a href="{{ share.article.url }}">
+				<div class="article">
+					<h1>{{ share.article.title }}</h1>
+					<p class="author">{{ share.article.author }}</p>
+					<p class="source">{{ share.article.source }}</p>
+					{% if share.comment %}<p class="comment">{{ share.comment }}</p>{% endif %}
+					<div class="share-info">
+						<p class="share-date">Shared on {{ share.shared_datetime|date:"M d, Y" }}</p>
+						{% if share.share_count >= 2 %}
+							<p class="share-count">Shared by {{ share.share_count|add:"-1" }} other people</p>
+						{% endif %}
+					</div>
+
+					<div class="tags">
+						{% for tag in share.article.tags.all %}
+							<a href="{% url 'topic' tag.slug %}">
+							<span class='tag'>{{ tag }}</span>
+							</a>
+						{% endfor %}
+					</div>
+				</div>
+				</a>
+			{% endfor %}
+		</div>
+	</div>
+
+{% endblock %}

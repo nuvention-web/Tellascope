@@ -1,0 +1,233 @@
+.article-element {
+	width: 100%;
+	height: 325px;
+	background-color: #ddd;
+	z-index: 1;
+	// position: relative;
+}
+
+.public .article-element {
+	background-color: transparentize(#018ace, 0.8);
+}
+
+.article-element h1 {
+	position: relative;
+  	text-align: left;
+	font-weight: 300;
+	text-transform: uppercase;
+	font-size: 1.5em;
+	border-bottom: 1px solid #018ace;
+}
+
+.article-element p {
+	color: #333;
+	position: relative;
+  	transform: translateY(-50%);
+  	text-align: left;
+  	line-height: 5px;
+  	font-weight: 300;
+}
+
+.article-content {
+	padding: 20px 20px 0px 20px;
+}
+
+.img-preview {
+	margin-top: 10px;
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	height: 70%;
+	max-height: 182px;
+}
+
+.shared-img {
+	background-color: #c6e8f5 !important;
+}
+
+.private-img {
+	background-color: #ddd;
+}
+
+.article-tag {
+	background-color: #FFA07A;
+	padding: 5px 10px;
+	cursor: pointer;
+}
+
+.article-tag:hover {
+	background-color: #018ace;
+    -webkit-transition: background 0.5s ease, padding 0.8s linear;
+    -moz-transition: background 0.5s ease, padding 0.8s linear;
+    -o-transition: background 0.5s ease, padding 0.8s linear;
+    transition: background 0.5s ease, padding 0.8s linear;
+}
+
+#article-sharedby {
+	color: #666;
+}
+
+#article-excerpt {
+	color: #333;
+}
+
+.article-comment {
+	font-size: 1.2em;
+	clear: both;
+}
+
+.author-comment {
+	float: right;
+	font-weight: 600;
+	font-style: italic;
+	margin-top: 15px;
+	margin-bottom: 10px;
+}
+
+.article-comment span {
+	// margin-left: 30px;
+	position: relative;
+	top: 50%;
+	-webkit-transform: translateY(-50%);
+	-ms-transform: translateY(-50%);
+	transform: translateY(-50%);
+	// display: inline-block;
+}
+
+.article-element-footer {
+	width: 100%;
+	padding: 20px;
+	position: absolute;
+	bottom: 0;
+	left: 2px;
+
+	.footer-container {
+		position: relative;
+	}
+
+	p.open-share-button {
+		position: absolute;
+		left: -5px;
+		bottom: -5px;
+		padding: 10px;
+		margin: 0;
+		top: 50%;
+		transform: translateY(-75%);
+		&:hover {
+			color: #018ace;
+		}
+		z-index: 10;
+	}
+
+	#article-source {
+		color: #666;
+		font-size: 0.8em;
+		position: absolute;
+		right: 0px;
+		bottom: 0px;
+		margin: 0;
+		top: 50%;
+		transform: translateY(-75%);
+	}
+}
+
+// Share Container
+.article-share-container {
+	position: absolute;
+	overflow: hidden;
+	bottom: 0;
+	left: 0;
+	height: 0%;
+	width: 100%;
+	// background-color: lighten($salmon, 15%);
+	background-color: #018ace;
+	@include transition(all 0.3s ease-in-out);
+
+	&.opened {
+		height: 100%;
+	}
+
+	p {
+		background-color: #ddd;
+		z-index: 10;
+		line-height: initial;
+		transform: none;
+		padding: 20px 40px 0px 20px;
+		margin: 0;
+		font-weight: 300;
+		color: #333;
+		font-size: 1.2em;
+		em {
+			font-weight: 600;
+			font-style: normal;
+			color: #333;
+		}
+	}
+
+	form.share-uar {
+		z-index: 5;
+		height: 100%;
+		width: 100%;
+		position: absolute;
+
+		textarea {
+			padding: 20px;
+			padding-top: 10px;
+			box-sizing: border-box;
+			outline: none;
+			resize: none;
+			border: none;
+			width: 100%;
+			height: 135px;
+			background-color: #018ace;
+			font-weight: 300;
+			font-size: 1em;
+			color: #fafafa;
+			&::-webkit-input-placeholder { color: #ddd; }
+			&:-moz-placeholder { /* FF 4-18 */ color: #ddd; }
+			&::-moz-placeholder { /* FF 19+ */ color: #ddd; }
+			&:-ms-input-placeholder { /* IE 10+ */ color: #ddd; }
+		}
+
+		input[type=submit] {
+			font-weight: 400;
+			font-size: 12px;
+			color: #fafafa;
+			text-transform: uppercase;
+			letter-spacing: 2px;
+			padding: 7px 12px;
+			border: 2px solid #fafafa;
+			display: inline-block;
+			outline: none;
+			background: transparent;
+		}
+	}
+
+	button {
+		z-index: 10;
+		position: absolute;
+		bottom: 0;
+		right: 0;
+		margin-right: 20px;
+		margin-bottom: 20px;
+		border: 2px solid;
+		background-color: #fff;
+		color: #018ace;
+		border-color: #018ace;
+
+		&:hover {
+			color: #fff;
+			background-color: #018ace;
+		}
+	}
+}
+
+.fa-close {
+	position: absolute;
+	top: 20px;
+	right: 15px;
+}
+
+.textarea-wrapper {
+	margin-top: 1.5em;
+}

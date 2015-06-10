@@ -1,0 +1,7 @@
+
+<div class="public-private-switch">
+	<div class="buttons">
+		<a class="private{% if active == 'private' %} active{% endif %}" href="{% url 'dashboard_private' %}">Private</a>
+		<a class="public{% if active == 'public' %} active{% endif %}" href="{% url 'dashboard_public' %}">Public</a>
+	</div>
+</div>
