@@ -44,6 +44,7 @@ Our key technologies are as follows:
 ## Key Resources
 * [Google Drive](https://drive.google.com/folderview?id=0B1MgrVuuAI0MflBUZzNqT1d0N2xxa25KazdqSjJGYktmUzBBTlY2SmJyT1p2TERmSWZUQkk&usp=sharing)
 (Contains our presentation decks, Launchpad Central files, and demo/pitch videos)
+* [Final Product Video](https://youtu.be/SDl2rgnOV_E)
 
 
 # Technical Instructions
