@@ -26,6 +26,7 @@ Our key technologies are as follows:
 * PostgresSQL
 * Sass
 * Grunt
+* JavaScript
 
 ##Names of team members
 * Nicole Zhu
@@ -33,6 +34,10 @@ Our key technologies are as follows:
 * Eric Swank
 * Adam Morabito
 * Brian Lichliter
+
+##Names of former team members
+* Karen Wang
+* Lindsay Saran
 
 ## Requirements
 
