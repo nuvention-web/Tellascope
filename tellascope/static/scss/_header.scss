@@ -1,0 +1,120 @@
+body {
+    margin: 0;
+}
+
+.main a, footer a {
+    color: #018ace;
+    text-decoration: none;
+    padding: 2px;
+}
+
+.main a:hover, footer a:hover {
+    color: #018ace;
+    -webkit-transition: background 0.5s ease, padding 0.8s linear;
+    -moz-transition: background 0.5s ease, padding 0.8s linear;
+    -o-transition: background 0.5s ease, padding 0.8s linear;
+    transition: background 0.5s ease, padding 0.8s linear;
+}
+
+.main-nav {
+  position: relative; 
+}
+
+.main-nav {
+  background: #fff;
+  height: 65px;
+  z-index: 150;
+  border-bottom: solid 1px #dfdfdf;
+  vertical-align: middle;
+}
+
+.main-nav-scrolled {
+  position: fixed;
+  width: 100%;
+  top: 0;
+}
+
+.main-nav p {
+    font-size: 2em;
+    text-decoration: none;
+    font-weight: 100;
+    text-transform: uppercase;
+    color: #444135;
+    display: inline-block;
+    margin-top: 0.5em;
+    margin-left: 1em;
+    letter-spacing: 5px;
+}
+
+.main-nav p:hover {
+    cursor: pointer;
+    color: #018ace;
+}
+
+.nav-section {
+    float: right;
+    font-size: 1.5em;
+    margin-right: 3%;
+}
+
+.nav-link {
+    font-weight: 400;
+}
+
+.site-header {
+    float: left;
+    height: 100%;
+    width: 2.2em;
+    // padding-left: 1.3em;
+}
+
+.site-logo {
+    display: block;
+    width: 80%;
+    height: 0;
+    padding-top: 95%;
+    text-indent: -9999em;
+    font-weight: 500;
+    background-image: url('../img/logo2.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    -webkit-background-size: 50% auto;
+    background-size: 95% auto;
+    margin-left: 0.8em;
+}
+
+.main-nav .social {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+}
+
+.main-nav .social a {
+    display: inline-block;
+    text-decoration: none;
+    margin-right: -4px;
+    width: 100px;
+    height: 65px;
+    text-align: center;
+    border-left: 1px solid #efefef;
+    overflow-y: hidden;
+    padding: 20px;
+    letter-spacing: 1px;
+    color: #018ace;
+
+    &:hover {
+        background-color: #018ace;
+        color: #fff;
+        -webkit-transition: background 0.5s ease, padding 0.8s linear;
+        -moz-transition: background 0.5s ease, padding 0.8s linear;
+        -o-transition: background 0.5s ease, padding 0.8s linear;
+        transition: background 0.5s ease, padding 0.8s linear;
+        cursor: pointer;
+    }
+
+    .fa {
+        font-size: 1.25em;
+    }
+}
