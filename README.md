@@ -1,6 +1,4 @@
 tellascope
-=============
-<<<<<<< HEAD
 ##Logo
 ![Tellascope](Logos/logo.png)
 ##Summary
@@ -36,15 +34,13 @@ Our key technologies are as follows:
 * Adam Morabito
 * Brian Lichliter
 
-<<<<<<< HEAD
 ##Names of former team members
 * Karen Wang
 * Lindsay Saran
 
 =======
 =======
->>>>>>> 37932392959843369ef5e65fd90d8d945fc01a79
->>>>>>> 19ed61815b0d0137c39e274988336e9d454b6847
+
 ## Requirements
 
 - `virtualenv` and `virtualenvwrapper`
