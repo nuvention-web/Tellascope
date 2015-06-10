@@ -1,0 +1,24 @@
+{% if post.race.slug %}
+
+<div class="chart" id="chart-{{ post.id }}" data-race="{{ post.race.slug_without_number }}">
+  <div class="race_info">
+    <p class="title">{{ post.race.title }}</p>
+    <div class="candidates">
+      {% for candidate in post.race.estimates %}
+        {% if candidate.party %}
+          <div class="candidate {{ candidate.party }} ">
+            <div class="square"></div>
+            <p>{{ candidate.first_name}} {{ candidate.last_name }} <span class="party">({{ candidate.party }})</span></p>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="graph"></div>
+
+  <div class="chart_info">Data compiled on {{ post.race.last_updated|date:"N j, Y" }} from {{ post.race.poll_count }} polls by <a href="{{ post.race.url }}">Pollster</a>.</div>
+
+</div>
+
+{% endif %}

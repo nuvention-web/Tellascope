@@ -1,5 +1,38 @@
 tellascope
 =============
+##Logo
+![Tellascope](Logos/logo.png)
+##Summary
+ 
+Tellascope is social news discovery for the intellectually curious. We are focused on giving millennials the tools they need to spend less time scrolling and more time reading. With our initial push in the Pocket community along with our branding towards thought provoking and stimulating content, we are focused on creating a community of people reading and sharing quality content.
+	
+##Customer Segment and Use Case
+
+Our customer segment is millennials who are avid news readers. At launch we have built in integration with Pocket, a popular read it later service, in order to bias our content away from the typical clickbait you see on Facebook and Twitter. We found that most millennials fall under one of three categories: The very active news nerds, the socially active reader, and the passive reader who consumes select articles that are given to them (through friends or social media).
+
+##Value proposition
+
+We help millennials:
+
+* Discover and consume new content
+* Streamline the process of finding, sharing, and saving content
+* Obtain a social context around articles
+
+##Key technologies
+Our key technologies are as follows:
+
+* Django
+* Heroku
+* PostgresSQL
+* Sass
+* Grunt
+
+##Names of team members
+* Nicole Zhu
+* Alex Duner
+* Eric Swank
+* Adam Morabito
+* Brian Lichliter
 
 ## Requirements
 
