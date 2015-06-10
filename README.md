@@ -105,5 +105,3 @@ Then, you should be able to run the server:
 ```bash
 django-admin runserver
 ```
-
-
