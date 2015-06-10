@@ -1,6 +1,6 @@
 tellascope
 ##Logo
-![Tellascope](Logos/logo.png)
+![Tellascope](_logos/logo.png)
 ##Summary
  
 Tellascope is social news discovery for the intellectually curious. We are focused on giving millennials the tools they need to spend less time scrolling and more time reading. With our initial push in the Pocket community along with our branding towards thought provoking and stimulating content, we are focused on creating a community of people reading and sharing quality content.
