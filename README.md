@@ -38,6 +38,10 @@ Our key technologies are as follows:
 * Karen Wang
 * Lindsay Saran
 
+## Key Resources
+* [Google Drive](https://drive.google.com/folderview?id=0B1MgrVuuAI0MflBUZzNqT1d0N2xxa25KazdqSjJGYktmUzBBTlY2SmJyT1p2TERmSWZUQkk&usp=sharing)
+
+
 =======
 =======
 
