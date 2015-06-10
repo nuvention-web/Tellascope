@@ -1,5 +1,5 @@
 # Tellascope
-## Social news discovery for the intellectually curious
+Social news discovery for the intellectually curious
 
 ##Logo
 ![Tellascope](_logos/logo.png)
